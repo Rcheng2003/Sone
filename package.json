@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "react-draggable": "^4.4.5",
+    "react-icons": "^4.9.0",
+    "svg-to-dataurl": "^1.0.0"
+  }
+}
