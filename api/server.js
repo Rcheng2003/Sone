@@ -58,9 +58,22 @@ app.put("/todo/update/:id", async (req, res) => {
   res.json(todo);
 });
 
-app.post("/api/register", (req, res) => {
+const bcrypt = require("bcryptjs");
+const User = require("./models/User");
+
+app.post("/api/register", async (req, res) => {
   console.log(req.body);
-  res.json({ status: "ok" });
+  try {
+    const newPassword = await bcrypt.hash(req.body.password, 10);
+    await User.create({
+      name: req.body.name,
+      email: req.body.email,
+      password: newPassword,
+    });
+    res.json({ status: "ok" });
+  } catch (err) {
+    res.json({ status: "error", error: "Duplicate email" });
+  }
 });
 
 app.listen(3001, () => console.log("Server started on port 3001"));
