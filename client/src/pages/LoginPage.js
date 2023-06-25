@@ -1,53 +1,53 @@
-import React from "react";
+import { useState } from "react";
 
 function LoginPage() {
-  const [name, setName] = React.useState();
-  const [email, setEmail] = React.useState();
-  const [password, setPassword] = React.useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  async function registerUser(event) {
+  async function loginUser(event) {
     event.preventDefault();
-    const response = await fetch("http://localhost:1337/api/register", {
+
+    const response = await fetch("http://localhost:1337/api/login", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
-        name: { name },
-        email: { email },
-        password: { password },
+        email,
+        password,
       }),
     });
+
     const data = await response.json();
 
-    console.log(data);
+    if (data.user) {
+      localStorage.setItem("token", data.user);
+      alert("Login successful");
+      window.location.href = "/dashboard";
+    } else {
+      alert("Please check your username and password");
+    }
   }
 
   return (
     <div>
-      <h1>Registar</h1>
-      <form onSubmit={registerUser}>
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Name"
-          type="text"
-        ></input>
+      <h1>Login</h1>
+      <form onSubmit={loginUser}>
         <input
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          onChange={(e) => setEmail(e.target.value)}
           type="email"
           placeholder="Email"
-        ></input>
+        />
+        <br />
         <input
           value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
+          onChange={(e) => setPassword(e.target.value)}
           type="password"
           placeholder="Password"
-        ></input>
-        <input type="submit" value="Register"></input>
+        />
+        <br />
+        <input type="submit" value="Login" />
       </form>
     </div>
   );
