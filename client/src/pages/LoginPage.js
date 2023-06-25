@@ -22,6 +22,9 @@ function LoginPage() {
 
     const data = await response.json();
     if (data.user) {
+      console.log(data.user);
+      localStorage.setItem("token", data.user);
+      alert("login success");
       navigate("/");
     } else {
       alert("Please check your username and password");

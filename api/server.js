@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 
@@ -80,6 +81,7 @@ app.post("/api/login", async (req, res) => {
   const user = await User.findOne({
     email: req.body.email,
   });
+
   if (!user) {
     return res.json({ status: "error", error: "Invalid login" });
   }
@@ -90,7 +92,14 @@ app.post("/api/login", async (req, res) => {
   );
 
   if (isPasswordValid) {
-    return res.json({ status: "ok", user: true });
+    const token = jwt.sign(
+      {
+        name: user.name,
+        email: user.email,
+      },
+      "someSecretCode666"
+    );
+    return res.json({ status: "ok", user: token });
   } else {
     return res.json({ status: "wrongPassword", user: false });
   }
