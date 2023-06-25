@@ -76,4 +76,24 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
+app.post("/api/login", async (req, res) => {
+  const user = await User.findOne({
+    email: req.body.email,
+  });
+  if (!user) {
+    return res.json({ status: "error", error: "Invalid login" });
+  }
+
+  const isPasswordValid = await bcrypt.compare(
+    req.body.password,
+    user.password
+  );
+
+  if (isPasswordValid) {
+    return res.json({ status: "ok", user: true });
+  } else {
+    return res.json({ status: "wrongPassword", user: false });
+  }
+});
+
 app.listen(3001, () => console.log("Server started on port 3001"));
