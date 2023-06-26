@@ -51,6 +51,7 @@ function LoginPage() {
         <br />
         <input type="submit" value="Login" />
       </form>
+      <button onClick={() => navigate("/register")}>sign up</button>
     </div>
   );
 }
