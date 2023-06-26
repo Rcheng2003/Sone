@@ -105,4 +105,19 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
+app.get("/api/profile", async (req, res) => {
+  const token = req.headers["access-token"];
+
+  try {
+    const decoded = jwt.verify(token, "someSecretCode666");
+    const email = decoded.email;
+    const user = await User.findOne({ email: email });
+
+    return res.json({ status: "ok", name: user.name, email: user.email });
+  } catch (error) {
+    console.log(error);
+    res.json({ status: "error", error: "invalid token" });
+  }
+});
+
 app.listen(3001, () => console.log("Server started on port 3001"));
