@@ -29,13 +29,15 @@ function Navbar() {
     if (data.status === "ok") {
       setUser(data.name);
       setEmail(data.email);
-    } else {
-      alert(data.error);
     }
   }
 
   useEffect(() => {
-    populateUserInfo();
+    setUser("");
+    setEmail("");
+    if (localStorage.getItem("token")) {
+      populateUserInfo();
+    }
   }, []);
 
   const showSidebar = () => setSidebar(!sidebar);

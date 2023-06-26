@@ -17,6 +17,11 @@ class UserProfile extends React.Component {
     };
   }
 
+  logoutUser = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  };
+
   handleResize = (e, { size }) => {
     this.setState({
       width: size.width,
@@ -73,7 +78,7 @@ class UserProfile extends React.Component {
                 <h1>
                   Hello {user}, your email is {email}
                 </h1>
-                <button>Logout</button>
+                <button onClick={this.logoutUser}>Logout</button>
               </div>
             </div>
           </Resizable>
