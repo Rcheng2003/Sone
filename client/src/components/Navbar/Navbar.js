@@ -1,59 +1,120 @@
-import React, {useState} from 'react';
-import "./Navbar.css"
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Navbar.css";
 import * as IoIoIcons from "react-icons/io";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io5";
 import * as BsIcons from "react-icons/bs";
 import * as HiIcons from "react-icons/hi";
 import * as FaIcons from "react-icons/fa";
-import Todo from '../To-Do/Todo';
+import Todo from "../To-Do/Todo";
+import UserProfile from "../User-Profile/UserProfile";
 
+function Navbar() {
+  const navigate = useNavigate();
+  const [sidebar, setSidebar] = useState(false);
+  const [showTodo, setShowTodo] = useState(false);
+  const [showUserProfile, setUserProfile] = useState(false);
+  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
 
-function Navbar () {
-    const [sidebar, setSidebar] = useState(false)
-    const [showTodo, setShowTodo] = useState(false);
+  async function populateUserInfo() {
+    const req = await fetch("http://localhost:3001/api/profile", {
+      headers: {
+        "access-token": localStorage.getItem("token"),
+      },
+    });
 
-    const showSidebar = () => setSidebar(!sidebar)
+    const data = await req.json();
+    if (data.status === "ok") {
+      setUser(data.name);
+      setEmail(data.email);
+    }
+  }
 
-    const SetVisibleTodo = () => {
-        setShowTodo(true);
-    };
+  useEffect(() => {
+    setUser("");
+    setEmail("");
+    if (localStorage.getItem("token")) {
+      populateUserInfo();
+    }
+  }, []);
 
-    const handleClose = () => {
-        setShowTodo(false);
-    };
+  const showSidebar = () => setSidebar(!sidebar);
 
-    return (
-        <div className="bar">
-            <div className="mainArrow" onClick={showSidebar}>
-            <IoIoIcons.IoIosArrowForward/>
-            </div>
+  const SetVisibleTodo = () => {
+    setShowTodo(true);
+  };
 
-            <nav className={sidebar ? 'list active' : 'list'} >
-              <div className="closeArrow" onClick={showSidebar}>
-                  <IoIoIcons.IoIosArrowBack/>
-              </div>
-                <ul className='button-list'>
-                    <div className="Button">
-                          <button><IoIcons.IoAlarmSharp/></button>
-                          <button><AiIcons.AiFillPicture/></button>
-                          <button><HiIcons.HiMusicNote/></button>
-                          <button onClick = {SetVisibleTodo}><BsIcons.BsCardChecklist/></button>
-                          <button><BsIcons.BsStickyFill/></button>
-                          <button><BsIcons.BsCalendar3/></button>
-                          <button><FaIcons.FaCalculator/></button>
-                          <button><BsIcons.BsPhoneFill/></button>
-                          <div className='bottom'>
-                            <button className='special'><IoIoIcons.IoIosSettings/></button>
-                            <button className='special'><FaIcons.FaUser/></button>
-                          </div>
-                    </div>
-                    
-                </ul>
-            </nav>
-            {showTodo && <Todo onClose={handleClose}/>}
+  const handleClose = () => {
+    setShowTodo(false);
+  };
+
+  const SetUserProfile = () => {
+    if (!user) {
+      navigate("/login");
+    } else {
+      setUserProfile(true);
+    }
+  };
+
+  const handleClose2 = () => {
+    setUserProfile(false);
+  };
+
+  return (
+    <div className="bar">
+      <div className="mainArrow" onClick={showSidebar}>
+        <IoIoIcons.IoIosArrowForward />
+      </div>
+
+      <nav className={sidebar ? "list active" : "list"}>
+        <div className="closeArrow" onClick={showSidebar}>
+          <IoIoIcons.IoIosArrowBack />
         </div>
-    )
+        <ul className="button-list">
+          <div className="Button">
+            <button>
+              <IoIcons.IoAlarmSharp />
+            </button>
+            <button>
+              <AiIcons.AiFillPicture />
+            </button>
+            <button>
+              <HiIcons.HiMusicNote />
+            </button>
+            <button onClick={SetVisibleTodo}>
+              <BsIcons.BsCardChecklist />
+            </button>
+            <button>
+              <BsIcons.BsStickyFill />
+            </button>
+            <button>
+              <BsIcons.BsCalendar3 />
+            </button>
+            <button>
+              <FaIcons.FaCalculator />
+            </button>
+            <button>
+              <BsIcons.BsPhoneFill />
+            </button>
+            <div className="bottom">
+              <button className="special">
+                <IoIoIcons.IoIosSettings />
+              </button>
+              <button className="special" onClick={SetUserProfile}>
+                <FaIcons.FaUser />
+              </button>
+            </div>
+          </div>
+        </ul>
+      </nav>
+      {showTodo && <Todo onClose={handleClose} />}
+      {showUserProfile && (
+        <UserProfile user={user} email={email} onClose={handleClose2} />
+      )}
+    </div>
+  );
 }
 
-export default Navbar
+export default Navbar;
