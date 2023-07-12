@@ -1,7 +1,15 @@
 {
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.1",
     "react-draggable": "^4.4.5",
     "react-icons": "^4.9.0",
+    "react-resizable": "^3.0.5",
+    "react-router-dom": "^6.14.1",
+    "react-scripts": "^5.0.1",
     "svg-to-dataurl": "^1.0.0"
   }
 }

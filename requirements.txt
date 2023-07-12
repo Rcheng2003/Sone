@@ -1,0 +1,8 @@
+npm install react-scripts
+npm install jsonwebtoken
+npm install bcryptjs
+npm install react-router-dom
+npm install react-resizable
+npm install @mui/icons-material
+npm install @emotion/react
+npm install @emotion/styled
