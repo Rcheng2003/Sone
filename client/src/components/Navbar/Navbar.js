@@ -9,14 +9,12 @@ import * as HiIcons from "react-icons/hi";
 import * as FaIcons from "react-icons/fa";
 import Todo from "../To-Do/Todo";
 import UserProfile from "../User-Profile/UserProfile";
-import Timer from "../Pomodoro-Timer/Timer";
 
 function Navbar() {
   const navigate = useNavigate();
   const [sidebar, setSidebar] = useState(false);
   const [showTodo, setShowTodo] = useState(false);
   const [showUserProfile, setUserProfile] = useState(false);
-  const [showTimer, setShowTimer] = useState(false);
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
 
@@ -52,14 +50,6 @@ function Navbar() {
     setShowTodo(false);
   };
 
-  const SetVisibleTimer = () => {
-    setShowTimer(true);
-  };
-
-  const handleClose3 = () => {
-    setShowTimer(false);
-  };
-
   const SetUserProfile = () => {
     if (!user) {
       navigate("/login");
@@ -84,7 +74,7 @@ function Navbar() {
         </div>
         <ul className="button-list">
           <div className="Button">
-            <button onClick={SetVisibleTimer}>
+            <button>
               <IoIcons.IoAlarmSharp />
             </button>
             <button>
@@ -120,7 +110,6 @@ function Navbar() {
         </ul>
       </nav>
       {showTodo && <Todo onClose={handleClose} />}
-      {showTimer && <Timer onClose={handleClose3} />}
       {showUserProfile && (
         <UserProfile user={user} email={email} onClose={handleClose2} />
       )}

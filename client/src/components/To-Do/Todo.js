@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Resizable } from 'react-resizable';
 import Draggable from 'react-draggable';
-import './Todo.css';
+import './Todo.css'; // Import the CSS file for styling
 //API
 const api_base = 'http://localhost:3001';
 
@@ -83,26 +83,12 @@ class Todo extends React.Component {
 
   handleDrag = (e, ui) => {
     const { x, y} = this.state.position;
-    const { width, height } = this.state;
-    const innerWidth = document.documentElement.clientWidth-100;
-    const innerHeight = document.documentElement.clientHeight-100;
-    const newPosition = {
-      x: x + ui.deltaX,
-      y: y + ui.deltaY
-    };
-    
     this.setState({
-      position: newPosition
+        position: {
+            x: x + ui.deltaX,
+            y: y + ui.deltaY
+        }
     });
-
-    if (
-      newPosition.x - width - 500 < -innerWidth ||
-      newPosition.x > innerWidth ||
-      newPosition.y - height - 280 < -innerHeight ||
-      newPosition.y > innerHeight
-    ) {
-      this.handleClose();
-    }
   };
 
   handleClose = () => {
