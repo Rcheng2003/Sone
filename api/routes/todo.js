@@ -3,14 +3,14 @@ const Todo = require('../models/Todo.js');
 
 const router = express.Router();
 
-router.get("/todos", async (req, res) => {
-  const todos = await Todo.find();
-
-  res.json(todos);
+router.get("/userTodos", async (req, res) => {
+  const todos = await Todo.find({user: req.user.id}); // find all the todos belonging to the user
+  return res.status(200).json(todos);
 });
 
-router.post("/todo/new", (req, res) => {
+router.post("/new", (req, res) => {
   const todo = new Todo({
+    user: req.user.id, // req.user is the user object for current user logged in
     text: req.body.text,
   });
 
@@ -19,13 +19,13 @@ router.post("/todo/new", (req, res) => {
   res.json(todo);
 });
 
-router.delete("/todo/delete/:id", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   const result = await Todo.findByIdAndDelete(req.params.id);
 
   res.json(result);
 });
 
-router.get("/todo/complete/:id", async (req, res) => {
+router.get("/complete/:id", async (req, res) => {
   const todo = await Todo.findById(req.params.id);
 
   todo.complete = !todo.complete;

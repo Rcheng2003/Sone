@@ -4,7 +4,7 @@ import { Resizable } from 'react-resizable';
 import Draggable from 'react-draggable';
 import './Todo.css';
 //API
-const api_base = 'http://localhost:3001';
+const api_base = 'http://localhost:3001/api/todos';
 
 class Todo extends React.Component {
   constructor(props) {
@@ -29,14 +29,18 @@ class Todo extends React.Component {
   }
 
   GetTodos() {
-    fetch(api_base + '/todos')
-			.then(res => res.json())
-			.then(data => this.setState({ todos: data }))
-			.catch((err) => console.error("Error: ", err));
+  fetch(api_base + '/userTodos', {
+    credentials: 'include',
+  })
+    .then(res => res.json())
+    .then(data => this.setState({ todos: data }))
+    .catch((err) => console.error("Error: ", err));
   }
 
   completeTodo = async (id) => {
-    const data = await fetch(api_base + '/todo/complete/' + id).then(res => res.json());
+    const data = await fetch(api_base + '/complete/' + id, {
+      credentials: 'include',
+   }).then(res => res.json());
 
     this.setState((prevState) => ({
       todos: prevState.todos.map(todo => {
@@ -49,11 +53,12 @@ class Todo extends React.Component {
   }
 
   addTodo = async () => {
-    const data = await fetch(api_base + "/todo/new", {
+    const data = await fetch(api_base + "/new", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
+      credentials: 'include',
       body: JSON.stringify({
         text: this.state.newTodo
       })
@@ -67,7 +72,8 @@ class Todo extends React.Component {
   }
 
   deleteTodo = async (id) => {
-    const data = await fetch(api_base + '/todo/delete/' + id, { method: "DELETE" }).then(res => res.json());
+    const data = await fetch(api_base + '/delete/' + id, { method: "DELETE", credentials: 'include',
+  }).then(res => res.json());
 
     this.setState((prevState) => ({
       todos: prevState.todos.filter(todo => todo._id !== data._id)

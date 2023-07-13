@@ -7,7 +7,7 @@ const checkAuth = require("../utils/checkAuth");
 const router = express.Router();
 
 router.use('/auth', authRoutes); /* endpoint: /api/auth/<theHTTPRequestinAuthRoutes> */
-router.use('/todos',todoRoutes); /* endpoint: /api/todos/<theHTTPRequestinTodoRoutes> */
+router.use('/todos', checkAuth, todoRoutes); /* endpoint: /api/todos/<theHTTPRequestinTodoRoutes> */
 router.use('/user', checkAuth, userRoutes); /* endpoint: /api/user/<theHTTPRequestinUserRoutes> */
 
 module.exports = router;
