@@ -94,6 +94,7 @@ app.post("/api/login", async (req, res) => {
   if (isPasswordValid) {
     const token = jwt.sign(
       {
+        id: user._id,
         name: user.name,
         email: user.email,
       },
