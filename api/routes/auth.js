@@ -12,7 +12,7 @@ router.post("/login", async (req, res) => {
   });
 
   if (!user) {
-    return res.json({ status: "error", error: "Invalid login" });
+    return res.status(401).json({ error: "Invalid Email" });
   }
 
   const isPasswordValid = await bcryptjs.compare(
@@ -29,9 +29,14 @@ router.post("/login", async (req, res) => {
       },
       "someSecretCode666"
     );
-    return res.json({ status: "ok", user: token });
+    return res
+      .cookie('access_token', token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .json({ message: "Login success" });
   } else {
-    return res.json({ status: "wrongPassword", user: false });
+    return res.status(401).json({ error: "Invalid Password" });
   }
 });
 
@@ -52,7 +57,7 @@ router.post("/register", async (req, res) => {
 
 // Logout Endpoint
 router.get('/logout', async (req, res) => {
-  localStorage.removeItem("token");
+  res.clearCookie('access_token');
   return res.status(200).json({ message: 'logout success' });
 });
 
