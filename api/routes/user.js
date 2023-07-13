@@ -1,6 +1,6 @@
-import express from 'express';
-import User from "../models/User";
-import jwt from "jsonwebtoken"
+const express = require('express');
+const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 
 const router = express.Router();
 
@@ -19,4 +19,4 @@ router.get("/profile", async (req, res) => {
   }
 });
 
-export default router
+module.exports = router;

@@ -1,5 +1,5 @@
-import express from 'express';
-import Todo from '../models/Todo.js';
+const express = require('express');
+const Todo = require('../models/Todo.js');
 
 const router = express.Router();
 
@@ -45,6 +45,4 @@ router.put("/todo/update/:id", async (req, res) => {
   res.json(todo);
 });
 
-
-
-export default router;
+module.exports = router;

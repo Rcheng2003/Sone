@@ -1,7 +1,7 @@
-import express from 'express';
-import authRoutes from './auth.js';
-import todoRoutes from './todo.js';
-import userRoutes from './user.js';
+const express = require('express');
+const authRoutes = require('./auth.js');
+const todoRoutes = require('./todo.js');
+const userRoutes = require('./user.js');
 
 const router = express.Router();
 
@@ -9,4 +9,4 @@ router.use('/auth', authRoutes); /* endpoint: /api/auth/<theHTTPRequestinAuthRou
 router.use('/todos',todoRoutes); /* endpoint: /api/todos/<theHTTPRequestinTodoRoutes> */
 router.use('/user',userRoutes); /* endpoint: /api/user/<theHTTPRequestinUserRoutes> */
 
-export default router;
+module.exports = router;

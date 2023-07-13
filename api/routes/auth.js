@@ -1,7 +1,7 @@
-import express from 'express';
-import User from '../models/User.js';
-import bcryptjs from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+const express = require('express');
+const User = require('../models/User.js');
+const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
@@ -56,4 +56,4 @@ router.get('/logout', async (req, res) => {
   return res.status(200).json({ message: 'logout success' });
 });
 
-export default router;
+module.exports = router;

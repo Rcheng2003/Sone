@@ -21,7 +21,7 @@ function Navbar() {
   const [email, setEmail] = useState("");
 
   async function populateUserInfo() {
-    const req = await fetch("http://localhost:3001/api/profile", {
+    const req = await fetch("http://localhost:3001/api/user/profile", {
       headers: {
         "access-token": localStorage.getItem("token"),
       },

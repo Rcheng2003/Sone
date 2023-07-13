@@ -9,7 +9,7 @@ function LoginPage() {
   async function loginUser(event) {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:3001/api/login", {
+    const response = await fetch("http://localhost:3001/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -22,7 +22,6 @@ function LoginPage() {
 
     const data = await response.json();
     if (data.user) {
-      console.log(data.user);
       localStorage.setItem("token", data.user);
       alert("login success");
       navigate("/");
