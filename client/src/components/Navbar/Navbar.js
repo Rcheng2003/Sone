@@ -23,8 +23,9 @@ function Navbar() {
   async function populateUserInfo() {
     const req = await fetch("http://localhost:3001/api/user/profile", {
       headers: {
-        "access-token": localStorage.getItem("token"),
+         "Content-Type": "application/json",
       },
+      credentials: 'include',
     });
 
     const data = await req.json();
@@ -37,9 +38,8 @@ function Navbar() {
   useEffect(() => {
     setUser("");
     setEmail("");
-    if (localStorage.getItem("token")) {
-      populateUserInfo();
-    }
+    populateUserInfo();
+  
   }, []);
 
   const showSidebar = () => setSidebar(!sidebar);
