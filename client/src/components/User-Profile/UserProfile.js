@@ -17,9 +17,22 @@ class UserProfile extends React.Component {
     };
   }
 
-  logoutUser = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/";
+  logoutUser = async () => {
+     try {
+      const response = await fetch("http://localhost:3001/api/auth/logout", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: 'include',
+      });
+      if (response.ok) {
+        const data = await response.json();
+        alert(data.message);
+        window.location.href = "/";
+      } 
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   handleResize = (e, { size }) => {
