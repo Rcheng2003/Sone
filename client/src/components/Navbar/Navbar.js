@@ -8,6 +8,7 @@ import * as BsIcons from "react-icons/bs";
 import * as HiIcons from "react-icons/hi";
 import * as FaIcons from "react-icons/fa";
 import Todo from "../To-Do/Todo";
+import Notepad from "../Notepad/Notepad";
 import Calendar from "../Calendar/Calendar";
 import UserProfile from "../User-Profile/UserProfile";
 import Timer from "../Pomodoro-Timer/Timer";
@@ -17,6 +18,7 @@ function Navbar() {
   const [sidebar, setSidebar] = useState(false);
   const [showTodo, setShowTodo] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [showNotepad, setShowNotepad] = useState(false);
   const [showUserProfile, setUserProfile] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
   const [user, setUser] = useState("");
@@ -60,6 +62,14 @@ function Navbar() {
 
   const SetVisibleTimer = () => {
     setShowTimer(true);
+  };
+
+  const SetVisibleNotepad = () => {
+    setShowNotepad(true);
+  };
+
+  const handleCloseNotepad = () => {
+    setShowNotepad(false);
   };
 
   const handleClose3 = () => {
@@ -106,7 +116,7 @@ function Navbar() {
             <button onClick={SetVisibleTodo}>
               <BsIcons.BsCardChecklist />
             </button>
-            <button>
+            <button onClick={SetVisibleNotepad}>
               <BsIcons.BsStickyFill />
             </button>
             <button onClick={SetVisibleCalendar}>
@@ -131,6 +141,7 @@ function Navbar() {
       </nav>
       {showTimer && <Timer onClose={handleClose3} />}
       {showTodo && <Todo onClose={handleClose} />}
+      {showNotepad && <Notepad onClose={handleCloseNotepad} />}
       {showCalendar && <Calendar onClose={handleClose4} />}
       {showUserProfile && (
         <UserProfile user={user} email={email} onClose={handleClose2} />
