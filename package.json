@@ -11,6 +11,7 @@
     "react-resizable": "^3.0.5",
     "react-router-dom": "^6.14.1",
     "react-scripts": "^5.0.1",
+    "styled-components": "^6.0.4",
     "svg-to-dataurl": "^1.0.0"
   }
 }
