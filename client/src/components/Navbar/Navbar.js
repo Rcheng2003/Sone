@@ -8,6 +8,7 @@ import * as BsIcons from "react-icons/bs";
 import * as HiIcons from "react-icons/hi";
 import * as FaIcons from "react-icons/fa";
 import Todo from "../To-Do/Todo";
+import Calendar from "../Calendar/Calendar";
 import UserProfile from "../User-Profile/UserProfile";
 import Timer from "../Pomodoro-Timer/Timer";
 
@@ -15,6 +16,7 @@ function Navbar() {
   const navigate = useNavigate();
   const [sidebar, setSidebar] = useState(false);
   const [showTodo, setShowTodo] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
   const [showUserProfile, setUserProfile] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
   const [user, setUser] = useState("");
@@ -48,6 +50,10 @@ function Navbar() {
     setShowTodo(true);
   };
 
+  const SetVisibleCalendar = () => {
+    setShowCalendar(true);
+  };
+
   const handleClose = () => {
     setShowTodo(false);
   };
@@ -58,6 +64,10 @@ function Navbar() {
 
   const handleClose3 = () => {
     setShowTimer(false);
+  };
+
+  const handleClose4 = () => {
+    setShowCalendar(false);
   };
 
   const SetUserProfile = () => {
@@ -99,7 +109,7 @@ function Navbar() {
             <button>
               <BsIcons.BsStickyFill />
             </button>
-            <button>
+            <button onClick={SetVisibleCalendar}>
               <BsIcons.BsCalendar3 />
             </button>
             <button>
@@ -119,8 +129,9 @@ function Navbar() {
           </div>
         </ul>
       </nav>
-      {showTodo && <Todo onClose={handleClose} />}
       {showTimer && <Timer onClose={handleClose3} />}
+      {showTodo && <Todo onClose={handleClose} />}
+      {showCalendar && <Calendar onClose={handleClose4} />}
       {showUserProfile && (
         <UserProfile user={user} email={email} onClose={handleClose2} />
       )}
