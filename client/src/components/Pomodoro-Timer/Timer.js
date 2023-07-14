@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"; 
 import { Resizable } from 'react-resizable';
+import { Howl } from "howler"  
 import Draggable from 'react-draggable';
 import "./Timer.css"; 
 import nirvana from './audios/nirvana.mp3'; 
