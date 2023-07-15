@@ -163,6 +163,7 @@
 
 .form-control {
     justify-content: space-evenly;
+    padding: 10px;
     flex: 1; 
 }
 
