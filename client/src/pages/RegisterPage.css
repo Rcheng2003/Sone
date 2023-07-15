@@ -1,0 +1,37 @@
+.Background{
+    background: url("image.png");
+    text-align: center;
+    object-fit: fill;
+    color: rgb(16, 90, 111);
+    margin: auto;
+    width: 1250px;
+    margin-top: 40px;
+    height: 620px;
+    padding: 5px;
+    background-position: center center;
+    background-size: cover;
+    border-radius: 10px;
+}
+.Register{
+    font-size: 30px;
+}
+
+.butt{
+    border-radius: 10px;
+    color: rgb(5, 48, 4);
+    background-color: rgb(142, 194, 246);
+    border-style: none;
+    width: 80px;
+    font-size: 15px;
+    margin-top: -10px;
+    padding: 0px;
+}
+
+.Input{
+    margin-top: -20px;
+    border-radius: 10px;
+    width: 200px;
+    font-size: 15px;
+    height: 30px;
+    border-style: solid;
+}

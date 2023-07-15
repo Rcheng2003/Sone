@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react"; 
 import { Resizable } from 'react-resizable';
+import { Howl } from "howler"  
 import Draggable from 'react-draggable';
 import "./Timer.css"; 
+import nirvana from './audios/nirvana.mp3'; 
+import celebration from './audios/best_alarm.mp3'; 
+import rooster from './audios/mixkit-rooster-crowing-in-the-morning-2462.wav';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SettingsIcon from '@mui/icons-material/Settings';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
@@ -18,7 +22,10 @@ function Timer({onClose}) {
     const [automatic, setAutomatic] = useState(false); 
     const [customize, setCustomize] = useState(false); 
     const [mute, setMute] = useState(false); 
-    const [volume, setVolume] = useState({prev: null, curr: null});
+    const [volume, setVolume] = useState({prev: 0, curr: 50});
+    const [alarmOn, setalarmOn] = useState(false); 
+    const [audio, setAudio] = useState(nirvana); 
+    const [alarm, setAlarm] = useState(new Howl({src: [audio]}))
 
     const [width, setWidth] = useState(400);
     const [height, setHeight] = useState(300);
@@ -97,6 +104,40 @@ function Timer({onClose}) {
             }
         }       
     }, [time]) 
+
+    // plays the alarm of the ringtone chosen once the timer for the certain mode expires 
+    useEffect(() => {
+        if (time.min === 0 && time.sec === 0) {
+            console.log(alarm); 
+            alarm.play(); 
+            setalarmOn(true);
+        }
+
+        let timeElapsed = 0; 
+        if (alarmOn) {
+            const intervalID = setInterval(() => {
+                if (timeElapsed === 3) {  
+                    setalarmOn(false); 
+                    alarm.stop(); 
+                }
+                timeElapsed += 1; 
+            }, 1000)
+            return () => {
+                clearInterval(intervalID)  
+            }
+        } 
+    }, [time])
+
+    // updates the alarm audio 
+    useEffect(() => {
+        alarm.unload(); 
+        setAlarm(new Howl({
+            src: [audio], 
+            volume: volume.curr/100
+        }))
+        alarm.load(); 
+    }, [audio, volume])
+
 
     // when the user hits start or pause 
     const handleTime = () => {
@@ -300,9 +341,12 @@ function Timer({onClose}) {
                 {/* component for choosing the timer sounds */}
                 <div className="audio-selects">
                     <label>Timer Sound</label>
-                    <select className="selections">
-                        <option>First</option>
-                        <option>Second</option>
+                    <select className="selections" 
+                            value={audio}
+                            onChange={(e) => setAudio(e.target.value)}>
+                        <option value={nirvana}>Nirvana</option>
+                        <option value={celebration}>Celebration</option>
+                        <option value={rooster}>Rooster</option>
                     </select>
                 </div>
 
