@@ -17,7 +17,7 @@
     z-index: 2;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 350;
     height: 30px;
     background-color: black;
     cursor: grab;
@@ -40,7 +40,6 @@
     padding-top: 30px;
     height: 150px;  
     width: 350px; 
-    margin-top: 25px; 
 }
 
 .main, .expandContainer, .container, 
@@ -62,10 +61,14 @@
 
 .container {
     border-radius: 10px; 
+    padding: 0px;
+    margin-top: 10px;
 }
 
 .expandContainer {
     border-radius: 10px 10px 0px 0px; 
+    padding: 0px;
+    margin-top: 10px;
 }
 
 .top, .bot {
@@ -136,15 +139,11 @@
 
 .showSettings {
     height: 300px;  
-    width: 350px; 
-    transform: translateY(175px);
+    width: auto; 
+    transform: translateY(150px);
     border-radius: 0px 0px 10px 10px;
     padding: 20px; 
     justify-content: space-between;
-}
-
-.clickers {
-    align-items: center; 
 }
 
 .check {
@@ -154,7 +153,7 @@
 }
 
 .num {
-    width: 70%;
+    width: 90%;
     height: 60%; 
     padding: 10px; 
     border-radius: 10px; 
@@ -164,6 +163,7 @@
 
 .form-control {
     justify-content: space-evenly;
+    padding: 10px;
     flex: 1; 
 }
 
@@ -211,7 +211,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 .save {
     background: #FFC0CB; 
     font-size: 20px; 
-    height: 40px;
+    height: 45px;
     border: hidden; 
     border-radius: 10px; 
 }

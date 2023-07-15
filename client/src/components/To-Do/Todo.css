@@ -59,10 +59,17 @@
   }
   
   .content {
-    margin-top: 30px;
     display: flex;
     font-size: 20px;
     color: white;
+    flex-direction: column;
+  }
+
+  
+
+  .add-todo-input{
+    width: 75%;
+    align-content: center;
   }
   
   .handle {
@@ -162,6 +169,7 @@
 
 .addPopup {
 	margin-top:10px;
+  margin-bottom: -70px;
     margin-left:10px;
     font-size: 36px;
     color : white;
@@ -169,7 +177,9 @@
 }
 
 .popup {
-	position: fixed;
+  margin-top: -20px;
+  margin-left: 13px;
+	position: relative;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -177,12 +187,28 @@
 	width: 100%;
 	max-width: 400px;
 	background-color: var(--light);
-	padding: 32px;
-	border-radius: 16px;
 	box-shadow: 0px 4px 32px var(--dark);
+
+  display: flex;
+  flex-direction: column;
 }
 
+.closePopup,
 .content {
-    display:flex;
-    flex-direction: column;
+  margin-bottom: -20px;
+  display: inline-flex;
+}
+
+.add-todo-input {
+  display: inline-block;
+  padding: 10px;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+.button {
+  display: inline-block;
 }
