@@ -40,6 +40,7 @@
     padding-top: 30px;
     height: 150px;  
     width: 350px; 
+    margin-top: 25px; 
 }
 
 .main, .expandContainer, .container, 
@@ -136,10 +137,14 @@
 .showSettings {
     height: 300px;  
     width: 350px; 
-    transform: translateY(150px);
+    transform: translateY(175px);
     border-radius: 0px 0px 10px 10px;
     padding: 20px; 
     justify-content: space-between;
+}
+
+.clickers {
+    align-items: center; 
 }
 
 .check {
@@ -149,7 +154,7 @@
 }
 
 .num {
-    width: 90%;
+    width: 70%;
     height: 60%; 
     padding: 10px; 
     border-radius: 10px; 
@@ -206,7 +211,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 .save {
     background: #FFC0CB; 
     font-size: 20px; 
-    height: 45px;
+    height: 40px;
     border: hidden; 
     border-radius: 10px; 
 }
