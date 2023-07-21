@@ -19,6 +19,7 @@ function Navbar() {
   const [showTodo, setShowTodo] = useState(false);
   const [showNotepad, setShowNotepad] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [showNotepad, setShowNotepad] = useState(false);
   const [showUserProfile, setUserProfile] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
   const [user, setUser] = useState("");
@@ -70,6 +71,14 @@ function Navbar() {
 
   const SetVisibleTimer = () => {
     setShowTimer(true);
+  };
+
+  const SetVisibleNotepad = () => {
+    setShowNotepad(true);
+  };
+
+  const handleCloseNotepad = () => {
+    setShowNotepad(false);
   };
 
   const handleClose3 = () => {
