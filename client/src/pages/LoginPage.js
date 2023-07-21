@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./LoginPage.css";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -9,49 +10,54 @@ function LoginPage() {
   async function loginUser(event) {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:3001/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-
-    const data = await response.json();
-    if (data.user) {
-      console.log(data.user);
-      localStorage.setItem("token", data.user);
-      alert("login success");
-      navigate("/");
-    } else {
-      alert("Please check your username and password");
+    try {
+      const response = await fetch("http://localhost:3001/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        alert(data.message);
+        navigate('/');
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error);
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
 
   return (
     <div>
+      <div className="Login">
       <h1>Login</h1>
       <form onSubmit={loginUser}>
-        <input
+        <input className="InputL"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           type="email"
           placeholder="Email"
         />
         <br />
-        <input
+        <input className="InputL"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           placeholder="Password"
         />
         <br />
-        <input type="submit" value="Login" />
+        <input className="buttL" type="submit" value="Login" />
       </form>
-      <button onClick={() => navigate("/register")}>sign up</button>
+      <button className="buttL" onClick={() => navigate("/register")}>Sign up</button>
+    </div>
     </div>
   );
 }

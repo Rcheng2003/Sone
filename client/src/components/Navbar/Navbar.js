@@ -8,21 +8,28 @@ import * as BsIcons from "react-icons/bs";
 import * as HiIcons from "react-icons/hi";
 import * as FaIcons from "react-icons/fa";
 import Todo from "../To-Do/Todo";
+import Notepad from "../Notepad/Notepad";
+import Calendar from "../Calendar/Calendar";
 import UserProfile from "../User-Profile/UserProfile";
+import Timer from "../Pomodoro-Timer/Timer";
 
 function Navbar() {
   const navigate = useNavigate();
   const [sidebar, setSidebar] = useState(false);
   const [showTodo, setShowTodo] = useState(false);
+  const [showNotepad, setShowNotepad] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
   const [showUserProfile, setUserProfile] = useState(false);
+  const [showTimer, setShowTimer] = useState(false);
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
 
   async function populateUserInfo() {
-    const req = await fetch("http://localhost:3001/api/profile", {
+    const req = await fetch("http://localhost:3001/api/user/profile", {
       headers: {
-        "access-token": localStorage.getItem("token"),
+         "Content-Type": "application/json",
       },
+      credentials: 'include',
     });
 
     const data = await req.json();
@@ -35,9 +42,8 @@ function Navbar() {
   useEffect(() => {
     setUser("");
     setEmail("");
-    if (localStorage.getItem("token")) {
-      populateUserInfo();
-    }
+    populateUserInfo();
+  
   }, []);
 
   const showSidebar = () => setSidebar(!sidebar);
@@ -46,8 +52,32 @@ function Navbar() {
     setShowTodo(true);
   };
 
+  const SetVisibleCalendar = () => {
+    setShowCalendar(true);
+  };
+
+  const SetVisibleNotepad = () => {
+    setShowNotepad(true);
+  };
+
+  const handleCloseNotepad = () => {
+    setShowNotepad(false);
+  };
+
   const handleClose = () => {
     setShowTodo(false);
+  };
+
+  const SetVisibleTimer = () => {
+    setShowTimer(true);
+  };
+
+  const handleClose3 = () => {
+    setShowTimer(false);
+  };
+
+  const handleClose4 = () => {
+    setShowCalendar(false);
   };
 
   const SetUserProfile = () => {
@@ -74,7 +104,7 @@ function Navbar() {
         </div>
         <ul className="button-list">
           <div className="Button">
-            <button>
+            <button onClick={SetVisibleTimer}>
               <IoIcons.IoAlarmSharp />
             </button>
             <button>
@@ -86,10 +116,10 @@ function Navbar() {
             <button onClick={SetVisibleTodo}>
               <BsIcons.BsCardChecklist />
             </button>
-            <button>
+            <button onClick={SetVisibleNotepad}>
               <BsIcons.BsStickyFill />
             </button>
-            <button>
+            <button onClick={SetVisibleCalendar}>
               <BsIcons.BsCalendar3 />
             </button>
             <button>
@@ -109,7 +139,10 @@ function Navbar() {
           </div>
         </ul>
       </nav>
+      {showTimer && <Timer onClose={handleClose3} />}
       {showTodo && <Todo onClose={handleClose} />}
+      {showNotepad && <Notepad onClose={handleCloseNotepad} />}
+      {showCalendar && <Calendar onClose={handleClose4} />}
       {showUserProfile && (
         <UserProfile user={user} email={email} onClose={handleClose2} />
       )}

@@ -1,0 +1,217 @@
+.main, .expandContainer, .container, 
+.top, .bot, .clickers, .showSettings,
+.form, .form-control, .volume, 
+.audio-selects {
+    display: flex; 
+}
+
+.main {
+    display:flex;
+    height: 350px; 
+    width: 350px; 
+}
+
+.handle {
+    display: flex;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 350;
+    height: 30px;
+    background-color: black;
+    cursor: grab;
+    border-bottom: 1px solid white;
+    transition: background-color 0.3s;
+  }
+  
+  .handle:active {
+    cursor: grabbing;
+  }
+
+  .handle-content {
+    font-size: large;
+    color: white;
+    padding-top: 5px;
+    padding-left: 5px;
+  }
+
+.expandContainer, .container {
+    padding-top: 30px;
+    height: 150px;  
+    width: 350px; 
+}
+
+.main, .expandContainer, .container, 
+.showSettings, .form-control {
+    flex-direction: column; 
+}
+
+.main, .expandContainer, .container {
+    position: absolute; 
+}
+
+.expandContainer, .container, .showSettings {
+    background: white; 
+}
+
+.expandContainer, .container {
+    padding: 5px;
+}
+
+.container {
+    border-radius: 10px; 
+    padding: 0px;
+    margin-top: 10px;
+}
+
+.expandContainer {
+    border-radius: 10px 10px 0px 0px; 
+    padding: 0px;
+    margin-top: 10px;
+}
+
+.top, .bot {
+    padding-left: 15px; 
+    padding-right: 15px; 
+}
+
+.top {
+    align-items: center;
+    flex: 2; 
+} 
+
+.bot {
+    padding-bottom: 10px; 
+    justify-content: space-between;
+    align-items: center;
+    flex: 1; 
+}
+
+.time {
+    font-size: 60px; 
+    flex: 2; 
+}   
+
+.start-pause, .reset, .pomodoro, 
+.short, .long, .settings, .save,
+.volume-icon, .volume-adjust {
+    cursor: pointer; 
+}
+
+.start-pause, .pomodoro, .short, 
+.long {
+    border-radius: 10px;
+    border: hidden;
+}
+
+.start-pause {
+    height: 45px;
+    width: 100px;  
+    margin-right: 10px; 
+}
+
+.start-pause:hover, .reset:hover, 
+.pomodoro:hover, .short:hover, 
+.long:hover, .save:hover, 
+.volume-icon:hover {
+    opacity: 0.75;
+    transition: 0.15;  
+}
+
+.start-pause:active, .reset:active, 
+.pomodoro:active, .short:active, 
+.long:active, .save:active,
+.volume-icon:active {
+    opacity: 0.5; 
+    transition: 0.15;   
+}
+
+.pomodoro, .short, .long, 
+.settings {
+    width: 28%; 
+    height: 100%; 
+}
+
+.hideSettings {
+    display: none; 
+}
+
+.showSettings {
+    height: 300px;  
+    width: auto; 
+    transform: translateY(150px);
+    border-radius: 0px 0px 10px 10px;
+    padding: 20px; 
+    justify-content: space-between;
+}
+
+.check {
+    height: 20px; 
+    width: 20px; 
+    margin-right: 10px; 
+}
+
+.num {
+    width: 90%;
+    height: 60%; 
+    padding: 10px; 
+    border-radius: 10px; 
+    border-style: solid; 
+    border-color: grey; 
+} 
+
+.form-control {
+    justify-content: space-evenly;
+    padding: 10px;
+    flex: 1; 
+}
+
+.audio-selects {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.selections {   
+    background-color: rgb(241, 241, 241); 
+    height: 150%; 
+    width: 70%; 
+    border: none;
+    outline: none;  
+}
+
+.volume {
+    justify-content: center;
+    align-items: center; 
+}
+
+.volume-adjust {
+    width: 88%; 
+    height: 10%; 
+    margin-left: 5%; 
+    -webkit-appearance: none;
+    appearance: none; 
+    background: grey; 
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: grey; 
+    width: 16px; 
+    height: 16px; 
+    border-radius: 100%; 
+}
+
+.volume-adjust:hover, 
+input[type="range"]:hover::-webkit-slider-thumb {
+    background-color: rgb(88, 88, 88); 
+    transition: 0.3s; 
+}
+
+.save {
+    background: #FFC0CB; 
+    font-size: 20px; 
+    height: 45px;
+    border: hidden; 
+    border-radius: 10px; 
+}
