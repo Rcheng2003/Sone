@@ -16,7 +16,7 @@
     font-size: 30px;
 }
 
-.butt{
+.buttR{
     border-radius: 10px;
     color: rgb(5, 48, 4);
     background-color: rgb(142, 194, 246);
@@ -27,7 +27,7 @@
     padding: 0px;
 }
 
-.Input{
+.InputR{
     margin-top: -20px;
     border-radius: 10px;
     width: 200px;
