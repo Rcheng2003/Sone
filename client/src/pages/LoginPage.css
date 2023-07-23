@@ -15,7 +15,7 @@
 }
 
 
-.butt{
+.buttL{
     border-radius: 10px;
     color: rgb(5, 48, 4);
     background-color: rgb(250, 218, 170);
@@ -26,7 +26,7 @@
     padding: 0px;
 }
 
-.Input{
+.InputL{
     margin-top: -20px;
     border-radius: 10px;
     width: 200px;

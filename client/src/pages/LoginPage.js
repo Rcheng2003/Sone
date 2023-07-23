@@ -40,23 +40,23 @@ function LoginPage() {
       <div className="Login">
       <h1>Login</h1>
       <form onSubmit={loginUser}>
-        <input className="Input"
+        <input className="InputL"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           type="email"
           placeholder="Email"
         />
         <br />
-        <input className="Input"
+        <input className="InputL"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           placeholder="Password"
         />
         <br />
-        <input className="butt" type="submit" value="Login" />
+        <input className="buttL" type="submit" value="Login" />
       </form>
-      <button className="butt" onClick={() => navigate("/register")}>sign up</button>
+      <button className="buttL" onClick={() => navigate("/register")}>Sign up</button>
     </div>
     </div>
   );
