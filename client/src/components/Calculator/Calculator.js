@@ -14,6 +14,11 @@ function Calculator() {
     // along with the operation 
     const [saved, setSaved] = useState({num: null, op: null}); 
 
+    // calculator keys 
+    const buttons = [["C", "+-", "%", "/"], ["7", "8", "9", "*"],
+                ["4", "5", "6", "-"], ["1", "2", "3", "+"],
+                ["0", ".", "="]]; 
+
     // to update the view whenever the number or expression is updated 
     useEffect(() => {
         // display the number whenever its inputted for a responsive UI 
@@ -32,7 +37,7 @@ function Calculator() {
                 setExpression((oldExpression) => { 
                     return [eval(oldExpression.slice(0, oldExpression.length-1).join("")), saved.op]
                 })
-                // display calculations with operation +-, =, . 
+            // display calculations with operation +-, =, . 
             } else {
                 // evaluate with = 
                 if (op === "=") {
@@ -40,10 +45,9 @@ function Calculator() {
                     setExpression((oldExpression) => { return [eval(oldExpression.join("")), saved.op]});
                 } 
             }
-        // initially... 
+        // to negate a result that is computed 
         } else if (op === "+-") {
             setView(expression[0]); 
-            setSaved((oldSave) => { return {...oldSave, num: expression[0]*-1}}); 
         }
 
         // just to test 
@@ -84,15 +88,25 @@ function Calculator() {
                 // if there is a number inputted then the expression can be updated 
                 if (num !== "") {
                     setExpression((oldExpression) => { 
-                        // negate negatives if possible 
+                        // negate negatives if possible for both floats and integerse 
                         if (oldExpression[oldExpression.length-1] === "-" && parseFloat(num) < 0) {
-                            setSaved({num: -1*parseInt(num), op: symbol});
-                            return [oldExpression[0], "+", -1*parseInt(num), symbol];
+                            if (parseFloat(num) % 1 === 0) {
+                                setSaved({num: -1*parseInt(num), op: symbol});
+                                return [oldExpression[0], "+", -1*parseInt(num), symbol];
+                            } else {
+                                setSaved({num: -1*parseFloat(num), op: symbol});
+                                return [oldExpression[0], "+", -1*parseFloat(num), symbol];
+                            }
                         // otherwise normally concate the expression 
                         } else {
                             // saved if the = operation is used for an incomplete expression 
                             // e.g. 5 + ... --> 5 + 5 --> 10 + ... --> 10 + 5 ... 
                             setSaved({num: num, op: symbol});
+                            // to account for edge case for negatives 
+                            if (parseFloat(num) > 0 && oldExpression[oldExpression.length-1] === "+" &&
+                            op === "-") {
+                                return [oldExpression[0], "-", num, symbol]; 
+                            }
                             return [...oldExpression, num, symbol]; 
                         }
                     }); 
@@ -123,29 +137,56 @@ function Calculator() {
                     // if its an operation such as (56 +) and equals is used and is spammed where 
                     // there is no number inputted then operate with the same number 
                     if (!Number.isInteger(expression[expression.length-1]) && num === "") {
-                        setExpression((oldExpression) => { return [...oldExpression, saved.num]})
-
-                    // otherwise if its a normal operation on expression such as 56 + 56 
-                    } else {
-                        setExpression((oldExpression) => {
-                            // negate  
-                            if (oldExpression[oldExpression.length-1] === "-" && parseFloat(num) < 0) {
-                                setSaved({num: -1*parseInt(num), op: "+"}); 
-                                return [oldExpression[0], "+", -1*parseInt(num)]; 
+                        setExpression((oldExpression) => { 
+                            // handle negatives if its a thing 
+                            if ((oldExpression[oldExpression.length-1] === "-" && parseFloat(oldExpression[0]) < 0) || 
+                            (oldExpression[oldExpression.length-1] === "-" && parseFloat(saved.num) < 0)) {
+                                return [oldExpression[0], '+', -1*saved.num]
                             } else {
+                                return [...oldExpression, saved.num]
+                            }
+                        })
+                    } // otherwise if its a normal operation on expression such as 56 + 56 
+                    else {
+                        setExpression((oldExpression) => {
+                            // negate if its used within an equals expression for both floats and integers 
+                            if (oldExpression[oldExpression.length-1] === "-" && parseFloat(num) < 0) {
+                                if (parseFloat(num) % 1 === 0) {
+                                    setSaved({num: -1*parseInt(num), op: "+"}); 
+                                    return [oldExpression[0], "+", -1*parseInt(num)]; 
+                                } else {
+                                    setSaved({num: -1.00*parseFloat(num), op: "+"}); 
+                                    return [oldExpression[0], "+", -1.00*parseFloat(num)]; 
+                                }
+                            
+                            // otherwise if there is no negation 
+                            } else {
+                                // for case with negatives when you want to subtract again 
+                                if (parseFloat(num) > 0 && oldExpression[oldExpression.length-1] === "+" &&
+                                op === "-") {
+                                    // must save the number that was added 
+                                    setSaved({num: num, op: "-"}); 
+                                    return [oldExpression[0], "-", num]; 
+                                }
+
                                 setSaved((oldSave) => { return {...oldSave, num: num}}); 
                                 return [...oldExpression, num];  
                             }
                         }); 
-                        // must save the number that was added 
                         setNum(""); 
                     }
                 
                 // when it comes to negate, must account for two cases, negating a number that was 
-                // inputted and negating a result and updating the operations as a result 
+                // inputted and negating a result and updating the operations as a result and also 
+                // accounting for floats 
                 } else if (symbol === "+-") {   
                     // if number inputted 
                     if (num !== "") {
+                        // to handle edge with negatives... 
+                        if (op === "-" && expression[expression.length-1] === "+") {
+                            setExpression((oldExpression) => { return [oldExpression[0], "-"]})
+                        }
+
                         // must consider if its a float or not to preserve value 
                         if (parseFloat(num) % 1 == 0) { 
                             setNum((parseInt(num)*-1).toString());
@@ -153,11 +194,10 @@ function Calculator() {
                         } else {
                             setNum((parseFloat(num)*-1.00).toString());
                             setSaved((oldSaved) => { return {...oldSaved, num: (parseFloat(num)*-1.00).toString()}});
-
                         } 
                     
-                    // otherwise it must be a result 
-                    } else {
+                    // otherwise it must be a result that was computed 
+                    } else if (expression.length !== 0) {
                         // must consider if its a float or not to preserve value 
                         if (expression[0] % 1 == 0) {
                             setExpression([expression[0]*-1, expression[expression.length-1]])
@@ -167,7 +207,6 @@ function Calculator() {
                             setSaved((oldSaved) => { return {...oldSaved, num: expression[0]*-1.00}})
                         } 
                     }
-
                 } else if (symbol === "." && !num.includes(".")) {
                     if (num !== "") {
                         setNum((oldNum) => { return oldNum + "."})
@@ -177,7 +216,7 @@ function Calculator() {
                     }
                 }
             }
-            // need to get the operation to render the view 
+            // need to get the operation to render the view and to keep track for future operations 
             setOp(symbol);  
         }
     }
@@ -190,77 +229,34 @@ function Calculator() {
                 </div>
 
                 <div className="buttons">
-                    <div className='row'> 
-                        <div onClick={() => handleClick("C")} className='box'>
-                            C
-                        </div>
-                        <div onClick={() => handleClick("+-")} className='box'>
-                            +-
-                        </div>
-                        <div onClick={() => handleClick("%")} className='box'>
-                            %
-                        </div>
-                        <div onClick={() => handleClick("/")} className='box'>
-                            / 
-                        </div>
-                    </div>
-
-                    <div className='row'>
-                        <div onClick={() => handleClick("7")} className='box'>
-                            7 
-                        </div>
-                        <div onClick={() => handleClick("8")} className='box'>
-                            8
-                        </div>
-                        <div onClick={() => handleClick("9")} className='box'>
-                            9 
-                        </div>
-                        <div onClick={() => handleClick("*")} className='box'>
-                            x
-                        </div>
-                    </div>
-
-                    <div className='row'>
-                        <div onClick={() => handleClick("4")} className='box'>
-                            4
-                        </div>
-                        <div onClick={() => handleClick("5")} className='box'>
-                            5 
-                        </div>
-                        <div onClick={() => handleClick("6")} className='box'>
-                            6 
-                        </div>
-                        <div onClick={() => handleClick("-")} className='box'>
-                            -
-                        </div>
-                    </div>
-
-                    <div className='row'>
-                        <div onClick={() => handleClick("1")} className='box'>
-                            1
-                        </div>
-                        <div onClick={() => handleClick("2")} className='box'>
-                            2 
-                        </div>
-                        <div onClick={() => handleClick("3")} className='box'>
-                            3 
-                        </div>
-                        <div onClick={() => handleClick("+")} className='box'>
-                            +
-                        </div>
-                    </div>
-
-                    <div className='row'>
-                        <div onClick={() => handleClick("0")} className='box'>
-                            0
-                        </div>
-                        <div onClick={() => handleClick(".")} className='box'>
-                            .
-                        </div>
-                        <div onClick={() => handleClick("=")} className='equalsBox'>
-                            =
-                        </div>
-                    </div>
+                    {   
+                        // map each row 
+                        buttons.map((symbols, index) => {
+                            return (
+                                <div className='row' key={index}>
+                                    {   
+                                        // map the symbols and its respective divs 
+                                        symbols.map((symbol) => {
+                                                if (symbol !== "=") {
+                                                    return (
+                                                        <div key={symbol} onClick={() => handleClick(symbol)} className="box">
+                                                            {symbol}
+                                                        </div>
+                                                    )
+                                                } else {
+                                                    return (
+                                                        <div key={symbol} onClick={() => handleClick(symbol)} className="equalsBox">
+                                                            {symbol}
+                                                        </div>
+                                                    )
+                                                }
+                                            }
+                                        )
+                                    }
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             </div>
         </>

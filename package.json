@@ -7,6 +7,7 @@
     "cookie-parser": "^1.4.6",
     "howler": "^2.2.3",
     "jsonwebtoken": "^9.0.1",
+    "npm": "^9.8.1",
     "react-draggable": "^4.4.5",
     "react-icons": "^4.9.0",
     "react-resizable": "^3.0.5",
