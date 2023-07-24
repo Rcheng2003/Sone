@@ -177,7 +177,6 @@ class Todo extends React.Component {
                         <div className="popup">
                             <div className="closePopup" onClick={() => this.setState({ popupActive: false })}>X</div>
                             <div className="content">
-                                <h3>Add Task</h3>
                                 <input type="text" className="add-todo-input" onChange={e => this.setState({ newTodo: e.target.value })} value={newTodo} />
                                 <div className="button" onClick={this.addTodo}>Create Task</div>
                             </div>

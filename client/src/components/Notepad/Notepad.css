@@ -1,0 +1,75 @@
+.notepad-container {
+    max-width: 960px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    min-height: 100vh;
+}
+
+.notes-list {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.note {
+    background-color: #fef68a;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 1rem;
+    min-height: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    white-space: pre-wrap;
+    position: absolute;
+    cursor: move;
+}
+
+.note-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.delete-button {
+    background-color: #e1e1e1;
+    border: none;
+    border-radius: 15px;
+    padding: 5px 10px 5px 10px;
+}
+
+.delete-button:hover {
+    background-color: #ededed;
+    cursor: pointer;
+}
+
+.note.new {
+    background-color: #67d7cc;
+    width: 250px;
+    height: 200px;
+}
+
+textarea {
+    border: none;
+    resize: none;
+    background-color: #67d7cc;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+.save-button {
+    background-color: #e1e1e1;
+    border: none;
+    border-radius: 15px;
+    padding: 5px 10px 5px 10px;
+}
+
+.save-button:hover {
+    background-color: #ededed;
+    cursor: pointer;
+}

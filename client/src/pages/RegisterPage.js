@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./RegisterPage.css";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -32,32 +33,37 @@ function RegisterPage() {
 
   return (
     <div>
+      <div className="Background">
+        <div className="Register">
       <h1>Register</h1>
       <form onSubmit={registerUser}>
-        <input
+        <input className="InputR"
           value={name}
           onChange={(e) => setName(e.target.value)}
           type="text"
           placeholder="Name"
         />
         <br />
-        <input
+        <input className="InputR"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           type="email"
           placeholder="Email"
         />
         <br />
-        <input
+        <input className="InputR"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           placeholder="Password"
         />
         <br />
-        <input type="submit" value="Register" />
+        <input className="buttR" type="submit" value="Register" />
       </form>
     </div>
+    </div>
+    </div>
+
   );
 }
 

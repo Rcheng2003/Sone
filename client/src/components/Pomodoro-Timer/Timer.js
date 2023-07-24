@@ -105,14 +105,13 @@ function Timer({onClose}) {
         }       
     }, [time]) 
 
-     // plays the alarm of the ringtone chosen once the timer for the certain mode expires 
-     useEffect(() => {
+    // plays the alarm of the ringtone chosen once the timer for the certain mode expires 
+    useEffect(() => {
         if (time.min === 0 && time.sec === 0) {
             console.log(alarm); 
             alarm.play(); 
             setalarmOn(true);
         }
-        
         let timeElapsed = 0; 
         if (alarmOn) {
             const intervalID = setInterval(() => {
