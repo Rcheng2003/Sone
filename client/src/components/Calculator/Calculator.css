@@ -41,3 +41,31 @@
 .buttons {
     flex: 4; 
 }
+
+.equalsBox, .box {
+    background: grey; 
+    height: 70px; 
+    border-radius: 5px;
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    cursor: pointer; 
+}
+
+.box {
+    width: 70px; 
+   
+}
+.equalsBox {
+    width: 150px; 
+}
+
+.equalsBox:hover, .box:hover {
+    opacity: 0.75; 
+    transition: 0.75; 
+}
+
+.equalsBox:active, .box:active {
+    opacity: 0.5; 
+    transition: 0.9; 
+}
