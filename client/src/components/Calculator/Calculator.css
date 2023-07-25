@@ -1,0 +1,71 @@
+.calc, .display, .row, .buttons {
+    display: flex; 
+
+}
+
+.calc, .display, .buttons {
+    padding: 10px; 
+} 
+
+.calc {
+    background: linear-gradient(to right, #8ab4a2, #41584e);
+    height: 525px; 
+    width: 325px; 
+    border-radius: 15px; 
+    flex-direction: column;
+    padding: 10px; 
+}
+
+.display, .buttons {
+    background: #34463e;
+    opacity: 0.75; 
+    flex-direction: column;
+    border-radius: 10px; 
+}
+
+.display, .row {
+    flex: 1; 
+}
+
+.display {
+    color: white; 
+    text-align: right;
+    font-size: 80px;  
+    margin-bottom: 10px;  
+}
+
+.buttons, .row {
+    justify-content: space-between;
+}
+
+.buttons {
+    flex: 4; 
+}
+
+.equalsBox, .Calcbox {
+    background: grey; 
+    height: 70px; 
+    border-radius: 5px;
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    cursor: pointer; 
+}
+
+.Calcbox {
+    width: 70px; 
+   
+}
+.equalsBox {
+    width: 150px; 
+}
+
+.equalsBox:hover, .Calcbox:hover {
+    opacity: 0.75; 
+    transition: 0.75; 
+}
+
+.equalsBox:active, .Calcbox:active {
+    opacity: 0.5; 
+    transition: 0.9; 
+}
