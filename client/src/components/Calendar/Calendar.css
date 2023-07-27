@@ -1,0 +1,25 @@
+.calendar {
+    width: 300px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .header button {
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+  
+  

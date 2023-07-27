@@ -1,0 +1,36 @@
+.Login{
+    font-size: 30px;
+    align-items: center;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    margin: auto;
+    background-color: rgb(105, 243, 199);
+    width: 1250px;    
+    margin-top: 40px;
+    height: 620px;
+    padding: 5px;
+    border-radius: 10px;
+    background: url("IMG_7675.jpg");
+    
+}
+
+
+.buttL{
+    border-radius: 10px;
+    color: rgb(5, 48, 4);
+    background-color: rgb(250, 218, 170);
+    border-style: none;
+    width: 80px;
+    font-size: 15px;
+    margin-top: -10px;
+    padding: 0px;
+}
+
+.InputL{
+    margin-top: -20px;
+    border-radius: 10px;
+    width: 200px;
+    font-size: 15px;
+    height: 30px;
+    border-style: solid;
+}

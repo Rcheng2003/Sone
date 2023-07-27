@@ -1,11 +1,17 @@
-import { useState, useEffect } from "react";  
+import { useState, useEffect } from "react"; 
+import { Resizable } from 'react-resizable';
+import { Howl } from "howler"  
+import Draggable from 'react-draggable';
 import "./Timer.css"; 
+import nirvana from './audios/nirvana.mp3'; 
+import celebration from './audios/best_alarm.mp3'; 
+import rooster from './audios/mixkit-rooster-crowing-in-the-morning-2462.wav';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SettingsIcon from '@mui/icons-material/Settings';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 
-function Timer() {
+function Timer({onClose}) {
     const [pomoTime, setpomoTime] = useState({min: 25, sec: 0, decreasing: false, default: true}); 
     const [shortTime, setshortTime] = useState({min: 5, sec: 0, decreasing: false, default: true}); 
     const [longTime, setlongTime] = useState({min: 15, sec: 0, decreasing: false, default: true}); 
@@ -16,7 +22,15 @@ function Timer() {
     const [automatic, setAutomatic] = useState(false); 
     const [customize, setCustomize] = useState(false); 
     const [mute, setMute] = useState(false); 
-    const [volume, setVolume] = useState({prev: null, curr: null});
+    const [volume, setVolume] = useState({prev: 0, curr: 50});
+    const [alarmOn, setalarmOn] = useState(false); 
+    const [audio, setAudio] = useState(nirvana); 
+    const [alarm, setAlarm] = useState(new Howl({src: [audio]}))
+
+    const [width, setWidth] = useState(400);
+    const [height, setHeight] = useState(300);
+    const [position, setPosition] = useState({ x: 400, y: 100 });
+  
 
     // to render the time display for the first time page is loaded or when it is decreasing in time  
     useEffect(() => {
@@ -90,6 +104,38 @@ function Timer() {
             }
         }       
     }, [time]) 
+
+    // plays the alarm of the ringtone chosen once the timer for the certain mode expires 
+    useEffect(() => {
+        if (time.min === 0 && time.sec === 0) {
+            console.log(alarm); 
+            alarm.play(); 
+            setalarmOn(true);
+        }
+        let timeElapsed = 0; 
+        if (alarmOn) {
+            const intervalID = setInterval(() => {
+                if (timeElapsed === 3) {  
+                    setalarmOn(false); 
+                    alarm.stop(); 
+                }
+                timeElapsed += 1; 
+            }, 1000)
+            return () => {
+                clearInterval(intervalID)  
+            }
+        } 
+    }, [time])
+
+    // updates the alarm audio 
+    useEffect(() => {
+        alarm.unload(); 
+        setAlarm(new Howl({
+            src: [audio], 
+            volume: volume.curr/100
+        }))
+        alarm.load(); 
+    }, [audio, volume])
 
     // when the user hits start or pause 
     const handleTime = () => {
@@ -169,39 +215,79 @@ function Timer() {
         }
     }
 
-    return ( 
-        <div className="main">  
-            <div className={customize ? "expandContainer" : "container"}>
-                {/* top component with the display and start and restart button*/}
-                <div className="top">
-                    <div className="time">
-                        {display}
+    const handleDrag = (e, ui) => {
+    const { x, y } = position;
+    const { width, height } = position;
+    const innerWidth = document.documentElement.clientWidth - 100;
+    const innerHeight = document.documentElement.clientHeight - 100;
+
+    const newPosition = {
+        x: x + ui.deltaX,
+        y: y + ui.deltaY,
+    };
+
+    setPosition(newPosition);
+
+    if (
+        newPosition.x - width - 500 < -innerWidth ||
+        newPosition.x > innerWidth ||
+        newPosition.y - height - 280 < -innerHeight ||
+        newPosition.y > innerHeight
+    ) {
+        handleClose();
+    }
+    };
+
+    const handleClose = () => {
+    if (onClose) {
+        onClose();
+    }
+    };
+
+    return (
+        <Draggable
+            position={position}
+            onDrag={handleDrag}
+            handle=".handle"
+        >
+            <div className="main">
+                <div className="handle">
+                    <div className="handle-content">Timer</div>
+                    <button className="close-button" onClick={handleClose}>
+                        -
+                    </button>
+                </div>
+                <div className={customize ? "expandContainer" : "container"}>
+                    {/* top component with the display and start and restart button*/}
+                    <div className="top">
+                        <div className="time">
+                            {display}
+                        </div>
+
+                        <button className="start-pause" onClick={() => handleTime()}>
+                            {time.decreasing ? "Pause" : "Start"}
+                        </button>
+
+                        <RestartAltIcon className="reset" onClick={() => handleReset()}/>
                     </div>
 
-                    <button className="start-pause" onClick={() => handleTime()}>
-                        {time.decreasing ? "Pause" : "Start"}
-                    </button>
+                    {/* bottom component with the modes and options */}
+                    <div className="bot">
+                        <button className="pomodoro" onClick={() => handleMode("pomodoro")}>
+                            Pomodoro
+                        </button>
 
-                    <RestartAltIcon className="reset" onClick={() => handleReset()}/>
+                        <button className="short" onClick={() => handleMode("short")}>
+                            Short Break
+                        </button>
+
+                        <button className="long" onClick={() => handleMode("long")}>
+                            Long Break
+                        </button>
+
+                        <SettingsIcon className="settings" onClick={() => handleOptions()}/>
+                    </div>
                 </div>
-
-                {/* bottom component with the modes and options */}
-                <div className="bot">
-                    <button className="pomodoro" onClick={() => handleMode("pomodoro")}>
-                        Pomodoro
-                    </button>
-
-                    <button className="short" onClick={() => handleMode("short")}>
-                        Short Break
-                    </button>
-
-                    <button className="long" onClick={() => handleMode("long")}>
-                        Long Break
-                    </button>
-
-                    <SettingsIcon className="settings" onClick={() => handleOptions()}/>
-                </div>
-            </div>
             {/* settings tab */}
             <div className={customize ? "showSettings" : "hideSettings"}>
                 <div className="clickers">
@@ -253,9 +339,12 @@ function Timer() {
                 {/* component for choosing the timer sounds */}
                 <div className="audio-selects">
                     <label>Timer Sound</label>
-                    <select className="selections">
-                        <option>First</option>
-                        <option>Second</option>
+                    <select className="selections" 
+                            value={audio}
+                            onChange={(e) => setAudio(e.target.value)}>
+                        <option value={nirvana}>Nirvana</option>
+                        <option value={celebration}>Celebration</option>
+                        <option value={rooster}>Rooster</option>
                     </select>
                 </div>
 
@@ -280,6 +369,7 @@ function Timer() {
                 </button>
             </div>
         </div>
+        </Draggable>
     )
 }
 
