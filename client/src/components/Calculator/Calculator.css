@@ -42,7 +42,7 @@
     flex: 4; 
 }
 
-.equalsBox, .box {
+.equalsBox, .Calcbox {
     background: grey; 
     height: 70px; 
     border-radius: 5px;
@@ -52,7 +52,7 @@
     cursor: pointer; 
 }
 
-.box {
+.Calcbox {
     width: 70px; 
    
 }
@@ -60,12 +60,12 @@
     width: 150px; 
 }
 
-.equalsBox:hover, .box:hover {
+.equalsBox:hover, .Calcbox:hover {
     opacity: 0.75; 
     transition: 0.75; 
 }
 
-.equalsBox:active, .box:active {
+.equalsBox:active, .Calcbox:active {
     opacity: 0.5; 
     transition: 0.9; 
 }
