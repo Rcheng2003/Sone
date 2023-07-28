@@ -1,15 +1,36 @@
 import React, { useState } from 'react';
 import './CreateRoomModal.css';
 
-const CreateRoomModal = ({ isOpen, onClose, onCreateRoom }) => {
+const CreateRoomModal = ({ isOpen, onClose, setRooms }) => {
   const [roomName, setRoomName] = useState('');
   const [roomType, setRoomType] = useState('private');
   const [capacity, setCapacity] = useState(10);
 
+  const createRoom = async () => {
+    try {
+      const res = await fetch('http://localhost:3001/api/study-room/create', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: 'include',
+        body: JSON.stringify( {
+          roomName,
+          public: roomType === 'private' ? true : false ,
+          capacity,
+        })
+      });
+      const data = await res.json();
+      setRooms((prev) => [...prev, data]);
+    } catch (error) {
+      console.error('Error creating room:', error);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Send the form data to the parent component
-    onCreateRoom({ roomName, roomType, capacity });
+    //make post request to create a room with certain information
+    createRoom();
     // Reset the form fields
     setRoomName('');
     setRoomType('private');

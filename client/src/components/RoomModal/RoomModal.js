@@ -1,15 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './RoomModal.css';
 import CreateRoomModal from '../CreateRoomModal/CreateRoomModal';
 import DisplayRoom from '../DisplayRooms/DisplayRooms';
 
 const RoomModal = ({ isOpen, onClose }) => {
+  const [rooms, setRooms] = useState([]);
   const [selectedTab, setSelectedTab] = useState('myRooms');
   const [isCreateRoomModalOpen, setCreateRoomModalOpen] = useState(false);
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
   };
+
+   useEffect(() => {
+    fetchRooms();
+  }, []);
+
+  const fetchRooms = async () => {
+    try {
+      const res = await fetch('http://localhost:3001/api/study-room', {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: 'include',
+      });
+      const data = await res.json();
+      setRooms(data);
+    } catch (error) {
+      console.error('Error fetching rooms:', error);
+    }
+  };
+
 
   return (
     <div className={`modal ${isOpen ? 'open' : 'closed'}`}>
@@ -34,7 +55,7 @@ const RoomModal = ({ isOpen, onClose }) => {
             <div>            
               <p>MY ROOMS</p> 
               <button onClick={() => setCreateRoomModalOpen(true)}>Create Room</button>
-              <DisplayRoom></DisplayRoom>
+              <DisplayRoom rooms = {rooms}></DisplayRoom>
             </div>
             : null}
           {selectedTab === 'publicRooms' ? <p>Public ROOMS</p> : null}
@@ -43,6 +64,7 @@ const RoomModal = ({ isOpen, onClose }) => {
       <CreateRoomModal
         isOpen={isCreateRoomModalOpen}
         onClose={() => setCreateRoomModalOpen(false)}
+        setRooms = {setRooms}
       />
     </div>
   );

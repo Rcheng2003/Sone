@@ -1,27 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './DisplayRoom.css';
 
-const DisplayRoom = () => {
-  const [rooms, setRooms] = useState([]);
-
-  useEffect(() => {
-    fetchRooms();
-  }, []);
-
-  const fetchRooms = async () => {
-    try {
-      const res = await fetch('http://localhost:3001/api/study-room', {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: 'include',
-      });
-      const data = await res.json();
-      setRooms(data);
-    } catch (error) {
-      console.error('Error fetching rooms:', error);
-    }
-  };
+const DisplayRoom = ({rooms}) => {
 
   const handleEdit = (roomId) => {
     // Implement the edit functionality here, e.g., navigate to the edit page for the specific room.
