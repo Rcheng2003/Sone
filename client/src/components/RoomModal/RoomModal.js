@@ -55,7 +55,7 @@ const RoomModal = ({ isOpen, onClose }) => {
             <div>            
               <p>MY ROOMS</p> 
               <button onClick={() => setCreateRoomModalOpen(true)}>Create Room</button>
-              <DisplayRoom rooms = {rooms}></DisplayRoom>
+              <DisplayRoom rooms = {rooms} setRooms={setRooms}></DisplayRoom>
             </div>
             : null}
           {selectedTab === 'publicRooms' ? <p>Public ROOMS</p> : null}
