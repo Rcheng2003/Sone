@@ -239,7 +239,7 @@ function Calculator() {
                                         symbols.map((symbol) => {
                                                 if (symbol !== "=") {
                                                     return (
-                                                        <div key={symbol} onClick={() => handleClick(symbol)} className="box">
+                                                        <div key={symbol} onClick={() => handleClick(symbol)} className="Calcbox">
                                                             {symbol}
                                                         </div>
                                                     )
