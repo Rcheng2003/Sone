@@ -21,5 +21,30 @@
     grid-template-columns: repeat(7, 1fr);
     gap: 5px;
   }
+
+  .CalHandle {
+    display: flex;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 30px;
+    background-color: black;
+    cursor: grab;
+    border-bottom: 1px solid white;
+    transition: background-color 0.3s;
+  }
+  
+  .CalHandle:active {
+    cursor: grabbing;
+  }
+
+  .CalHandle-content {
+    font-size: large;
+    color: white;
+    padding-top: 5px;
+    padding-left: 5px;
+  }
   
   

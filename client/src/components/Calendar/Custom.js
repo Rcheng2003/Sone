@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   border: 1px solid;
-  height: 99vh;
+  height: 80vh;
+  width: 50%;
 `;
 
 export const StyledEvent = styled.span`
@@ -27,6 +28,7 @@ export const SevenColGrid = styled.div`
   div {
     display: grid;
     border: 1px solid;
+    background-color: white;
     ${StyledEvent} {
       display: none;
     }
@@ -55,13 +57,15 @@ export const SevenColGrid = styled.div`
 export const HeadDays = styled.span`
   text-align: center;
   border: 1px solid;
-  height: 30px;
+  height: 15px;
   padding: 5px;
-  background: darkolivegreen;
+  background: black;
   color: white;
 `;
 
 export const DateControls = styled.div`
+  margin-top: 30px;
+  height:10px;
   width: 100%;
   display: flex;
   justify-content: space-around;

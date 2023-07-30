@@ -126,7 +126,7 @@ class Todo extends React.Component {
         <Draggable
             position={position}
             onDrag={this.handleDrag}
-            handle=".handle"
+            handle=".TodoHandle"
         >
                 <div
             style={{
@@ -144,8 +144,8 @@ class Todo extends React.Component {
             maxConstraints={[1000,1000]}
             >
             <div className="box">
-                <div className="handle">
-                    <div className="handle-content">Tasks</div>
+                <div className="TodoHandle">
+                    <div className="TodoHandle-content">Tasks</div>
                     <button className="close-button" onClick={this.handleClose}>
                         -
                     </button>

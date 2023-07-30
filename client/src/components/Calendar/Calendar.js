@@ -8,13 +8,16 @@ import {
   SeeMore,
   PortalWrapper
 } from "./Custom";
+import Draggable from 'react-draggable';
+import "./Calendar.css";
 
-export const Calendar = () => {
+export const Calendar = ({onClose}) => {
   const [currentDate, setCurrentDate] = useState(new Date(2023, 7, 1));
   const dragDateRef = useRef();
   const dragindexRef = useRef();
   const [showPortal, setShowPortal] = useState(false);
   const [portalData, setPortalData] = useState({});
+  const [position, setPosition] = useState({ x: 400, y: 100 });
 
   const DAYS = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
 
@@ -144,107 +147,152 @@ export const Calendar = () => {
   };
 
 
-  return (
-    <Wrapper>
-      <DateControls>
-        <ion-icon
-          onClick={() => prevMonth(currentDate, setCurrentDate)}
-          name="arrow-back-circle-outline"
-        ></ion-icon>
-        {getMonthYear(currentDate)}
-        <ion-icon
-          onClick={() => nextMonth(currentDate, setCurrentDate)}
-          name="arrow-forward-circle-outline"
-        ></ion-icon>
-      </DateControls>
-      <SevenColGrid>
-        {DAYS.map((day) => (
-          <HeadDays className="nonDRAG">{day}</HeadDays>
-        ))}
-      </SevenColGrid>
+  const handleDrag = (e, ui) => {
+    const { x, y } = position;
+    const { width, height } = position;
+    const innerWidth = document.documentElement.clientWidth - 100;
+    const innerHeight = document.documentElement.clientHeight - 100;
 
-      <SevenColGrid
-        fullheight={true}
-        is28Days={getDaysInMonth(currentDate) === 28}
-      >
-        {getSortedDays(currentDate).map((day) => (
-          <div
-            id={`${currentDate.getFullYear()}/${currentDate.getMonth()}/${day}`}
-            onDragEnter={(e) =>
-              onDragEnter(
-                new Date(
-                  currentDate.getFullYear(),
-                  currentDate.getMonth(),
-                  day
-                ),
-                e
-              )
-            }
-            onDragOver={(e) => e.preventDefault()}
-            onDragEnd={drop}
-            onClick={(e) =>
-              addEvent(
-                new Date(
-                  currentDate.getFullYear(),
-                  currentDate.getMonth(),
-                  day
-                ),
-                e
-              )
-            }
+    const newPosition = {
+        x: x + ui.deltaX,
+        y: y + ui.deltaY,
+    };
+
+    setPosition(newPosition);
+
+    if (
+        newPosition.x - width - 500 < -innerWidth ||
+        newPosition.x > innerWidth ||
+        newPosition.y - height - 280 < -innerHeight ||
+        newPosition.y > innerHeight
+    ) {
+        handleClose();
+    }
+    };
+
+    const handleClose = () => {
+    if (onClose) {
+        onClose();
+    }
+    };
+
+
+  return (
+    <Draggable
+      position={position}
+      onDrag={handleDrag}
+      handle=".CalHandle"
+    >
+      <div className="CalMain">
+        <div className="CalHandle">
+            <div className="CalHandle-content">Calendar</div>
+            <button className="close-button" onClick={handleClose}>
+                -
+            </button>
+        </div>
+        <Wrapper>
+          <DateControls>
+            <ion-icon
+              onClick={() => prevMonth(currentDate, setCurrentDate)}
+              name="arrow-back-circle-outline"
+            ></ion-icon>
+            {getMonthYear(currentDate)}
+            <ion-icon
+              onClick={() => nextMonth(currentDate, setCurrentDate)}
+              name="arrow-forward-circle-outline"
+            ></ion-icon>
+          </DateControls>
+          <SevenColGrid >
+            {DAYS.map((day) => (
+              <HeadDays className="nonDRAG">{day}</HeadDays>
+            ))}
+          </SevenColGrid>
+
+          <SevenColGrid
+            fullheight={true}
+            is28Days={getDaysInMonth(currentDate) === 28}
           >
-            <span
-              className={`nonDRAG ${
-                datesAreOnSameDay(
-                  new Date(),
-                  new Date(
-                    currentDate.getFullYear(),
-                    currentDate.getMonth(),
-                    day
-                  )
-                )
-                  ? "active"
-                  : ""
-              }`}
-            >
-              {day}
-            </span>
-            <EventWrapper>
-              {events.map(
-                (ev, index) =>
-                  datesAreOnSameDay(
-                    ev.date,
+            {getSortedDays(currentDate).map((day) => (
+              <div
+                id={`${currentDate.getFullYear()}/${currentDate.getMonth()}/${day}`}
+                onDragEnter={(e) =>
+                  onDragEnter(
                     new Date(
                       currentDate.getFullYear(),
                       currentDate.getMonth(),
                       day
-                    )
-                  ) && (
-                    <StyledEvent
-                      onDragStart={(e) => drag(index, e)}
-                      onClick={() => handleOnClickEvent(ev)}
-                      draggable
-                      className="StyledEvent"
-                      id={`${ev.color} ${ev.title}`}
-                      key={ev.title}
-                      bgColor={ev.color}
-                    >
-                      {ev.title}
-                    </StyledEvent>
+                    ),
+                    e
                   )
-              )}
-            </EventWrapper>
-          </div>
-        ))}
-      </SevenColGrid>
-      {showPortal && (
-        <Portal
-          {...portalData}
-          handleDelete={handleDelete}
-          handlePotalClose={handlePotalClose}
-        />
-      )}
-    </Wrapper>
+                }
+                onDragOver={(e) => e.preventDefault()}
+                onDragEnd={drop}
+                onClick={(e) =>
+                  addEvent(
+                    new Date(
+                      currentDate.getFullYear(),
+                      currentDate.getMonth(),
+                      day
+                    ),
+                    e
+                  )
+                }
+              >
+                <span
+                  className={`nonDRAG ${
+                    datesAreOnSameDay(
+                      new Date(),
+                      new Date(
+                        currentDate.getFullYear(),
+                        currentDate.getMonth(),
+                        day
+                      )
+                    )
+                      ? "active"
+                      : ""
+                  }`}
+                >
+                  {day}
+                </span>
+                <EventWrapper>
+                  {events.map(
+                    (ev, index) =>
+                      datesAreOnSameDay(
+                        ev.date,
+                        new Date(
+                          currentDate.getFullYear(),
+                          currentDate.getMonth(),
+                          day
+                        )
+                      ) && (
+                        <StyledEvent
+                          onDragStart={(e) => drag(index, e)}
+                          onClick={() => handleOnClickEvent(ev)}
+                          draggable
+                          className="StyledEvent"
+                          id={`${ev.color} ${ev.title}`}
+                          key={ev.title}
+                          bgColor={ev.color}
+                        >
+                          {ev.title}
+                        </StyledEvent>
+                      )
+                  )}
+                </EventWrapper>
+              </div>
+            ))}
+          </SevenColGrid>
+          {showPortal && (
+            <Portal
+              {...portalData}
+              handleDelete={handleDelete}
+              handlePotalClose={handlePotalClose}
+            />
+          )}
+        </Wrapper>
+
+      </div>
+    </Draggable>
   );
 };
 
