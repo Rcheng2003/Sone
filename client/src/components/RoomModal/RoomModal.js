@@ -64,7 +64,9 @@ const RoomModal = ({ isOpen, onClose }) => {
       <CreateRoomModal
         isOpen={isCreateRoomModalOpen}
         onClose={() => setCreateRoomModalOpen(false)}
+        rooms = {rooms}
         setRooms = {setRooms}
+        roomInfo = {{roomName: ""}}
       />
     </div>
   );

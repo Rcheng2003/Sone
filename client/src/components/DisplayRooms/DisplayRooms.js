@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import CreateRoomModal from '../CreateRoomModal/CreateRoomModal';
 import './DisplayRoom.css';
 
 const DisplayRoom = ({rooms, setRooms}) => {
+  const [roomInfo, setRoomInfo] = useState();
+  const [isCreateRoomModalOpen, setCreateRoomModalOpen] = useState(false);
 
-  const handleEdit = (roomId) => {
-    // Implement the edit functionality here, e.g., navigate to the edit page for the specific room.
-    console.log('Edit room with ID:', roomId);
+  const handleEdit = async (roomId) => {
+    try {
+      const res = await fetch(`http://localhost:3001/api/study-room/${roomId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+      const data = await res.json()
+      setRoomInfo(data);
+    } catch (error) {
+      // Handle error (e.g., show error message, log the error, etc.)
+      console.error('Error getting room:', error);
+    }
+    setCreateRoomModalOpen(true);
   };
 
   const handleDelete = async (roomId) => {
@@ -39,11 +54,18 @@ const DisplayRoom = ({rooms, setRooms}) => {
           <li key={room._id} className="Droom-item">
             <span className="Droom-name">{room.roomName}</span>
             <span className="Droom-capacity">{room.users.length}/{room.capacity}</span>
-            <button className="Dbutton" onClick={() => handleEdit(room.id)}>Edit</button>
+            <button className="Dbutton" onClick={() => handleEdit(room._id)}>Edit</button>
             <button className="Dbutton" onClick={() => handleDelete(room._id)}>Delete</button>
           </li>
         ))}
       </ul>
+      <CreateRoomModal
+        isOpen={isCreateRoomModalOpen}
+        onClose={() => setCreateRoomModalOpen(false)}
+        rooms = {rooms}
+        setRooms = {setRooms}
+        roomInfo = {roomInfo}
+      />
     </div>
   );
 };

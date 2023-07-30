@@ -28,6 +28,16 @@ router.get("/", async (req,res) =>{
   return res.status(200).json(userRooms);
 });
 
+router.get("/:id", async (req,res) =>{
+  const userRoom = await StudyRoom.findOne({_id: req.params.id}); // find all the rooms belonging to the user
+  return res.status(200).json(userRoom);
+});
+
+router.put("/:id", async (req,res) =>{
+  const userRoom = await StudyRoom.updateOne({_id: req.params.id}, {$set: {roomName: req.body.roomName, public: req.body.public, capacity: req.body.capacity}}); // find all the rooms belonging to the user
+  return res.status(200).json(userRoom);
+});
+
 router.delete("/delete/:id", async (req, res) => {
   try {
     const result = await StudyRoom.findByIdAndDelete(req.params.id);
