@@ -80,6 +80,28 @@ class Todo extends React.Component {
     }));
   }
 
+  updateTodo = async (id, newText) => {
+    const response = await fetch(api_base + '/update/' + id, {
+      method: "PUT",
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ text: newText })
+    });
+  
+    if (response.ok) {
+      const updatedTodo = await response.json();
+      this.setState((prevState) => ({
+        todos: prevState.todos.map(todo => (todo._id === updatedTodo._id ? updatedTodo : todo))
+      }));
+    } else {
+      // Handle error if the request fails
+      console.error("Failed to update the Todo item.");
+    }
+  }
+  
+
   handleResize = (e, { size }) => {
     this.setState({
       width: size.width,
@@ -159,9 +181,18 @@ class Todo extends React.Component {
                             }>
                                 <div className="checkbox" key={todo._id} onClick={() => this.completeTodo(todo._id)}></div>
 
-                                <div className="text"
-                                contentEditable={todo.complete ? "false" : "true"}>
+                                <div
+                                  className="text"
+                                  contentEditable={todo.complete ? "false" : "true"}
+                                  onKeyDown={(event) => {
+                                    if (event.key === 'Enter') {
+                                      event.preventDefault(); // Prevent new line insertion
+                                      this.updateTodo(todo._id, event.target.textContent);
+                                    }
+                                  }}
+                                >
                                     {todo.text}
+
                                 </div>
 
                                 <div className="delete-todo" onClick={() => this.deleteTodo(todo._id)}></div>

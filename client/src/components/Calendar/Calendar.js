@@ -12,7 +12,7 @@ import Draggable from 'react-draggable';
 import "./Calendar.css";
 
 export const Calendar = ({onClose}) => {
-  const [currentDate, setCurrentDate] = useState(new Date(2023, 7, 1));
+  const [currentDate, setCurrentDate] = useState(new Date());
   const dragDateRef = useRef();
   const dragindexRef = useRef();
   const [showPortal, setShowPortal] = useState(false);
