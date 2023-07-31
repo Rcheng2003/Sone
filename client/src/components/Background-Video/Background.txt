@@ -1,0 +1,37 @@
+import React, {useState,useEffect} from "react";
+import "./Background.css";
+import back1 from "./IMG_7860.mov";
+import back2 from "./deleteafter.mov";
+import * as HiIcons from "react-icons/hi2";
+
+
+function Background() {
+    const [selected, setSelected] = useState(0);
+    const backgd = [back1, back2]
+
+    useEffect(()=> {
+        const background = setInterval(() => {
+            if(selected === backgd.length-1){
+                setSelected(0);
+            }
+            else{
+                setSelected(selected + 1);
+            }
+        }, selected)
+        return () => clearInterval(background)
+    }, [])
+
+    return(
+        <div className="backg">
+            <div className="button">
+                <button className="next">
+                    <HiIcons.HiArrowRightCircle></HiIcons.HiArrowRightCircle>
+                </button>
+                <video src={backgd[selected]} />
+            </div>
+        </div>
+    )
+
+}
+
+export default Background;

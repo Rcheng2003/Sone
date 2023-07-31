@@ -12,6 +12,7 @@ import Notepad from "../Notepad/Notepad";
 import Calendar from "../Calendar/Calendar";
 import UserProfile from "../User-Profile/UserProfile";
 import Timer from "../Pomodoro-Timer/Timer";
+import Background from "../Background-Video/Background3";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ function Navbar() {
   const [showCalendar, setShowCalendar] = useState(false);
   const [showUserProfile, setUserProfile] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
+  const [showBackground, setBackground] = useState(false);
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
 
@@ -80,6 +82,13 @@ function Navbar() {
     setShowCalendar(false);
   };
 
+  const SetVisibleBackground = () => {
+    setBackground(true);
+  }
+
+  const handleClose5 = () => {
+    setBackground(false);
+  }
   const SetUserProfile = () => {
     if (!user) {
       navigate("/login");
@@ -107,7 +116,7 @@ function Navbar() {
             <button onClick={SetVisibleTimer}>
               <IoIcons.IoAlarmSharp />
             </button>
-            <button>
+            <button onClick={SetVisibleBackground}>
               <AiIcons.AiFillPicture />
             </button>
             <button>
@@ -146,6 +155,7 @@ function Navbar() {
       {showUserProfile && (
         <UserProfile user={user} email={email} onClose={handleClose2} />
       )}
+      {showBackground && <Background onClose={handleClose5} />}
     </div>
   );
 }

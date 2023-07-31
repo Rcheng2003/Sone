@@ -1,0 +1,35 @@
+import React, {useState} from "react";
+import "./Background.css";
+import back1 from "./IMG_7860.mov";
+import back2 from "./deleteafter.mov";
+import * as HiIcons from "react-icons/hi2";
+
+
+function Background() {
+    const [selected, setSelected] = useState(0);
+    const backgd = [back1, back2]
+    const changeBackg = () => {
+            if(selected === backgd.length-1){
+                setSelected(0);
+            }
+            else{
+                setSelected(selected + 1);
+            }
+        }
+
+    return(
+        <div className="backg">
+            <div className="button">
+                <button className="next" onClick={changeBackg}>
+                    <HiIcons.HiArrowRightCircle></HiIcons.HiArrowRightCircle>
+                </button>
+                <video className="background-video" autoPlay={true} muted loop>
+                <source src={require("./IMG_7860.mov")} type="video/mov"/>
+                </video>
+            </div>
+        </div>
+    )
+
+}
+
+export default Background;

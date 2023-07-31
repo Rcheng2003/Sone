@@ -1,0 +1,69 @@
+.mini-sidebar{
+    background-color: grey;
+    background: linear-gradient(90deg, rgb(252, 143, 75) 0%, rgba(28, 4, 180, 0.944) 100%);
+    width: 300px;
+    height: 150px;
+    margin-left: 45px;
+    margin-top: 55px;
+    border-radius: 10px;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+}
+
+.Suns{
+    all:unset;
+    align-self: center;
+    justify-content: center;
+    color: white;
+    margin-left: 30px;
+    font-size: 30px;
+    margin-top: -10px;
+}
+
+.Suns button{
+    all: unset;
+    padding: 5px;
+    align-self: center;
+    justify-content: center;
+}
+
+.Suns button:hover{
+    color: rgb(255, 230, 0);
+}
+
+.background-video{
+    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: -1;
+    opacity: 80%;
+    
+}
+
+.video-background{
+    z-index: -1;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    opacity: 80%;
+    position: relative;
+
+}
+
+.options{
+    background-color: rgb(241, 190, 224);
+    align-self: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-left: 15px;
+    width: 80px;
+    height: 80px;
+}
+
+img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

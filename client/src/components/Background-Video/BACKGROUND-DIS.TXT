@@ -1,0 +1,44 @@
+import React, {useState} from "react";
+import "./Background.css";
+import back1 from "./IMG_7860.mov";
+import back2 from "./deleteafter.mov";
+import * as AiIcons from "react-icons/ai";
+import * as TiIcons from "react-icons/ti";
+import * as TbIcons from "react-icons/tb";
+
+function Background() {
+    const [selected, setSelected] = useState(0);
+    const backgd = [back1,back2]
+    const changeBackg = () => {
+            if(selected === backgd.length-1){
+                setSelected(0);
+            }
+            else{
+                setSelected(selected + 1);
+            }
+        }
+
+    return(
+        <div className="mini-sidebar">
+            <button className="close">
+                <AiIcons.AiOutlineClose></AiIcons.AiOutlineClose>
+            </button>
+            <div className="Back-Next">
+                <button className="Back">
+                    <TiIcons.TiArrowLeftThick></TiIcons.TiArrowLeftThick>
+                </button>
+                <button className="Next">
+                    <TiIcons.TiArrowRightThick></TiIcons.TiArrowRightThick>
+                </button>
+            </div>
+            <div className="Sun">
+                <TbIcons.TbSunrise></TbIcons.TbSunrise> <TbIcons.TbSunset2> </TbIcons.TbSunset2> <TbIcons.TbSunHigh></TbIcons.TbSunHigh> <TbIcons.TbSunset></TbIcons.TbSunset> <TbIcons.TbMoonStars></TbIcons.TbMoonStars> 
+                </div>
+        </div>
+
+
+    )
+
+}
+
+export default Background;

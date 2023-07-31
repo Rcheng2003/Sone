@@ -34,6 +34,7 @@ function RegisterPage() {
   return (
     <div>
       <div className="Background">
+        <div className="Register">
       <h1>Register</h1>
       <form onSubmit={registerUser}>
         <input className="Input"
@@ -57,8 +58,9 @@ function RegisterPage() {
           placeholder="Password"
         />
         <br />
-        <input className="Butt" type="submit" value="Register" />
+        <input className="butt" type="submit" value="Register" />
       </form>
+    </div>
     </div>
     </div>
 
