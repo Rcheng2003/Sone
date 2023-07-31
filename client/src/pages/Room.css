@@ -66,7 +66,7 @@
 .message-container-container {
   flex: 1; /* Make .message-container-container take up the remaining space inside .chat-modal */
   overflow-y: auto;
-  max-height: calc(90vh - 100px);
+  max-height: calc(90vh - 130px);
   width: 100%;
 }
 

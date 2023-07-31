@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import './TopNavbar.css';
 import RoomModal from "../RoomModal/RoomModal";
 
-const TopNavbar = () => {
+const TopNavbar = ({currRoom}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModalToggle = () => {
@@ -16,6 +16,7 @@ const TopNavbar = () => {
           <li><a href="/">Home</a></li>
           <li><span className ="roomButton" onClick={handleModalToggle}>Rooms</span></li>
         </ul>
+        {currRoom ? <div>{currRoom.roomName}</div>:null}
       </nav>
     </>
   );

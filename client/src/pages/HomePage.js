@@ -6,7 +6,7 @@ import "./HomePage.css"
 function HomePage() {
   return (
     <div className="App">
-      <TopNavbar></TopNavbar>
+      <TopNavbar currRoom={null}></TopNavbar>
       <Navbar></Navbar>
     </div>
   );

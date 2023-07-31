@@ -9,16 +9,10 @@ const Room = () => {
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([]);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
+  const [currRoom, setCurrRoom] = useState();
   const { roomCode } = useParams();
 
   const messageContainerRef = useRef(null);
-
-  useEffect(() => {
-    // Scroll to the bottom of the container whenever messages are updated or chat is opened
-    if (messageContainerRef.current) {
-      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
-    }
-  }, [messages, isChatModalOpen]);
 
   const toggleChatModal = () => {
     setIsChatModalOpen((prevState) => !prevState);
@@ -64,9 +58,34 @@ const Room = () => {
     
   };
 
+  const getRoomInfo = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/study-room/${roomCode}`,{
+        headers: {
+        "Content-Type": "application/json",
+        },
+        credentials: 'include',
+      })
+      const data = await response.json();
+      setCurrRoom(data);
+    } catch (error) {
+      console.log(error)
+    }
+    
+  }
+
+  useEffect(() => {
+    // Scroll to the bottom of the container whenever messages are updated or chat is opened
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    }
+  }, [messages, isChatModalOpen]);
+
+
   useEffect(() => {
   if (socket) {
     socket.on("message received", (newMessageReceived) => {
+      console.log(newMessageReceived)
       setMessages((prevMessages) => [...prevMessages, newMessageReceived]);
     });
   }
@@ -75,7 +94,8 @@ const Room = () => {
 
   useEffect(()=>{
     fetchMessages();
-  }, []);
+    getRoomInfo();
+  }, [roomCode]);
 
   useEffect(() => {
     const initializeSocket = () => {
@@ -101,10 +121,9 @@ const Room = () => {
 
   return (
     <div>
-        <TopNavbar></TopNavbar>
+        <TopNavbar currRoom = {currRoom}></TopNavbar>
         {!isChatModalOpen && (
           <div className="chat-icon" onClick={toggleChatModal}>
-            {/* You can use any chat icon here */}
             <ChatIcon/>
           </div>
         )}
@@ -114,7 +133,7 @@ const Room = () => {
               {messages.map((message, index) => (
                 <div key={index} className="message-container">
                   <div className="top-message-container">
-                    <div className="message-sender">{message.user}</div>
+                    <div className="message-sender">{message.sender.name}</div>
                     <p className="message-date">{new Date(message.createdAt).toLocaleString()}</p>
                   </div>
                   <div className="message-content">

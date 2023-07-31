@@ -47,6 +47,6 @@ io.on('connection',(socket)=>{
     console.log("User Joined Room: " + roomCode);
   })
   socket.on("new message",(newMessageRecieved)=>{
-    socket.to(newMessageRecieved.room).emit("message received", newMessageRecieved);
+    socket.to(newMessageRecieved.room._id).emit("message received", newMessageRecieved);
   })
 })
