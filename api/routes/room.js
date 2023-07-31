@@ -1,12 +1,12 @@
 const express = require('express');
 const StudyRoom = require("../models/StudyRoom");
-const Message = require("../models/Message")
+const Message = require("../models/Message");
 
 const router = express.Router();
 
 router.post("/create", async (req,res) =>{
   try {
-    const newRoom = await StudyRoom.create({
+    var newRoom = await StudyRoom.create({
       owner: req.user.id,
       roomName: req.body.roomName,
       users: [req.user.id],
@@ -15,8 +15,8 @@ router.post("/create", async (req,res) =>{
       capacity: req.body.capacity
     });
 
-    newRoom.save();
-
+    newRoom = await newRoom.populate("owner", "name email");
+    
     res.status(200).json(newRoom);
   } catch (error) {
     res.status(400);
@@ -25,23 +25,26 @@ router.post("/create", async (req,res) =>{
 });
 
 router.get("/", async (req,res) =>{
-  const userRooms = await StudyRoom.find({owner: req.user.id}); // find all the rooms belonging to the user
+  var userRooms = await StudyRoom.find({owner: req.user.id})
+    .populate("owner", "name email"); // find all the rooms belonging to the user
   return res.status(200).json(userRooms);
 });
 
 // find all the public rooms that aren't owned by the user
 router.get("/public", async (req,res) =>{
-  const userRooms = await StudyRoom.find({public: true, owner: {$ne: req.user.id}});
+  var userRooms = await StudyRoom.find({public: true, owner: {$ne: req.user.id}})
+    .populate("owner", "name email");
   return res.status(200).json(userRooms);
 });
 
 router.get("/:id", async (req,res) =>{
-  const userRoom = await StudyRoom.findOne({_id: req.params.id}); // find all the rooms belonging to the user
+  var userRoom = await StudyRoom.findOne({_id: req.params.id})
+    .populate("owner", "name email"); // find all the rooms belonging to the user
   return res.status(200).json(userRoom);
 });
 
 router.put("/:id", async (req,res) =>{
-  const userRoom = await StudyRoom.updateOne({_id: req.params.id}, 
+  var userRoom = await StudyRoom.updateOne({_id: req.params.id}, 
     {$set: {
       roomName: req.body.roomName, 
       public: req.body.public, 

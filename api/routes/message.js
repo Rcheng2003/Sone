@@ -1,20 +1,18 @@
 const express = require("express");
 const Message = require("../models/Message")
-const StudyRoom = require("../models/StudyRoom")
 const User = require("../models/User")
 const router = express.Router();
 
 router.post("/", async(req,res) => {
   try {
-    const user = await User.findOne({_id: req.user.id})
-    const message = await Message.create({
+    var message = await Message.create({
       sender: req.user.id,
-      user: user.name,
       content: req.body.content,
       room: req.body.roomId,
     });
 
-    await StudyRoom.findByIdAndUpdate(req.body.roomId, { latestMessage: message });
+    message = await message.populate("sender", "name email");
+    message = await message.populate("room");
 
     return res.status(200).json(message);
   } catch (error) {
@@ -26,6 +24,8 @@ router.post("/", async(req,res) => {
 router.get("/:roomId", async(req,res) => {
   try {
     const messages = await Message.find({ room: req.params.roomId })
+      .populate("sender", "name email")
+      .populate("room");
     return res.status(200).json(messages);
   } catch (error) {
     res.status(400);

@@ -63,7 +63,7 @@ const DisplayRoom = ({rooms, setRooms, isPublic}) => {
             <button className="Dbutton" onClick={() => handleJoin(room._id)}>Join</button>
             {isPublic ? 
               <>
-                <div>Owner: {room.owner.name}</div>
+                <div>Owner: {room.owner.email}</div>
               </> 
             : 
             <>
