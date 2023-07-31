@@ -35,7 +35,7 @@ router.get("/complete/:id", async (req, res) => {
   res.json(todo);
 });
 
-router.put("/todo/update/:id", async (req, res) => {
+router.put("/update/:id", async (req, res) => {
   const todo = await Todo.findById(req.params.id);
 
   todo.text = req.body.text;

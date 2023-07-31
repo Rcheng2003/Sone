@@ -13,7 +13,7 @@
   font-size: 20px;
   color: #333;
   position: relative;
-  background-color: black;
+  background-color: white;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -61,10 +61,10 @@
   margin-top: 30px;
   display: flex;
   font-size: 20px;
-  color: white;
+  color: black;
 }
 
-.handle {
+.UserHandle {
   display: flex;
   position: absolute;
   top: 0;
@@ -77,11 +77,11 @@
   transition: background-color 0.3s;
 }
 
-.handle:active {
+.UserHandle:active {
   cursor: grabbing;
 }
 
-.handle-content {
+.UserHandle-content {
   font-size: large;
   color: white;
   padding-top: 5px;

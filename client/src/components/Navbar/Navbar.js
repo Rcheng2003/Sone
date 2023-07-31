@@ -70,7 +70,7 @@ function Navbar() {
     setShowNotepad(false);
   };
 
-  const handleClose = () => {
+  const handleCloseTodo = () => {
     setShowTodo(false);
   };
 
@@ -82,11 +82,11 @@ function Navbar() {
     setShowTimer(true);
   };
 
-  const handleClose3 = () => {
+  const handleCloseTimer = () => {
     setShowTimer(false);
   };
 
-  const handleClose4 = () => {
+  const handleCloseCalendar = () => {
     setShowCalendar(false);
   };
 
@@ -98,7 +98,7 @@ function Navbar() {
     }
   };
 
-  const handleClose2 = () => {
+  const handleCloseUser = () => {
     setUserProfile(false);
   };
 
@@ -149,13 +149,13 @@ function Navbar() {
           </div>
         </ul>
       </nav>
-      {showTimer && <Timer onClose={handleClose3} />}
-      {showTodo && <Todo onClose={handleClose} />}
+      {showTimer && <Timer onClose={handleCloseTimer} />}
+      {showTodo && <Todo onClose={handleCloseTodo} />}
       {showNotepad && <Notepad onClose={handleCloseNotepad} />}
-      {showCalendar && <Calendar onClose={handleClose4} />}
+      {showCalendar && <Calendar onClose={handleCloseCalendar} />}
       {showCalculator && <Calculator onClose={handleCloseCalculator} />}
       {showUserProfile && (
-        <UserProfile user={user} email={email} onClose={handleClose2} />
+        <UserProfile user={user} email={email} onClose={handleCloseUser} />
       )}
     </div>
   );

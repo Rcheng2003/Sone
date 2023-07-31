@@ -64,7 +64,7 @@ class UserProfile extends React.Component {
     const { user, email } = this.props;
 
     return (
-      <Draggable position={position} onDrag={this.handleDrag} handle=".handle">
+      <Draggable position={position} onDrag={this.handleDrag} handle=".UserHandle">
         <div
           style={{
             width: width,
@@ -81,8 +81,8 @@ class UserProfile extends React.Component {
             maxConstraints={[1000, 1000]}
           >
             <div className="box">
-              <div className="handle">
-                <div className="handle-content">User Profile</div>
+              <div className="UserHandle">
+                <div className="UserHandle-content">User Profile</div>
                 <button className="close-button" onClick={this.handleClose}>
                   -
                 </button>

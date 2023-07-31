@@ -1,0 +1,38 @@
+/* DisplayRoom.css */
+
+.Droom-list {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0;
+}
+
+.Droom-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px; /* Add spacing between each room item */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.Droom-name {
+  margin-right: 10px; /* Add spacing between room name and capacity */
+  font-weight: bold;
+}
+
+.Droom-capacity {
+  color: #888;
+}
+
+.Dbutton {
+  padding: 8px 16px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.Dbutton:hover {
+  background-color: #0056b3;
+}

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Navbar from "../components/Navbar/Navbar";
+import TopNavbar from "../components/TopNavbar/TopNavbar";
 import "./HomePage.css"
 
 function HomePage() {
   return (
     <div className="App">
+      <TopNavbar currRoom={null}></TopNavbar>
       <Navbar></Navbar>
     </div>
   );

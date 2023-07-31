@@ -2,9 +2,13 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Resizable } from 'react-resizable';
 import Draggable from 'react-draggable';
+import DatePicker from 'react-datepicker';
+import TimePicker from 'react-time-picker';
+import 'react-datepicker/dist/react-datepicker.css';
 import './Todo.css';
 //API
 const api_base = 'http://localhost:3001/api/todos';
+const api_base2 = 'http://localhost:3001/api/event';
 
 class Todo extends React.Component {
   constructor(props) {
@@ -16,7 +20,13 @@ class Todo extends React.Component {
       isBoxOpen: true,
       todos: [],
       popupActive: false,
-      newTodo: ""
+      popupActive2: false,
+      newTodo: "",
+      newEvent: "",
+      selectedDateS: new Date(),
+      selectedTimeS: '00:00',
+      selectedDateE: new Date(),
+      selectedTimeE: '00:00'
     };
   }
 
@@ -80,6 +90,67 @@ class Todo extends React.Component {
     }));
   }
 
+  updateTodo = async (id, newText) => {
+    const response = await fetch(api_base + '/update/' + id, {
+      method: "PUT",
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ text: newText })
+    });
+  
+    if (response.ok) {
+      const updatedTodo = await response.json();
+      this.setState((prevState) => ({
+        todos: prevState.todos.map(todo => (todo._id === updatedTodo._id ? updatedTodo : todo))
+      }));
+    } else {
+      // Handle error if the request fails
+      console.error("Failed to update the Todo item.");
+    }
+  }
+
+  addEvent = async () => {
+    const formattedStartDate = this.state.selectedDateS.toISOString().split('T')[0];
+    const formattedEndDate = this.state.selectedDateE.toISOString().split('T')[0];
+    const eventData = {
+      title: this.state.newEvent,
+      start: formattedStartDate + 'T' + this.state.selectedTimeS + ':00',
+      end: formattedEndDate + 'T' + this.state.selectedTimeE + ':00',
+    };
+
+    if(1){
+      console.error(eventData);
+    }
+
+    /*
+    const eventData = {
+      title: "Walk tahep dog",
+      start: "2023-07-31T10:00:00",
+      end: "2023-07-31T11:00:00"
+    }*/
+
+    const data = await fetch(api_base2 + "/new", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: 'include',
+      body: JSON.stringify(eventData)
+    }).then(res => res.json());
+
+    this.setState(() => ({
+      popupActive2: false,
+      newEvent: "",
+      selectedDateS: new Date(),
+      selectedTimeS: '00:00',
+      selectedDateE: new Date(),
+      selectedTimeE: '00:00'
+    }));
+  }
+  
+
   handleResize = (e, { size }) => {
     this.setState({
       width: size.width,
@@ -118,15 +189,40 @@ class Todo extends React.Component {
     }
   };
 
+  handleDateChangeS = (date) => {
+    this.setState({
+      selectedDateS: date
+    })
+  }
+
+  handleTimeChangeS = (time) => {
+    this.setState({
+      selectedTimeS: time
+    })
+  }
+
+  handleDateChangeE = (date) => {
+    this.setState({
+      selectedDateE: date
+    })
+  }
+
+  handleTimeChangeE = (time) => {
+    this.setState({
+      selectedTimeE: time
+    })
+  }
+
   render() {
     const { width, height, position} = this.state;
-    const { todos, popupActive, newTodo } = this.state;
+    const { todos, popupActive, popupActive2, newTodo } = this.state;
 
     return (
+      <div>
         <Draggable
             position={position}
             onDrag={this.handleDrag}
-            handle=".handle"
+            handle=".TodoHandle"
         >
                 <div
             style={{
@@ -144,8 +240,8 @@ class Todo extends React.Component {
             maxConstraints={[1000,1000]}
             >
             <div className="box">
-                <div className="handle">
-                    <div className="handle-content">Tasks</div>
+                <div className="TodoHandle">
+                    <div className="TodoHandle-content">Tasks</div>
                     <button className="close-button" onClick={this.handleClose}>
                         -
                     </button>
@@ -159,11 +255,22 @@ class Todo extends React.Component {
                             }>
                                 <div className="checkbox" key={todo._id} onClick={() => this.completeTodo(todo._id)}></div>
 
-                                <div className="text"
-                                contentEditable={todo.complete ? "false" : "true"}>
+                                <div
+                                  className="text"
+                                  contentEditable={todo.complete ? "false" : "true"}
+                                  onKeyDown={(event) => {
+                                    if (event.key === 'Enter') {
+                                      event.preventDefault(); // Prevent new line insertion
+                                      this.updateTodo(todo._id, event.target.textContent);
+                                    }
+                                  }}
+                                >
                                     {todo.text}
+
                                 </div>
 
+                                <div className="addEvent" onClick={() => this.setState({popupActive2: true, newEvent: todo.text})}>E</div>
+                                
                                 <div className="delete-todo" onClick={() => this.deleteTodo(todo._id)}></div>
                             </div>
                         )) : (
@@ -188,6 +295,34 @@ class Todo extends React.Component {
             </Resizable>
         </div>
         </Draggable>
+        {popupActive2 ? (
+          <div className='popup2'>
+            <div className="closePopup2" onClick={() => this.setState({ popupActive2: false })}>X</div>
+            <h2 className='popup2Title'>Select Date and Time</h2>
+            <div>
+              <h3 className='popup2Date'>Date:</h3>
+              <DatePicker
+                selected={this.state.selectedDateS}
+                onChange={this.handleDateChangeS}
+                dateFormat="yyyy-MM-dd"
+              />
+              <span className='between'>to</span>
+              <DatePicker
+                selected={this.state.selectedDateE}
+                onChange={this.handleDateChangeE}
+                dateFormat="yyyy-MM-dd"
+              />
+            </div>
+            <div className='popup2TH'>
+              <h3 className='popup2Date'>Time:</h3>
+              <TimePicker clockIcon={null} clearIcon={null} value={this.state.selectedTimeS} onChange={this.handleTimeChangeS} />
+              <span className='between'>to</span>
+              <TimePicker clockIcon={null}  clearIcon={null} value={this.state.selectedTimeE} onChange={this.handleTimeChangeE} />
+              <button className='EventSubmit' onClick={this.addEvent} >Submit</button>
+            </div>
+          </div>
+      ) : ''}
+      </div>
     );
   }
 }
