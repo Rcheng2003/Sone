@@ -12,12 +12,14 @@ import Notepad from "../Notepad/Notepad";
 import Calendar from "../Calendar/Calendar";
 import UserProfile from "../User-Profile/UserProfile";
 import Timer from "../Pomodoro-Timer/Timer";
+import Calculator from "../Calculator/Calculator";
 
 function Navbar() {
   const navigate = useNavigate();
   const [sidebar, setSidebar] = useState(false);
   const [showTodo, setShowTodo] = useState(false);
   const [showNotepad, setShowNotepad] = useState(false);
+  const [showCalculator, setShowCalculator] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showUserProfile, setUserProfile] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
@@ -52,6 +54,10 @@ function Navbar() {
     setShowTodo(true);
   };
 
+  const SetVisibleCalculator = () => {
+    setShowCalculator(true);
+  };
+
   const SetVisibleCalendar = () => {
     setShowCalendar(true);
   };
@@ -64,19 +70,23 @@ function Navbar() {
     setShowNotepad(false);
   };
 
-  const handleClose = () => {
+  const handleCloseTodo = () => {
     setShowTodo(false);
+  };
+
+  const handleCloseCalculator = () => {
+    setShowCalculator(false);
   };
 
   const SetVisibleTimer = () => {
     setShowTimer(true);
   };
 
-  const handleClose3 = () => {
+  const handleCloseTimer = () => {
     setShowTimer(false);
   };
 
-  const handleClose4 = () => {
+  const handleCloseCalendar = () => {
     setShowCalendar(false);
   };
 
@@ -88,7 +98,7 @@ function Navbar() {
     }
   };
 
-  const handleClose2 = () => {
+  const handleCloseUser = () => {
     setUserProfile(false);
   };
 
@@ -122,7 +132,7 @@ function Navbar() {
             <button onClick={SetVisibleCalendar}>
               <BsIcons.BsCalendar3 />
             </button>
-            <button>
+            <button onClick={SetVisibleCalculator}>
               <FaIcons.FaCalculator />
             </button>
             <button>
@@ -139,12 +149,13 @@ function Navbar() {
           </div>
         </ul>
       </nav>
-      {showTimer && <Timer onClose={handleClose3} />}
-      {showTodo && <Todo onClose={handleClose} />}
+      {showTimer && <Timer onClose={handleCloseTimer} />}
+      {showTodo && <Todo onClose={handleCloseTodo} />}
       {showNotepad && <Notepad onClose={handleCloseNotepad} />}
-      {showCalendar && <Calendar onClose={handleClose4} />}
+      {showCalendar && <Calendar onClose={handleCloseCalendar} />}
+      {showCalculator && <Calculator onClose={handleCloseCalculator} />}
       {showUserProfile && (
-        <UserProfile user={user} email={email} onClose={handleClose2} />
+        <UserProfile user={user} email={email} onClose={handleCloseUser} />
       )}
     </div>
   );

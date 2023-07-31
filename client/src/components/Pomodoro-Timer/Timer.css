@@ -1,23 +1,23 @@
-.main, .expandContainer, .container, 
+.TimerMain, .expandContainer, .container, 
 .top, .bot, .clickers, .showSettings,
 .form, .form-control, .volume, 
 .audio-selects {
     display: flex; 
 }
 
-.main {
+.TimerMain {
     display:flex;
     height: 350px; 
     width: 350px; 
 }
 
-.handle {
+.TimerHandle {
     display: flex;
     position: absolute;
     z-index: 2;
     top: 0;
     left: 0;
-    width: 350;
+    width: 350px;
     height: 30px;
     background-color: black;
     cursor: grab;
@@ -25,11 +25,11 @@
     transition: background-color 0.3s;
   }
   
-  .handle:active {
+  .TimerHandle:active {
     cursor: grabbing;
   }
 
-  .handle-content {
+  .TimerHandle-content {
     font-size: large;
     color: white;
     padding-top: 5px;
@@ -40,14 +40,15 @@
     padding-top: 30px;
     height: 150px;  
     width: 350px; 
+    margin-top: 25px;
 }
 
-.main, .expandContainer, .container, 
+.TimerMain, .expandContainer, .container, 
 .showSettings, .form-control {
     flex-direction: column; 
 }
 
-.main, .expandContainer, .container {
+.TimerMain, .expandContainer, .container {
     position: absolute; 
 }
 

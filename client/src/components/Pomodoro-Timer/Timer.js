@@ -250,11 +250,11 @@ function Timer({onClose}) {
         <Draggable
             position={position}
             onDrag={handleDrag}
-            handle=".handle"
+            handle=".TimerHandle"
         >
-            <div className="main">
-                <div className="handle">
-                    <div className="handle-content">Timer</div>
+            <div className="TimerMain">
+                <div className="TimerHandle">
+                    <div className="TimerHandle-content">Timer</div>
                     <button className="close-button" onClick={handleClose}>
                         -
                     </button>
