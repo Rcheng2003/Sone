@@ -72,15 +72,6 @@ function Calendar({onClose}) {
         };
 
         setPosition(newPosition);
-
-        if (
-            newPosition.x - width - 500 < -innerWidth ||
-            newPosition.x > innerWidth ||
-            newPosition.y - height - 280 < -innerHeight ||
-            newPosition.y > innerHeight
-        ) {
-            handleClose();
-        }
         };
 
         const handleClose = () => {
