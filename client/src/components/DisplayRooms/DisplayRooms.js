@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import CreateRoomModal from '../CreateRoomModal/CreateRoomModal';
 import './DisplayRoom.css';
 
-const DisplayRoom = ({rooms, setRooms}) => {
+const DisplayRoom = ({rooms, setRooms, isPublic}) => {
+  const navigate = useNavigate();
   const [roomInfo, setRoomInfo] = useState();
   const [isCreateRoomModalOpen, setCreateRoomModalOpen] = useState(false);
+  
+  const handleJoin =  (roomId) => {
+    navigate(`/room/${roomId}`);
+  }
 
   const handleEdit = async (roomId) => {
     try {
@@ -54,8 +60,17 @@ const DisplayRoom = ({rooms, setRooms}) => {
           <li key={room._id} className="Droom-item">
             <span className="Droom-name">{room.roomName}</span>
             <span className="Droom-capacity">{room.users.length}/{room.capacity}</span>
-            <button className="Dbutton" onClick={() => handleEdit(room._id)}>Edit</button>
-            <button className="Dbutton" onClick={() => handleDelete(room._id)}>Delete</button>
+            <button className="Dbutton" onClick={() => handleJoin(room._id)}>Join</button>
+            {isPublic ? 
+              <>
+                <div>Owner: {room.owner.name}</div>
+              </> 
+            : 
+            <>
+              <button className="Dbutton" onClick={() => handleEdit(room._id)}>Edit</button>
+              <button className="Dbutton" onClick={() => handleDelete(room._id)}>Delete</button>
+            </>
+            }
           </li>
         ))}
       </ul>

@@ -12,10 +12,6 @@ const RoomModal = ({ isOpen, onClose }) => {
     setSelectedTab(tab);
   };
 
-   useEffect(() => {
-    fetchRooms();
-  }, []);
-
   const fetchRooms = async () => {
     try {
       const res = await fetch('http://localhost:3001/api/study-room', {
@@ -30,6 +26,29 @@ const RoomModal = ({ isOpen, onClose }) => {
       console.error('Error fetching rooms:', error);
     }
   };
+
+   const fetchPublicRooms = async () => {
+    try {
+      const res = await fetch('http://localhost:3001/api/study-room/public', {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: 'include',
+      });
+      const data = await res.json();
+      setRooms(data);
+    } catch (error) {
+      console.error('Error fetching rooms:', error);
+    }
+  };
+
+    useEffect(() => {
+      if (selectedTab === "publicRooms"){
+        fetchPublicRooms();
+      }else{
+        fetchRooms();
+      }
+    }, [selectedTab]);
 
 
   return (
@@ -55,10 +74,16 @@ const RoomModal = ({ isOpen, onClose }) => {
             <div>            
               <p>MY ROOMS</p> 
               <button onClick={() => setCreateRoomModalOpen(true)}>Create Room</button>
-              <DisplayRoom rooms = {rooms} setRooms={setRooms}></DisplayRoom>
+              <DisplayRoom isPublic={false} rooms = {rooms} setRooms={setRooms}></DisplayRoom>
             </div>
             : null}
-          {selectedTab === 'publicRooms' ? <p>Public ROOMS</p> : null}
+          {selectedTab === 'publicRooms' ?
+           <div>            
+              <p>Public ROOMS</p>
+              <DisplayRoom isPublic = {true} rooms = {rooms} setRooms={setRooms}></DisplayRoom>
+            </div>
+
+           : null}
         </div>
       </div>
       <CreateRoomModal
