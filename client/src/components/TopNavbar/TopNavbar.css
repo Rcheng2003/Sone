@@ -32,3 +32,11 @@
 .nav-links li a:hover {
   color: #f39c12;
 }
+
+.roomButton{
+  cursor: pointer;
+}
+
+.roomButton:hover{
+  color: #f39c12;
+}

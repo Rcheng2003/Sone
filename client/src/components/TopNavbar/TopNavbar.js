@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useState } from "react";
 import './TopNavbar.css';
+import RoomModal from "../RoomModal/RoomModal";
 
-const TopNavbar = ({ onRoomsClick }) => {
-  
+const TopNavbar = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalToggle = () => {
+    setIsModalOpen(!isModalOpen);
+  };
   return (
-    <nav className="navbar">
-      <ul className="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><button onClick={onRoomsClick}>Rooms</button></li>
-      </ul>
-    </nav>
+    <>
+      <RoomModal isOpen={isModalOpen} onClose={handleModalToggle} />
+      <nav className="navbar">
+        <ul className="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><span className ="roomButton" onClick={handleModalToggle}>Rooms</span></li>
+        </ul>
+      </nav>
+    </>
   );
 };
 
