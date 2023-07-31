@@ -7,11 +7,14 @@ const messageSchema = Schema(
       type: mongoose.Schema.Types.ObjectId, 
       ref: "User" 
     },
+    user: { 
+      type: String,
+    },
     content: { 
       type: String, 
       trim: true 
     },
-    chat: { 
+    room: { 
       type: mongoose.Schema.Types.ObjectId, 
       ref: "StudyRoom" 
     },
