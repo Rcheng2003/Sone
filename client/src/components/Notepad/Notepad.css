@@ -1,75 +1,217 @@
+/* Notepad Container */
 .notepad-container {
-    max-width: 960px;
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: 15px;
-    padding-left: 15px;
-    min-height: 100vh;
+  max-width: 960px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  min-height: 100vh;
 }
 
-.notes-list {
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+/* Sidebar */
+.sidebar {
+  background-color: #f2f2f2;
+  width: 260px;
+  padding: 10px;
+  height: 75vh;
+  overflow-y: auto;
+  cursor: grab;
+  position: relative;
 }
 
+.sidebar-heading {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.notes-sidebar {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-entry {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 8px 0;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+}
+
+.sidebar-entry.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.sidebar-entry:hover {
+  background-color: #f0f0f0;
+}
+
+.sidebar-entry-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.sidebar-entry-text {
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-height: 3em;
+}
+
+.sidebar-entry-date {
+  font-size: 12px;
+  color: #999;
+}
+
+.sidebar-entry-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.sidebar-entry-footer-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-entry-open-button,
+.sidebar-entry-delete-button,
+.sidebar-entry-close-button {
+  background-color: #e1e1e1;
+  border: none;
+  border-radius: 15px;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: #333;
+}
+
+.sidebar-entry-open-button:hover,
+.sidebar-entry-delete-button:hover,
+.sidebar-entry-close-button:hover {
+  background-color: #ededed;
+  cursor: pointer;
+}
+
+/* Adjust margin between buttons */
+.sidebar-entry-delete-button {
+  margin-left: 8px;
+}
+
+/* Note Display Area */
+.note-display {
+  position: relative;
+}
+
+/* Individual Note */
 .note {
-    background-color: #fef68a;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 1rem;
-    min-height: 170px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    white-space: pre-wrap;
-    position: absolute;
-    cursor: move;
+  background-color: #fef68a;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 1rem;
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  white-space: pre-wrap;
+  position: absolute;
+  cursor: move;
+  word-wrap: break-word;
+  width: 250px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.note.active {
+  border: 2px solid #007bff;
+}
+
+/* Textarea Styles */
+.note textarea {
+  flex: 1;
+  resize: vertical;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  font-size: 14px;
+  padding: 4px;
+  /* Add these styles to make the textarea scrollable */
+  overflow-y: auto; /* Enable vertical scrolling when content exceeds textarea height */
+  white-space: pre-wrap; /* Preserve line breaks and wrap long lines */
 }
 
 .note-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 5px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
 }
 
-.delete-button {
-    background-color: #e1e1e1;
-    border: none;
-    border-radius: 15px;
-    padding: 5px 10px 5px 10px;
+.note-save-button {
+  background-color: #e1e1e1;
+  border: none;
+  border-radius: 15px;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: #333;
+  cursor: pointer;
 }
 
-.delete-button:hover {
-    background-color: #ededed;
-    cursor: pointer;
+.note-save-button:hover {
+  background-color: #ededed;
 }
 
-.note.new {
-    background-color: #67d7cc;
-    width: 250px;
-    height: 200px;
+.note-closed-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-textarea {
-    border: none;
-    resize: none;
-    background-color: #67d7cc;
+.note-closed-text {
+  color: white;
+  font-size: 18px;
 }
 
-textarea:focus {
-    outline: none;
+/* New styles for the "New Note" button at the top of the sidebar */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
-.save-button {
-    background-color: #e1e1e1;
-    border: none;
-    border-radius: 15px;
-    padding: 5px 10px 5px 10px;
+.newNoteButton,
+.noteDeleteAllButton,
+.noteCloseAllButton {
+  font-size: 14px;
+  color: #333;
+  background-color: #e1e1e1;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
-.save-button:hover {
-    background-color: #ededed;
-    cursor: pointer;
+.newNoteButton:hover {
+  background-color: #5ac2b7;
+}
+
+/* Styles for the search bar */
+.search-bar {
+  font-size: 14px;
+  padding: 5px;
+  margin-top: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
