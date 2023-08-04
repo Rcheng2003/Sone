@@ -152,7 +152,7 @@
     margin-top: 10px;
 }
 
-.todo .delete-todo {
+.todo .delete-todo{
 	position: absolute;
 	top: 50%;
 	transform: translateY(-70%);
@@ -163,8 +163,24 @@
     cursor: pointer;
 }
 
+.todo .addEvent{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-70%);
+	right: 48px;
+	width: 24px;
+    height: 24px;
+    background-size: cover;
+    cursor: pointer;
+  opacity: 0;
+}
+
 .todo:hover .delete-todo{
     background-image: url('trashcan.png');
+}
+
+.todo:hover .addEvent{
+  opacity: 1;
 }
 
 .addPopup {
@@ -212,3 +228,159 @@
 .button {
   display: inline-block;
 }
+
+/* Style for the outer container */
+.popup2 {
+  position: absolute;
+  width: 450px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Style for the close button */
+.closePopup2 {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #333;
+}
+
+.closePopup2:hover {
+  color: #ff0000; /* Change to your desired hover color */
+}
+
+/* Style for the heading */
+.popup2Title {
+  font-size: 20px;
+  margin-bottom: 20px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Style for the date and time container */
+.popup2 > div {
+  margin-bottom: 15px;
+}
+
+/* Style for the subheadings (Date and Time) */
+.popup2Date {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+/* Style for the Date Picker input */
+.popup2 .react-datepicker-wrapper {
+  display: inline-block;
+}
+
+.popup2 .react-datepicker__input-container input {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Style for the Time Picker input */
+.popup2 .react-time-picker__wrapper {
+  display: inline-block;
+}
+
+.popup2 .react-time-picker__input {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Styles for the time picker wrapper */
+.react-time-picker__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  width: 38%;
+}
+
+/* Styles for the input group */
+.react-time-picker__inputGroup {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 6px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles for the input */
+.react-time-picker__inputGroup__input {
+  flex: 1;
+  padding: 4px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 16px;
+}
+
+.react-time-picker__clear-button {
+  margin-top: 15px;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff; 
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.react-time-picker__clear-button:hover {
+  background-color: #0056b3;
+}
+
+.EventSubmit {
+  position: relative;
+  margin-top: 15px;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff; 
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  left: 50%;
+  transform: translateX(-50%);;
+  bottom: 11%;
+}
+
+.EventSubmit:hover {
+  background-color: #0056b3;
+}
+
+.between {
+  font-size: 16px;
+  padding: 20px 20px 20px 20px;
+}
+

@@ -1,0 +1,66 @@
+/* Modal.css */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Show the modal when 'open' class is applied */
+.modal.open {
+  display: block;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  width: 50%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.tabs button {
+  background-color: transparent;
+  border: none;
+  color: #555;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: color 0.3s, box-shadow 0.3s; /* Add transitions for color and box-shadow */
+  position: relative; /* Make the button a positioning context for the pseudo-element */
+}
+
+.tabs button.active::after {
+  content: ''; /* Create a pseudo-element for the underline */
+  position: absolute;
+  bottom: -2px; /* Position the underline just below the text */
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #000;
+}
