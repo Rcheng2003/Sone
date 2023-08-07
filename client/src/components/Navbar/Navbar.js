@@ -159,15 +159,17 @@ function Navbar() {
           </div>
         </ul>
       </nav>
-      {showTimer && <Timer onClose={handleCloseTimer} />}
-      {showTodo && <Todo onClose={handleCloseTodo} />}
-      {showNotepad && <Notepad onClose={handleCloseNotepad} />}
-      {showCalendar && <Calendar onClose={handleCloseCalendar} />}
-      {showCalculator && <Calculator onClose={handleCloseCalculator} />}
-      {showUserProfile && (
-        <UserProfile user={user} email={email} onClose={handleCloseUser} />
-      )}
-      {showBackground && <Background onClose={handleCloseBackground} />}
+      <div className="Components">
+        {showTimer && <Timer onClose={handleCloseTimer} />}
+        {showTodo && <Todo onClose={handleCloseTodo} />}
+        {showNotepad && <Notepad onClose={handleCloseNotepad} />}
+        {showCalendar && <Calendar onClose={handleCloseCalendar} />}
+        {showCalculator && <Calculator onClose={handleCloseCalculator} />}
+        {showUserProfile && (
+          <UserProfile user={user} email={email} onClose={handleCloseUser} />
+        )}
+        {showBackground && <Background onClose={handleCloseBackground} />}
+      </div>
     </div>
   );
 }

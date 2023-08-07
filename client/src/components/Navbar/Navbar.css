@@ -89,3 +89,6 @@
     color: red;
 }
 
+.Timer, .Todo, .Notepad, .Calendar, .UserProfile, .Background {
+    position: absolute;
+}

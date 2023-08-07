@@ -12,7 +12,7 @@
     height: 100%;
     font-size: 20px;
     color: #333;
-    position: relative;
+    position: absolute;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 4px;

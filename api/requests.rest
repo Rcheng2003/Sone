@@ -1,16 +1,18 @@
-GET http://localhost:3001/todos
+GET http://localhost:3001/api/event/userEvents
 
 ###
 
-POST http://localhost:3001/todo/new
+POST http://localhost:3001/api/event/new
 Content-Type: application/json
 
 {
-    "text": "Order Pizza"
+    "title": "Walk tahe dog",
+    "start": "2023-07-31T10:00:00",
+    "end": "2023-07-31T11:00:00"
 }
 
 ###
-DELETE http://localhost:3001/todo/delete/647500527d1c5c5610cd4fc5
+DELETE http://localhost:3001/api/event/delete/64c811ebfe9aecbc8bf8e95b
 
 ###
 PUT http://localhost:3001/todo/complete/647502bc746e8ba0efa3f8aa
