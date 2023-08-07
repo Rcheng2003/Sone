@@ -4,17 +4,20 @@ import Draggable from 'react-draggable';
 import './Notepad.css';
 
 const Notepad = ({ onClose }) => {
+  //get the saved notes from the local storage
   const [notes, setNotes] = useState(() => {
     const savedNotes = JSON.parse(localStorage.getItem('react-notes-app-data'));
     return savedNotes ? savedNotes : [];
   });
 
+  //save the notes
   useEffect(() => {
     localStorage.setItem('react-notes-app-data', JSON.stringify(notes));
   }, [notes]);
 
   const initialNotePosition = { x: 0, y: 0 };
 
+  //create new note
   const addNote = (text, position) => {
     const newNote = {
       id: nanoid(),
@@ -32,11 +35,14 @@ const Notepad = ({ onClose }) => {
     setNotes(newNotes);
   };
 
+  //delete a note with the id
   const deleteNote = (id) => {
     const newNotes = notes.filter((note) => note.id !== id);
     setNotes(newNotes);
   };
 
+  //close the note with the id, so doesn't appear on the screen
+  //if already closed, note with id appears on screen
   const closeNote = (id) => {
     const updatedNotes = notes.map((note) => {
       if (note.id === id) {
@@ -49,14 +55,17 @@ const Notepad = ({ onClose }) => {
 
   const textAreaRef = useRef(null); // Ref for the textarea element
 
+  //allow user to double click and highlight text
   const handleDoubleClick = () => {
     if (textAreaRef.current) {
       textAreaRef.current.select(); // Select the text when double-clicked
     }
   };
 
-  const [selectedNote, setSelectedNote] = useState(null);
+  const [selectedNote, setSelectedNote] = useState(null); 
 
+  //allow user to click on a note and note becomes highlighted and sidebar scrolls to the
+  //entry correlating to that note
   const handleNoteClick = (id) => {
     const noteToDisplay = notes.find((note) => note.id === id);
     setSelectedNote(noteToDisplay);
@@ -68,6 +77,7 @@ const Notepad = ({ onClose }) => {
     }
   };
 
+  //updates position value of note with the id when note is moved around
   const handleNoteDrag = (id, newPosition) => {
     const updatedNotes = notes.map((note) => {
       if (note.id === id) {
@@ -78,6 +88,7 @@ const Notepad = ({ onClose }) => {
     setNotes(updatedNotes);
   };
 
+  //updates text value of note with the id when text is changed
   const handleNoteTextChange = (id, newText) => {
     const updatedNotes = notes.map((note) => {
       if (note.id === id) {
@@ -100,17 +111,20 @@ const Notepad = ({ onClose }) => {
     setNotes(sortedNotes);
   };
 
+  //new note button when clicked, runs the add new note function
   const handleNewNoteClick = () => {
     // Create a new note and set its initial text to an empty string
     addNote('', initialNotePosition);
   };
 
+  //find specific note based on the text contents of the note
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
   const [searchQuery, setSearchQuery] = useState('');
 
+  //reset the list of notes to become no notes
   const handleDeleteAll = () => {
     setNotes([]); // Clear all notes
   };
@@ -119,9 +133,10 @@ const Notepad = ({ onClose }) => {
     <div className="notepad-container">
       <Draggable>
         <div className="sidebar-wrapper">
+          {/* Sidebar */}
           <div className="sidebar">
             <h1 className="sidebar-heading">Notes</h1>
-            {/* Close and New Note Buttons */}
+            {/* Close All, Delete All, and New Note Buttons */}
             <div className="button-container">
               <button className="noteCloseAllButton" onClick={onClose}>
                 Close All
@@ -140,6 +155,7 @@ const Notepad = ({ onClose }) => {
               value={searchQuery}
               onChange={handleSearchChange}
             />
+            {/* Sidebar note entries */}
             <ul className="notes-sidebar">
               {notes
                 .filter((note) => note.text.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -154,7 +170,9 @@ const Notepad = ({ onClose }) => {
                       {note.text.length > 25 ? `${note.text.substring(0, 25)}...` : note.text}
                     </span>
                     <span className="sidebar-entry-date">{note.date}</span>
+                    {/* Open/Close and Delete Buttons on each sidebar note entry */}
                     <div className="sidebar-entry-footer">
+                      {/* Open and Close Switch, Delete Stays */}
                       {note.closed ? (
                         <>
                           <button className="sidebar-entry-open-button" onClick={() => closeNote(note.id)}>
@@ -183,7 +201,7 @@ const Notepad = ({ onClose }) => {
         </div>
       </Draggable>
 
-      {/* Main note display */}
+      {/* Main note display aka the actual notes */}
       <div className="note-display">
         {notes.map((note) => (
           !note.closed && (
