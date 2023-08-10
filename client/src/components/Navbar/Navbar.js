@@ -27,6 +27,7 @@ function Navbar() {
   const [showTimer, setShowTimer] = useState(false);
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
+  const [pfp, setPfp] = useState("");
 
   async function populateUserInfo() {
     const req = await fetch("http://localhost:3001/api/user/profile", {
@@ -40,12 +41,14 @@ function Navbar() {
     if (data.status === "ok") {
       setUser(data.name);
       setEmail(data.email);
+      setPfp(data.pfp);
     }
   }
 
   useEffect(() => {
     setUser("");
     setEmail("");
+    setPfp("");
     populateUserInfo();
   
   }, []);
@@ -166,7 +169,7 @@ function Navbar() {
         {showCalendar && <Calendar onClose={handleCloseCalendar} />}
         {showCalculator && <Calculator onClose={handleCloseCalculator} />}
         {showUserProfile && (
-          <UserProfile user={user} email={email} isOpen = {showUserProfile} onClose={handleCloseUser} />
+          <UserProfile user={user} email={email} pfp = {pfp} isOpen = {showUserProfile} onClose={handleCloseUser} />
         )}
         {showBackground && <Background onClose={handleCloseBackground} />}
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 import "./userProfile.css"; // Import the CSS file for styling
 //API
 
-const UserProfile = ({user, email, isOpen, onClose}) => {
+const UserProfile = ({user, email, pfp, isOpen, onClose}) => {
   const logoutUser = async () => {
      try {
       const response = await fetch("http://localhost:3001/api/auth/logout", {
@@ -25,6 +25,9 @@ const UserProfile = ({user, email, isOpen, onClose}) => {
            <div className="profileModal-content">
               <span className="closeProfile" onClick={onClose}>&times;</span>
               <h2 className="UserProfileHeader">User Profile</h2>
+              <div className="pfpConatiner">
+                <img src={pfp} alt="User's profile" />
+              </div>
               <div className="profile-details">
                   <p><strong>Username:</strong> {user}</p>
                   <p><strong>Email:</strong> {email}</p>
