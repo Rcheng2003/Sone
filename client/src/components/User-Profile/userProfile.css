@@ -1,104 +1,189 @@
-.resizable-box {
-  position: relative;
-  background-color: #f2f2f2;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
+.profileModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6); /* Background overlay */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
-.box {
+.profileModal.open {
+    display: flex; /* Display the modal when open */
+}
+
+.profileModal-content {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    max-width: 400px;
+    position: relative;
+}
+
+.closeProfile {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 36px;
+    z-index: 10;
+}
+
+.closeProfile:hover {
+    color: gray;
+}
+
+.UserProfileHeader{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-details {
+    margin-bottom: 20px;
+}
+
+.logout-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #e74c3c; /* Change to a softer red */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #c0392b; /* Darken the color on hover */
+}
+
+.pfpContainer {
   display: flex;
-  height: 100%;
-  font-size: 20px;
-  color: #333;
-  position: relative;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  overflow: auto;
+  flex-direction: column;
+  align-items: center;
 }
 
-.react-resizable-handle {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  /*background-color: #007bff;*/
-  border-radius: 50%;
-  /*border: 2px solid #fff;*/
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  bottom: 0;
-  right: 0;
+.pfpContainer img {
+  width: 150px; /* Set desired width */
+  height: 150px; /* Set desired height */
+  border-radius: 50%; /* This makes the image circular */
+  object-fit: cover; /* This ensures the image retains its aspect ratio */
+  margin-bottom: 15px; /* Adds some space between the image and the form */
 }
 
-.react-resizable-handle-sw {
-  bottom: -5px;
-  left: -5px;
-  cursor: sw-resize;
-}
-
-.react-resizable-handle-se {
-  bottom: -5px;
-  right: -5px;
-  cursor: nwse-resize;
-}
-
-.react-resizable-handle-nw {
-  top: -5px;
-  left: -5px;
-  cursor: nw-resize;
-}
-
-.react-resizable-handle-ne {
-  top: -5px;
-  right: -5px;
-  cursor: ne-resize;
-}
-
-.content {
-  margin-top: 30px;
+.uploadForm {
   display: flex;
-  font-size: 20px;
-  color: black;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* space between the input and button */
 }
 
-.UserHandle {
+.errorMsg {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+
+
+.uploadForm {
   display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 30px;
-  background-color: black;
-  cursor: grab;
-  border-bottom: 1px solid white;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.uploadForm input[type="file"] {
+  display: none; /* This will hide the default input */
+}
+
+.customFileInput {
+  padding: 10px 15px;
+  cursor: pointer;
+  background-color: #4CAF50; /* You can choose a different color if desired */
+  color: white;
+  border: none;
+  border-radius: 5px;
   transition: background-color 0.3s;
 }
 
-.UserHandle:active {
-  cursor: grabbing;
+.customFileInput:hover {
+  background-color: #45a049;
 }
 
-.UserHandle-content {
-  font-size: large;
+.uploadButton {
+  padding: 8px 12px;
+  background-color: #007BFF; /* You can choose a different color if desired */
   color: white;
-  padding-top: 5px;
-  padding-left: 5px;
-}
-
-.close-button {
-  background-color: transparent;
   border: none;
-  color: white;
+  border-radius: 5px;
   cursor: pointer;
-  margin-left: auto;
-  outline: none;
-  font-size: 25px;
+  transition: background-color 0.3s;
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
+.uploadButton:hover {
+  background-color: #0056b3;
+}
+
+.selectedFileName {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.fileNameDisplay {
+    max-width: 150px; /* adjust this value as needed */
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle; /* aligns the text with the button */
+    margin-left: 10px; /* provides some space between the file name and the button */
+}
+
+.UserProfileHeader {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, rgba(58,142,255,1) 0%, rgba(124,78,255,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    padding-bottom: 10px;
+    border-bottom: 2px solid #aaa;
+    margin-bottom: 30px;
+}
+
+/* Enhancements to the Profile Details */
+.profile-details {
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.profile-details strong {
+    color: #333;
+    font-weight: bold;
+}
+
+/* Adding a soft shadow to the modal for better distinction against the overlay */
+.profileModal-content {
+    /* ... existing properties ... */
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* A minor hover effect to the close button for a more interactive feel */
+.closeProfile:hover {
+    color: #888;
+    transform: scale(1.05);
+    transition: transform 0.2s;
 }

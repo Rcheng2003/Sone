@@ -11,7 +11,7 @@ router.post("/", async(req,res) => {
       room: req.body.roomId,
     });
 
-    message = await message.populate("sender", "name email");
+    message = await message.populate("sender", "name email profilePicture");
     message = await message.populate("room");
 
     return res.status(200).json(message);
@@ -24,7 +24,7 @@ router.post("/", async(req,res) => {
 router.get("/:roomId", async(req,res) => {
   try {
     const messages = await Message.find({ room: req.params.roomId })
-      .populate("sender", "name email")
+      .populate("sender", "name email profilePicture")
       .populate("room");
     return res.status(200).json(messages);
   } catch (error) {

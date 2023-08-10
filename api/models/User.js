@@ -15,6 +15,11 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  profilePicture: {
+    type: String,
+    default: "/images/SoneDefaultPFP.png"
+  }
+
 });
 
 const User = mongoose.model("User", UserSchema);
