@@ -10,8 +10,8 @@ const api_base = 'http://localhost:3001/api/event';
 function Calendar({onClose}) {
     const calendarWidth = 400; // You can adjust this width based on your design
     const calendarHeight = 400; // You can adjust this height based on your design
-    const initialX = (window.innerWidth - calendarWidth) / 2;
-    const initialY = (window.innerHeight - calendarHeight) / 2;
+    const initialX = 400;
+    const initialY = 300;
     const [position, setPosition] = useState({ x: initialX, y: initialY });
     const [events, setEvents] = useState([]);
 
