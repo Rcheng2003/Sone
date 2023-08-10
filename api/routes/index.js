@@ -14,6 +14,6 @@ router.use('/todos', checkAuth, todoRoutes); /* endpoint: /api/todos/<theHTTPReq
 router.use('/user', checkAuth, userRoutes); /* endpoint: /api/user/<theHTTPRequestinUserRoutes> */
 router.use('/study-room',checkAuth, studyRoomRoutes);
 router.use('/message',checkAuth, messageRoutes);
-router.use('/event', eventRoutes); /* endpoint: /api/user/<theHTTPRequestinUserRoutes> */
+router.use('/event', checkAuth, eventRoutes); /* endpoint: /api/user/<theHTTPRequestinUserRoutes> */
 
 module.exports = router;

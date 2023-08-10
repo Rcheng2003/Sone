@@ -28,9 +28,12 @@ function Calendar({onClose}) {
       const handleEventClick = (info) => {
         if (window.confirm('Are you sure you want to remove this event?')) {
           const event = info.event;
-          const eventId = event._id;
+          const eventId = event.extendedProps._id;
     
           // DELETE the event using the API
+          console.log(event);
+          console.log(eventId);
+          console.log(api_base + '/delete/' + eventId);
           fetch(api_base + '/delete/' + eventId, {
             method: 'DELETE',
             credentials: 'include',
