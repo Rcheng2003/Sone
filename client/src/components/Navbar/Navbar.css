@@ -1,8 +1,9 @@
 .bar{
     display: center;
     list-style: none;
-    align-items: center;
-    
+    align-items: center;    
+    z-index: 3;
+    position: absolute;
 }
 
 .mainArrow{
@@ -12,7 +13,6 @@
     padding: 8px;
     border-radius: 10px;
     opacity: 40%;
-
     width: 20px;
     font-size: 40px;
     text-align: center;

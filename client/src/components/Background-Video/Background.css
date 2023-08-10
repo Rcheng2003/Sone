@@ -1,5 +1,4 @@
 .mini-sidebar{
-    background-color: grey;
     background: linear-gradient(90deg, rgb(252, 143, 75) 0%, rgba(28, 4, 180, 0.944) 100%);
     width: 300px;
     height: 150px;
@@ -49,7 +48,7 @@
     height: 100%;
     opacity: 80%;
     position: relative;
-
+    background-attachment: fixed;
 }
 
 .options{

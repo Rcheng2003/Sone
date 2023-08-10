@@ -1,37 +1,95 @@
 .Background{
-    background: url("image.png");
+    background: linear-gradient(to right,rgb(255, 113, 113), rgb(79, 99, 255));
     text-align: center;
     object-fit: fill;
-    color: rgb(16, 90, 111);
+    opacity: 80%;
     margin: auto;
-    width: 1250px;
-    margin-top: 40px;
-    height: 620px;
+    width: 100%;
+    height: 750px;
     padding: 5px;
     background-position: center center;
     background-size: cover;
     border-radius: 10px;
+    justify-content: space-between;
+    position: sticky;
 }
+
+.BackgroundRshadow{
+    width: 500px;
+    height: 400px;
+    margin-top: 230px;
+    margin-left: 290px;
+    border-radius: 10px;
+    position: absolute;
+    box-shadow: inset 0 0 0 1000px rgba(82, 85, 83, 0.637);
+    color: white;
+}
+
 .Register{
     font-size: 30px;
+    width: 500px;
+    height: 400px;
+    margin-top: 200px;
+    margin-left: 250px;
+    background-color: rgb(188, 206, 246);
+    border-radius: 10px;
+    justify-content: space-between;
+    align-self: center;
+    padding: 5px;
+    position: relative;
 }
+
 
 .buttR{
     border-radius: 10px;
-    color: rgb(5, 48, 4);
-    background-color: rgb(142, 194, 246);
+    background-color: rgb(115, 115, 227);
     border-style: none;
-    width: 80px;
+    width: 420px;
     font-size: 15px;
     margin-top: -10px;
-    padding: 0px;
+    padding: 10px;
+    margin-top: -10px;
 }
 
 .InputR{
-    margin-top: -20px;
+    margin-top: 10px;
     border-radius: 10px;
-    width: 200px;
+    width: 400px;
     font-size: 15px;
+    padding: 10px;
     height: 30px;
-    border-style: solid;
+    border-style: none;
+    background-color: rgb(209, 229, 249);
+}
+
+.RPWelcome{
+    width: 500px;
+    font-size: 35px;
+    padding: 10px;
+    height: 200px;
+    background-color: rgb(254, 145, 163);
+    border-radius: 10px;
+    margin-left: 750px;
+    align-self: baseline;
+    position: relative;
+    margin-top: -350px;
+    color: white;
+
+}
+
+p span{
+    display: block;
+}
+
+.RPWelcomeShadow{
+    width: 500px;
+    padding: 10px;
+    height: 200px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 10px;
+    margin-left: 730px;
+    margin-top: -330px;
+    box-shadow: inset 0 0 0 1000px rgba(82, 85, 83, 0.637);
+    opacity: 70%;
+    position: absolute;
 }
