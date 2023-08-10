@@ -120,10 +120,6 @@ class Todo extends React.Component {
       end: formattedEndDate + 'T' + this.state.selectedTimeE + ':00',
     };
 
-    if(1){
-      console.error(eventData);
-    }
-
     /*
     const eventData = {
       title: "Walk tahep dog",
@@ -171,15 +167,6 @@ class Todo extends React.Component {
     this.setState({
       position: newPosition
     });
-
-    if (
-      newPosition.x - width - 500 < -innerWidth ||
-      newPosition.x > innerWidth ||
-      newPosition.y - height - 280 < -innerHeight ||
-      newPosition.y > innerHeight
-    ) {
-      this.handleClose();
-    }
   };
 
   handleClose = () => {
