@@ -67,3 +67,32 @@ img{
     width: 100%;
     object-fit: cover;
 }
+
+.BackHandle {
+    display: flex;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 30px;
+    background-color: black;
+    cursor: grab;
+    border-bottom: 1px solid white;
+    transition: background-color 0.3s;
+  }
+  
+  .BackHandle:active {
+    cursor: grabbing;
+  }
+  
+  .BackHandle-content {
+    font-size: large;
+    color: white;
+    padding-top: 5px;
+    padding-left: 5px;
+  }
+
+  .BackMain {
+    width: 300px;
+  }

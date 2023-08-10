@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Draggable from 'react-draggable';
 import "./Calculator.css";
 
-function Calculator(onClose) {
+function Calculator({onClose}) {
     // what is displayed 
     const [view, setView] = useState("0"); 
     // expression for the calculation
@@ -253,7 +253,7 @@ function Calculator(onClose) {
         >
             <div className='CalcuMain'>
                 <div className="CalcuHandle">
-                    <div className="CalcuHandle-content">Calendar</div>
+                    <div className="CalcuHandle-content">Calculator</div>
                     <button className="close-button" onClick={handleClose}>
                         -
                     </button>

@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import "./Background.css";
-
 import Draggable from "react-draggable";
 
 import sunhigh1 from "./SunHigh1.mov";
@@ -29,12 +28,16 @@ import imgCampFire from "./CampFire.png"
 import imgFish from "./Fish.png"
 import imgstreet from "./Street.png"
 
-function Background() {
+function Background({onClose}) {
     const [currentVideo, setCurrentVideo] = React.useState(sunhigh1);
 
     const Time = [true,false,false,false,false,false];
 
     const [currentSet, setCurrentSet] = React.useState(Time);
+
+    const initialX = 400;
+    const initialY = 300;
+    const [position, setPosition] = useState({ x: initialX, y: initialY });
 
     const handleVideoChange = (newVideo) => {
       setCurrentVideo(newVideo);
@@ -47,9 +50,39 @@ function Background() {
         setCurrentSet(updatedSet);
     }
 
+    const handleDrag = (e, ui) => {
+        const { x, y } = position;
+        const { width, height } = position;
+        const innerWidth = document.documentElement.clientWidth - 100;
+        const innerHeight = document.documentElement.clientHeight - 100;
+
+        const newPosition = {
+            x: x + ui.deltaX,
+            y: y + ui.deltaY,
+        };
+
+            setPosition(newPosition);
+        };
+
+    const handleClose = () => {
+    if (onClose) {
+        onClose();
+    }
+    };
     return (
         <div className="Whole">
-            <Draggable>
+            <Draggable
+                position={position}
+                onDrag={handleDrag}
+                handle=".BackHandle"
+            >
+            <div className="BackMain">
+                <div className="BackHandle">
+                    <div className="BackHandle-content">Background</div>
+                    <button className="close-button" onClick={handleClose}>
+                        -
+                    </button>
+                </div>
             <div className="mini-sidebar">
                 <div className="Suns">
                     <button className="SunRise" onClick={() => handleSetChange(0)}>
@@ -114,9 +147,9 @@ function Background() {
                     
                 ))}
             </div>
-
-
         </div>
+
+            </div>
           
             </Draggable>
           
