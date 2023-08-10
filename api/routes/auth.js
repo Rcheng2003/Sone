@@ -42,6 +42,7 @@ router.post("/login", async (req, res) => {
 
 // Register Endpoint
 router.post("/register", async (req, res) => {
+  
   try {
     const newPassword = await bcryptjs.hash(req.body.password, 10);
     await User.create({

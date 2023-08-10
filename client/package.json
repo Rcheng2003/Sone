@@ -5,27 +5,27 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@fullcalendar/core": "^6.1.8",
+    "@fullcalendar/daygrid": "^6.1.8",
+    "@fullcalendar/interaction": "^6.1.8",
+    "@fullcalendar/react": "^6.1.8",
+    "@fullcalendar/timegrid": "^6.1.8",
     "@mui/icons-material": "^5.14.0",
     "@mui/material": "^5.14.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "howler": "^2.2.3",
-<<<<<<< HEAD
-    "npm": "^9.8.0",
-=======
->>>>>>> 6757debf203a266e7fe61d751d89621634923d21
     "react": "^18.2.0",
+    "react-datepicker": "^4.16.0",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.5",
     "react-icons": "^4.10.1",
     "react-resizable": "^3.0.5",
     "react-router-dom": "^6.14.1",
     "react-scripts": "5.0.1",
-<<<<<<< HEAD
-=======
+    "react-time-picker": "^6.5.0",
     "socket.io-client": "^4.7.1",
->>>>>>> 6757debf203a266e7fe61d751d89621634923d21
     "styled-components": "^6.0.4",
     "web-vitals": "^2.1.4"
   },
