@@ -131,13 +131,18 @@ const Room = () => {
         <div className="chat-modal" style={{ width: "20%", backgroundColor: "white" }}>
             <div className="message-container-container" ref={messageContainerRef}>
               {messages.map((message, index) => (
-                <div key={index} className="message-container">
-                  <div className="top-message-container">
-                    <div className="message-sender">{message.sender.name}</div>
-                    <p className="message-date">{new Date(message.createdAt).toLocaleString()}</p>
+                <div className="message-container">
+                  <div className="pfp-container">
+                    <img src={message.sender.profilePicture === "/images/SoneDefaultPFP.png" ? "/images/SoneDefaultPFP.png" : `http://localhost:3001${message.sender.profilePicture}`} alt="User's profile" />
                   </div>
-                  <div className="message-content">
-                    {message.content}
+                  <div className="message-details">
+                    <div className="top-message-container">
+                      <div className="message-sender">{message.sender.name}</div>
+                      <p className="message-date">{new Date(message.createdAt).toLocaleString()}</p>
+                    </div>
+                    <div className="message-content">
+                      {message.content}
+                    </div>
                   </div>
                 </div>
             ))}

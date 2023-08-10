@@ -81,7 +81,7 @@ const UserProfile = ({user, email, pfp, setPfp, isOpen, onClose}) => {
         <h2 className="UserProfileHeader">My Profile</h2>
         
         <div className="pfpContainer">
-          <img src={`http://localhost:3001${pfp}`} alt="User's profile" />
+          <img src={pfp === "/images/SoneDefaultPFP.png" ? "/images/SoneDefaultPFP.png" : `http://localhost:3001${pfp}`} alt="User's profile" />
           <form className="uploadForm" onSubmit={e => e.preventDefault()}>
             <div>
                <label className="customFileInput">

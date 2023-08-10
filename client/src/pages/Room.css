@@ -1,6 +1,3 @@
-/* Assuming you have a CSS file for your component, let's say Room.css */
-
-/* Styling for the chat icon */
 .chat-icon {
   position: fixed;
   bottom: 20px;
@@ -12,9 +9,8 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Styling for the chat icon image */
 .chat-icon img {
-  width: 30px; /* Adjust the size of the chat icon as needed */
+  width: 30px;
   height: 30px;
 }
 
@@ -25,19 +21,18 @@
   bottom: 20px;
   right: 20px;
   width: 20%;
-  min-width: 300px; /* Set a minimum width for the chat-modal */
+  min-width: 300px;
   background-color: white;
   border-radius: 10px;
   padding: 25px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   display: flex;
-  flex-direction: column; /* Set the container as a flex container with vertical flex-direction */
+  flex-direction: column;
   align-items: center;
 }
 
-/* Styling for the chat modal input */
 .chat-modal input[type="text"] {
-  flex: 1; /* Make the input container take up the available space inside .chat-modal */
+  flex: 1;
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -46,8 +41,6 @@
   margin-top: 20px;
 }
 
-
-/* Styling for the chat modal close button */
 .close {
   color: #aaa;
   border: none;
@@ -59,36 +52,68 @@
   right: 10px;
   font-size: 28px;
   font-weight: bold;
-  float: right;
 }
 
-/* Styling for the chat modal messages */
 .message-container-container {
-  flex: 1; /* Make .message-container-container take up the remaining space inside .chat-modal */
+  flex: 1;
   overflow-y: auto;
   max-height: calc(90vh - 130px);
   width: 100%;
 }
 
+.message-container {
+  display: flex;
+  align-items: flex-start; /* Aligned to top */
+  margin: 0; /* Removed margin */
+  padding: 10px 5px; /* Removed padding */
+
+}
+
+.pfp-container {
+  flex: 0 0 40px;
+  margin: 0; /* Removed margin */
+  padding: 0; /* Removed padding */
+  margin-right: 15px;
+}
+
+.pfp-container img {
+  width: 40px; /* Specified a width for consistent sizing */
+  height: 40px; /* Specified a height for consistent sizing */
+  border-radius: 50%;
+  object-fit: cover; /* Ensures image covers the entire content box */
+}
+
+.message-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0; /* Removed margin */
+  padding: 0; /* Removed padding */
+}
+
+.top-message-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0; /* Removed margin */
+  padding: 0; /* Removed padding */
+}
+
 .message-sender {
   font-weight: bold;
-  margin-right: 5px;
+  margin: 0; /* Removed margin */
+  padding: 0; /* Removed padding */
 }
 
 .message-date {
   font-size: 12px;
   color: #666;
+  margin: 0; /* Removed margin */
+  padding: 0; /* Removed padding */
 }
 
-.message-container{
-  width: 100%;
-  word-wrap: break-word;
-  margin-top: 5px;
-  margin-bottom: 5px;
+.message-content {
+  font-size: 14px;
+  margin: 0; /* Removed margin */
+  padding: 0; /* Removed padding */
 }
-
-.top-message-container{
-  display: flex;
-  align-items: center;
-}
-
