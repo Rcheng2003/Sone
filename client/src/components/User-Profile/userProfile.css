@@ -1,104 +1,66 @@
-.resizable-box {
-  position: relative;
-  background-color: #f2f2f2;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
+.profileModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6); /* Background overlay */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
-.box {
-  display: flex;
-  height: 100%;
-  font-size: 20px;
-  color: #333;
-  position: relative;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  overflow: auto;
+.profileModal.open {
+    display: flex; /* Display the modal when open */
 }
 
-.react-resizable-handle {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  /*background-color: #007bff;*/
-  border-radius: 50%;
-  /*border: 2px solid #fff;*/
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  bottom: 0;
-  right: 0;
+.profileModal-content {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    max-width: 400px;
+    position: relative;
 }
 
-.react-resizable-handle-sw {
-  bottom: -5px;
-  left: -5px;
-  cursor: sw-resize;
+.closeProfile {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 36px;
+    z-index: 10;
 }
 
-.react-resizable-handle-se {
-  bottom: -5px;
-  right: -5px;
-  cursor: nwse-resize;
+.closeProfile:hover {
+    color: gray;
 }
 
-.react-resizable-handle-nw {
-  top: -5px;
-  left: -5px;
-  cursor: nw-resize;
+.UserProfileHeader{
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.react-resizable-handle-ne {
-  top: -5px;
-  right: -5px;
-  cursor: ne-resize;
+.profile-details {
+    margin-bottom: 20px;
 }
 
-.content {
-  margin-top: 30px;
-  display: flex;
-  font-size: 20px;
-  color: black;
+.logout-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #e74c3c; /* Change to a softer red */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.UserHandle {
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 30px;
-  background-color: black;
-  cursor: grab;
-  border-bottom: 1px solid white;
-  transition: background-color 0.3s;
-}
-
-.UserHandle:active {
-  cursor: grabbing;
-}
-
-.UserHandle-content {
-  font-size: large;
-  color: white;
-  padding-top: 5px;
-  padding-left: 5px;
-}
-
-.close-button {
-  background-color: transparent;
-  border: none;
-  color: white;
-  cursor: pointer;
-  margin-left: auto;
-  outline: none;
-  font-size: 25px;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
+.logout-button:hover {
+    background-color: #c0392b; /* Darken the color on hover */
 }

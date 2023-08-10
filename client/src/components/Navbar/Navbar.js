@@ -166,7 +166,7 @@ function Navbar() {
         {showCalendar && <Calendar onClose={handleCloseCalendar} />}
         {showCalculator && <Calculator onClose={handleCloseCalculator} />}
         {showUserProfile && (
-          <UserProfile user={user} email={email} onClose={handleCloseUser} />
+          <UserProfile user={user} email={email} isOpen = {showUserProfile} onClose={handleCloseUser} />
         )}
         {showBackground && <Background onClose={handleCloseBackground} />}
       </div>
