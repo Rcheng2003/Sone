@@ -1,0 +1,38 @@
+.MusicPlayer {
+    background-color: #808080;
+    height: 200px; 
+    width: 400px; 
+    border-radius: 15px;    
+    display: flex; 
+    flex-direction: column;
+}
+
+.trackDisplay {
+    font-size: 25px; 
+    display: flex; 
+    flex: 2; 
+    align-items: center; 
+    justify-content: space-evenly;
+}
+
+.trackImage {
+    height: 100px; 
+    width: 100px; 
+    border-radius: 10px; 
+}
+
+.playbackElement:hover {
+    opacity: 0.5;
+    transition: 0.2;
+}
+
+.playbackElement:active {
+    opacity: 0.4; 
+    transition: 0.2; 
+}
+
+.playbackControl {
+    display: flex; 
+    justify-content: center;
+    flex: 1
+}
