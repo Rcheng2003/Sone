@@ -13,9 +13,7 @@ import question1 from "./CampFire.mov";
 import question2 from "./Fish.mov";
 import question3 from "./Street.mov"
 
-
 import * as TbIcons from "react-icons/tb";
-import ReactPlayer from 'react-player';
 
 import imgsh1 from "./SunHigh1.png"
 import imgsh2 from "./SunHigh2.png"
@@ -28,9 +26,7 @@ import imgCampFire from "./CampFire.png"
 import imgFish from "./Fish.png"
 import imgstreet from "./Street.png"
 
-function Background({onClose}) {
-    const [currentVideo, setCurrentVideo] = React.useState(sunhigh1);
-
+function Background({onChange,onClose}) {
     const Time = [true,false,false,false,false,false];
 
     const [currentSet, setCurrentSet] = React.useState(Time);
@@ -40,7 +36,7 @@ function Background({onClose}) {
     const [position, setPosition] = useState({ x: initialX, y: initialY });
 
     const handleVideoChange = (newVideo) => {
-      setCurrentVideo(newVideo);
+      onChange(newVideo);
     };
 
     const handleSetChange = (index) => {
@@ -152,18 +148,6 @@ function Background({onClose}) {
             </div>
           
             </Draggable>
-          
-          <div className="video-background">
-          <ReactPlayer
-            url={currentVideo}
-            playing
-            loop
-            muted
-            width="100%"
-            height="100%"
-          />
-
-        </div>
       </div>
       
     );

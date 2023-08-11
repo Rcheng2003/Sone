@@ -205,7 +205,7 @@ class Todo extends React.Component {
     const { todos, popupActive, popupActive2, newTodo } = this.state;
 
     return (
-      <div>
+      <div className='TodoMain'>
         <Draggable
             position={position}
             onDrag={this.handleDrag}

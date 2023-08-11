@@ -246,7 +246,8 @@ function Calculator({onClose}) {
     };
 
     return (
-        <Draggable
+        <div className='CalcMain'>
+            <Draggable
         position={position}
         onDrag={handleDrag}
         handle=".CalcuHandle"
@@ -297,6 +298,7 @@ function Calculator({onClose}) {
 
             </div>
         </Draggable>
+        </div>
     )
 }
 

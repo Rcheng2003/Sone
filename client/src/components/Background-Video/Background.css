@@ -96,3 +96,7 @@ img{
   .BackMain {
     width: 300px;
   }
+
+  .Whole {
+    position: absolute;
+  }

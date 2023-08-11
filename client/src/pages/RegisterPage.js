@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./RegisterPage.css";
+import * as IoIcons from "react-icons/io5";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ function RegisterPage() {
   return (
     <div>
       <div className="Background">
+      <div className="BackgroundRshadow"> shadow </div> 
         <div className="Register">
       <h1>Register</h1>
       <form onSubmit={registerUser}>
@@ -60,6 +62,15 @@ function RegisterPage() {
         <br />
         <input className="buttR" type="submit" value="Register" />
       </form>
+      </div>
+    <div className="RPWelcomeShadow">
+      shadow
+    </div>
+
+    <div className="RPWelcome">
+     <p><span>Hi, <IoIcons.IoHappy></IoIcons.IoHappy> </span> 
+      <span>Welcome to Sone! </span> 
+      </p>
     </div>
     </div>
     </div>

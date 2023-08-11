@@ -15,7 +15,7 @@ import Timer from "../Pomodoro-Timer/Timer";
 import Calculator from "../Calculator/Calculator";
 import Background from "../Background-Video/Background";
 
-function Navbar() {
+function Navbar({onChange}) {
   const navigate = useNavigate();
   const [sidebar, setSidebar] = useState(false);
   const [showTodo, setShowTodo] = useState(false);
@@ -171,7 +171,7 @@ function Navbar() {
         {showUserProfile && (
           <UserProfile user={user} email={email} pfp = {pfp} setPfp = {setPfp} isOpen = {showUserProfile} onClose={handleCloseUser} />
         )}
-        {showBackground && <Background onClose={handleCloseBackground} />}
+        {showBackground && <Background onChange={onChange} onClose={handleCloseBackground} />}
       </div>
     </div>
   );
