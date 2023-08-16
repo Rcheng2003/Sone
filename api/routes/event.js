@@ -3,20 +3,19 @@ const router = express.Router();
 const Event = require('../models/Event');
 
 // GET all events
-router.get('/userEvents', (req, res) => {
-  Event.find()
-    .then((events) => res.json(events))
-    .catch((err) => res.status(500).json({ error: err.message }));
+router.get("/userEvents", async (req, res) => {
+  const events = await Event.find({user: req.user.id}); 
+  console.log(events);
+  return res.status(200).json(events);
 });
 
 // POST a new event
 router.post('/new', (req, res) => {
   const {title, start, end } = req.body;
-
   const parsedStart = new Date(start);
   const parsedEnd = new Date(end);
 
-  const newEvent = new Event({ title, start: parsedStart, end: parsedEnd });
+  const newEvent = new Event({ user: req.user.id,title, start: parsedStart, end: parsedEnd });
 
   newEvent
     .save()

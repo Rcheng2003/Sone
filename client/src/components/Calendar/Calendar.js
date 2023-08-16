@@ -10,8 +10,8 @@ const api_base = 'http://localhost:3001/api/event';
 function Calendar({onClose}) {
     const calendarWidth = 400; // You can adjust this width based on your design
     const calendarHeight = 400; // You can adjust this height based on your design
-    const initialX = (window.innerWidth - calendarWidth) / 2;
-    const initialY = (window.innerHeight - calendarHeight) / 2;
+    const initialX = 400;
+    const initialY = 300;
     const [position, setPosition] = useState({ x: initialX, y: initialY });
     const [events, setEvents] = useState([]);
 
@@ -28,9 +28,12 @@ function Calendar({onClose}) {
       const handleEventClick = (info) => {
         if (window.confirm('Are you sure you want to remove this event?')) {
           const event = info.event;
-          const eventId = event._id;
+          const eventId = event.extendedProps._id;
     
           // DELETE the event using the API
+          console.log(event);
+          console.log(eventId);
+          console.log(api_base + '/delete/' + eventId);
           fetch(api_base + '/delete/' + eventId, {
             method: 'DELETE',
             credentials: 'include',

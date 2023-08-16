@@ -1,6 +1,6 @@
 .calc, .display, .row, .buttons {
     display: flex; 
-
+    
 }
 
 .calc, .display, .buttons {
@@ -8,16 +8,16 @@
 } 
 
 .calc {
-    background: linear-gradient(to right, #8ab4a2, #41584e);
-    height: 525px; 
-    width: 325px; 
+    background: linear-gradient(to right, #60ef9c, #20eded);
+    height: 300px; 
+    width: 200px; 
     border-radius: 15px; 
     flex-direction: column;
     padding: 10px; 
 }
 
 .display, .buttons {
-    background: #34463e;
+    background: #064466;
     opacity: 0.75; 
     flex-direction: column;
     border-radius: 10px; 
@@ -30,7 +30,7 @@
 .display {
     color: white; 
     text-align: right;
-    font-size: 80px;  
+    font-size: 50px;  
     margin-bottom: 10px;  
 }
 
@@ -43,8 +43,8 @@
 }
 
 .equalsBox, .Calcbox {
-    background: grey; 
-    height: 70px; 
+    background: rgb(218, 236, 140); 
+    height: 30px; 
     border-radius: 5px;
     display: flex; 
     justify-content: center;
@@ -53,11 +53,11 @@
 }
 
 .Calcbox {
-    width: 70px; 
+    width: 40px; 
    
 }
 .equalsBox {
-    width: 150px; 
+    width: 90px; 
 }
 
 .equalsBox:hover, .Calcbox:hover {
@@ -69,3 +69,32 @@
     opacity: 0.5; 
     transition: 0.9; 
 }
+
+.CalcuHandle {
+    display: flex;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 325px;
+    height: 30px;
+    background-color: black;
+    cursor: grab;
+    border-bottom: 1px solid white;
+    transition: background-color 0.3s;
+  }
+  
+  .CalcuHandle:active {
+    cursor: grabbing;
+  }
+  
+  .CalcuHandle-content {
+    font-size: large;
+    color: white;
+    padding-top: 5px;
+    padding-left: 5px;
+  }
+
+  .CalcMain {
+    position: absolute;
+  }

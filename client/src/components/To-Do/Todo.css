@@ -384,3 +384,6 @@
   padding: 20px 20px 20px 20px;
 }
 
+.TodoMain {
+  position: absolute;
+}

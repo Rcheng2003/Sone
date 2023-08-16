@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'; 
+import Draggable from 'react-draggable';
 import "./Calculator.css";
 
-function Calculator() {
+function Calculator({onClose}) {
     // what is displayed 
     const [view, setView] = useState("0"); 
     // expression for the calculation
@@ -13,6 +14,9 @@ function Calculator() {
     // the number saved to add if equals operation is spammed 
     // along with the operation 
     const [saved, setSaved] = useState({num: null, op: null}); 
+    const initialX = 400;
+    const initialY = 300;
+    const [position, setPosition] = useState({ x: initialX, y: initialY });
 
     // calculator keys 
     const buttons = [["C", "+-", "%", "/"], ["7", "8", "9", "*"],
@@ -221,8 +225,40 @@ function Calculator() {
         }
     }
 
+    const handleDrag = (e, ui) => {
+        const { x, y } = position;
+        const { width, height } = position;
+        const innerWidth = document.documentElement.clientWidth - 100;
+        const innerHeight = document.documentElement.clientHeight - 100;
+
+        const newPosition = {
+            x: x + ui.deltaX,
+            y: y + ui.deltaY,
+        };
+
+            setPosition(newPosition);
+        };
+
+    const handleClose = () => {
+    if (onClose) {
+        onClose();
+    }
+    };
+
     return (
-        <>
+        <div className='CalcMain'>
+            <Draggable
+        position={position}
+        onDrag={handleDrag}
+        handle=".CalcuHandle"
+        >
+            <div className='CalcuMain'>
+                <div className="CalcuHandle">
+                    <div className="CalcuHandle-content">Calculator</div>
+                    <button className="close-button" onClick={handleClose}>
+                        -
+                    </button>
+                </div>
             <div className="calc">
                 <div className="display"> 
                     {view}
@@ -259,7 +295,10 @@ function Calculator() {
                     }
                 </div>
             </div>
-        </>
+
+            </div>
+        </Draggable>
+        </div>
     )
 }
 
