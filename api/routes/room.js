@@ -55,7 +55,6 @@ router.put("/leaveRoom/:id", async (req, res) => {
       { $set: { inRoom: null } }
     );
 
-
       // If user's inRoom property is updated successfully, remove user from room's user list
       const roomResult = await StudyRoom.updateOne(
         { _id: roomId },
@@ -87,17 +86,32 @@ router.put("/joinedRoom/:id", async (req, res) => {
   try {
     const userId = req.user.id;
     const roomId = req.params.id;
+    const user = await User.findOne({_id: userId});
 
+    // Fetch the room details
+    const room = await StudyRoom.findById(roomId);
+
+    // Check if the room exists
+    if (!room) {
+      return res.status(404).send({ message: 'Room not found' });
+    }
+    if (user.inRoom && user.inRoom._id.toString() === roomId) {
+      return res.status(400).send({ message: 'Already in the Room' });
+    }
+    // Check if the room has reached its capacity
+    if (room.users.length >= room.capacity) {
+      return res.status(400).send({ message: 'Room is full' });
+    }
     // Update the user's inRoom property
-    const userResult = await User.updateOne(
+    await User.updateOne(
       { _id: userId },
       { $set: { inRoom: roomId } }
     );
 
-    // If user's inRoom property is updated successfully, add user to room's user list
+    // Add user to room's user list
     const roomResult = await StudyRoom.updateOne(
       { _id: roomId },
-      { $addToSet: { users: userId } }  // $addToSet ensures no duplicate userId
+      { $addToSet: { users: userId } } // $addToSet ensures no duplicate userId
     );
 
     if (roomResult.nModified > 0 || roomResult.ok > 0) {
@@ -110,7 +124,6 @@ router.put("/joinedRoom/:id", async (req, res) => {
     return res.status(500).send({ message: 'Server error', error });
   }
 });
-
 
 
 router.delete("/delete/:id", async (req, res) => {
