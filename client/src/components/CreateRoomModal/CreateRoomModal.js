@@ -127,7 +127,7 @@ const CreateRoomModal = ({ isOpen, onClose, rooms, setRooms, roomInfo }) => {
               type="number"
               id="capacity"
               value={capacity}
-              onChange={(e) => setCapacity(parseInt(e.target.value))}
+              onChange={(e) => setCapacity(Math.max(1, parseInt(e.target.value)))}
               min={1}
               className="form-input"
             />

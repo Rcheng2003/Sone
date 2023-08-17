@@ -38,11 +38,21 @@ router.get("/public", async (req,res) =>{
   return res.status(200).json(userRooms);
 });
 
-router.get("/:id", async (req,res) =>{
-  var userRoom = await StudyRoom.findOne({_id: req.params.id})
-    .populate("owner", "name email"); // find all the rooms belonging to the user
-  return res.status(200).json(userRoom);
+router.get("/:id", async (req, res) => {
+  try {
+    var userRoom = await StudyRoom.findOne({ _id: req.params.id })
+      .populate("owner", "name email");
+    
+    if (!userRoom) {
+      return res.status(404).send({ message: "Room not found" });
+    }
+
+    return res.status(200).json(userRoom);
+  } catch (error) {
+    return res.status(500).send({ message: "Server error", error });
+  }
 });
+
 
 router.put("/leaveRoom/:id", async (req, res) => {
   try {
