@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'; 
 import Draggable from 'react-draggable';
 import "./Calculator.css";
+import * as AiIcons from "react-icons/ai";
 
 function Calculator({onClose}) {
     // what is displayed 
@@ -255,8 +256,8 @@ function Calculator({onClose}) {
             <div className='CalcuMain'>
                 <div className="CalcuHandle">
                     <div className="CalcuHandle-content">Calculator</div>
-                    <button className="close-button" onClick={handleClose}>
-                        -
+                    <button className="Calclose-button" onClick={handleClose}>
+                        <AiIcons.AiOutlineClose></AiIcons.AiOutlineClose>
                     </button>
                 </div>
             <div className="calc">

@@ -11,17 +11,23 @@ const NoteSchema = new Schema({
         type: String,
         require: true
     },
-    complete: {
+    closed: {
         type: Boolean,
         default: false
     },
-    timestamp: {
+    date: {
         type: String,
         default: Date.now()
+    },
+    position: {
+        type: {
+            x: Number,
+            y: Number
+        },
+        default: { x: 500, y: -500 }
     }
 })
 
 const Note = mongoose.model("Note", NoteSchema);
 
 module.exports = Note;
-

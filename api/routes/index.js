@@ -5,6 +5,7 @@ const userRoutes = require('./user.js');
 const studyRoomRoutes = require('./room.js');
 const messageRoutes = require("./message.js")
 const eventRoutes = require('./event.js');
+const noteRoutes = require('./note.js');
 const checkAuth = require("../utils/checkAuth");
 
 const router = express.Router();
@@ -14,6 +15,7 @@ router.use('/todos', checkAuth, todoRoutes); /* endpoint: /api/todos/<theHTTPReq
 router.use('/user', checkAuth, userRoutes); /* endpoint: /api/user/<theHTTPRequestinUserRoutes> */
 router.use('/study-room',checkAuth, studyRoomRoutes);
 router.use('/message',checkAuth, messageRoutes);
-router.use('/event', checkAuth, eventRoutes); /* endpoint: /api/user/<theHTTPRequestinUserRoutes> */
+router.use('/event', checkAuth, eventRoutes); /* endpoint: /api/event/<theHTTPRequestinUserRoutes> */
+router.use('/notes',checkAuth, noteRoutes); /* endpoint: /api/notes/<theHTTPRequestinTodoRoutes> */
 
 module.exports = router;
