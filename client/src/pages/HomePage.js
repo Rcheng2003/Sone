@@ -9,10 +9,13 @@ import sunhigh1 from "../components/Background-Video/SunHigh1.mov";
 function HomePage() {
   const [currentVideo, setCurrentVideo] = useState(sunhigh1);
 
+  const handleVideoChange = (newVideo) => {
+    setCurrentVideo(newVideo);
+  };
   return (
     <div className="App">
       <TopNavbar currRoom={null}></TopNavbar>
-      <Navbar onChange={setCurrentVideo}></Navbar>
+      <Navbar onChange={handleVideoChange}></Navbar>
       <div className="video-background">
           <ReactPlayer
             url={currentVideo}
