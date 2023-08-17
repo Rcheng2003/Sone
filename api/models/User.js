@@ -18,6 +18,10 @@ const UserSchema = new Schema({
   profilePicture: {
     type: String,
     default: "/images/SoneDefaultPFP.png"
+  },
+  inRoom: {
+      type: Schema.Types.ObjectId,
+      ref: 'StudyRoom',
   }
 
 });

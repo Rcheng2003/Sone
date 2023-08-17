@@ -133,7 +133,7 @@ const Room = () => {
               {messages.map((message, index) => (
                 <div className="message-container">
                   <div className="pfp-container">
-                    <img src={message.sender.profilePicture === "/images/SoneDefaultPFP.png" ? "/images/SoneDefaultPFP.png" : `http://localhost:3001${message.sender.profilePicture}`} alt="User's profile" />
+                    <img src={message.sender.profilePicture === "/images/SoneDefaultPFP.png" ? "/images/SoneDefaultPFP.png" : message.sender.profilePicture} alt="User's profile" />
                   </div>
                   <div className="message-details">
                     <div className="top-message-container">

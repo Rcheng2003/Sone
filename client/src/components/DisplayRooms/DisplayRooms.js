@@ -8,9 +8,32 @@ const DisplayRoom = ({rooms, setRooms, isPublic}) => {
   const [roomInfo, setRoomInfo] = useState();
   const [isCreateRoomModalOpen, setCreateRoomModalOpen] = useState(false);
   
-  const handleJoin =  (roomId) => {
-    navigate(`/room/${roomId}`);
-  }
+  const handleJoin = async (roomId) => {
+    try {
+      const res = await fetch(`http://localhost:3001/api/study-room/joinedRoom/${roomId}`, {
+        method: "PUT",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+
+      const data = await res.json();
+
+      // Check if the response indicates that the room is full
+      if (res.status === 400 && data.message === "Room is full") {
+        alert(data.message);  // Displaying the "Room is full" message using alert
+      } else if (res.status === 400 && data.message === 'Already in the Room') {
+        alert(data.message); 
+      } else {
+        navigate(`/room/${roomId}`);
+      }
+      
+    } catch (error) {
+      // Handle error (e.g., show error message, log the error, etc.)
+      console.error('Error getting room:', error);
+    }
+  };
 
   const handleEdit = async (roomId) => {
     try {
@@ -46,6 +69,7 @@ const DisplayRoom = ({rooms, setRooms, isPublic}) => {
         updatedItems.splice(indexToDelete, 1);
         setRooms(updatedItems);
       }
+      navigate('/');
     } catch (error) {
       // Handle error (e.g., show error message, log the error, etc.)
       console.error('Error deleting room:', error);

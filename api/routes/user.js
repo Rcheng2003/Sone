@@ -1,21 +1,33 @@
 const express = require('express');
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
-const multer = require('multer');
 const path = require('path');
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination: './uploads/profilePics',
-  filename: function(req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-  }
+const AWS = require('aws-sdk');
+AWS.config.update({
+  region: 'us-east-1', 
+  accessKeyId: 'AKIAXSI6TO7ANQL2AF6B', 
+  secretAccessKey: process.env.AWS_SK,
 });
+const s3 = new AWS.S3();
+const BUCKET_NAME = 'sonepfps';
+
+const multer = require('multer');
+const multerS3 = require('multer-s3');
 
 const upload = multer({
-  storage: storage,
-  limits: { fileSize: 1000000 },  // limiting files size to 1MB
+  storage: multerS3({
+    s3: s3,
+    bucket: BUCKET_NAME,
+    metadata: (req, file, cb) => {
+      cb(null, {fieldName: file.fieldname});
+    },
+    key: (req, file, cb) => {
+      cb(null, `profilePics/${Date.now().toString()}${path.extname(file.originalname)}`);
+    }
+  }),
+  limits: { fileSize: 1000000 },
   fileFilter: (req, file, cb) => {
     const fileTypes = /jpeg|jpg|png/;
     const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
@@ -30,28 +42,41 @@ const upload = multer({
 }).single('profilePic');
 
 router.get("/profile", async (req, res) => {
-  const user = await User.findOne({ email: req.user.email }); //req.user is the user currently logged in
-  return res.json({ status: "ok", name: user.name, email: user.email, pfp: user.profilePicture});
+  if (!req.user) {
+    return res.json({ status: "not_logged_in" });
+  }
+  
+  const user = await User.findOne({ email: req.user.email });
+  return res.json({ status: "ok", user: user });
 });
+
 
 router.post("/uploadPfp", (req, res) => {
   upload(req, res, async (err) => {
     if (err) {
-      res.status(500).json({ error: err });
-    } else {
-      // Assuming you have the user's email accessible from the request
-      const filePath = `/uploads/profilePics/${req.file.filename}`;
-      try {
-        const user = await User.findOneAndUpdate({ email: req.user.email }, { profilePicture: filePath }, { new: true });
-        if (!user) {
-          return res.status(404).json({ error: 'User not found' });
-        }
-        res.json({ status: 'ok', filePath });
-      } catch (error) {
-        res.status(500).json({ error });
+      return res.status(500).json({ error: err });
+    }
+
+    const fileUrl = req.file.location;
+
+    try {
+      const user = await User.findOneAndUpdate(
+        { email: req.user.email },
+        { profilePicture: fileUrl },
+        { new: true }
+      );
+
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
       }
+
+      res.json({ status: 'ok', fileUrl });
+
+    } catch (error) {
+      res.status(500).json({ error });
     }
   });
 });
+
 
 module.exports = router;

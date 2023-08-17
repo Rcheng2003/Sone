@@ -15,7 +15,7 @@ import Timer from "../Pomodoro-Timer/Timer";
 import Calculator from "../Calculator/Calculator";
 import Background from "../Background-Video/Background";
 
-function Navbar({onChange}) {
+function Navbar({onChange, user}) {
   const navigate = useNavigate();
   const [sidebar, setSidebar] = useState(false);
   const [showTodo, setShowTodo] = useState(false);
@@ -25,33 +25,17 @@ function Navbar({onChange}) {
   const [showUserProfile, setUserProfile] = useState(false);
   const [showBackground, setBackground] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
-  const [user, setUser] = useState("");
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [pfp, setPfp] = useState("");
 
-  async function populateUserInfo() {
-    const req = await fetch("http://localhost:3001/api/user/profile", {
-      headers: {
-         "Content-Type": "application/json",
-      },
-      credentials: 'include',
-    });
-
-    const data = await req.json();
-    if (data.status === "ok") {
-      setUser(data.name);
-      setEmail(data.email);
-      setPfp(data.pfp);
-    }
-  }
-
   useEffect(() => {
-    setUser("");
-    setEmail("");
-    setPfp("");
-    populateUserInfo();
-  
-  }, []);
+    if (user){
+      setUserName(user.name);
+      setEmail(user.email);
+      setPfp(user.profilePicture);
+    }
+  }, [user]);
 
   const showSidebar = () => setSidebar(!sidebar);
 
@@ -166,7 +150,7 @@ function Navbar({onChange}) {
         {showCalendar && <Calendar onClose={handleCloseCalendar} />}
         {showCalculator && <Calculator onClose={handleCloseCalculator} />}
         {showUserProfile && (
-          <UserProfile user={user} email={email} pfp = {pfp} setPfp = {setPfp} isOpen = {showUserProfile} onClose={handleCloseUser} />
+          <UserProfile user={userName} email={email} pfp = {pfp} setPfp = {setPfp} isOpen = {showUserProfile} onClose={handleCloseUser} />
         )}
         {showBackground && <Background onChange={onChange} onClose={handleCloseBackground} />}
       </div>
