@@ -4,6 +4,7 @@ const cors = require("cors");
 const allRoutes = require('./routes/index.js');
 const cookieParser = require('cookie-parser');
 
+require('dotenv').config();
 /*
   use the same app object from express to handle both regular HTTP requests 
   and WebSocket connections by integrating socket.io directly with the app object.
@@ -27,7 +28,7 @@ app.use('/api', allRoutes);
 */
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/Zone-todo", {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
