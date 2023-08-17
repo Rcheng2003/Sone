@@ -1,8 +1,7 @@
 .mini-sidebar{
-    background-color: grey;
-    background: linear-gradient(90deg, rgb(252, 143, 75) 0%, rgba(28, 4, 180, 0.944) 100%);
+    background-color: rgb(255, 255, 255);
     width: 300px;
-    height: 150px;
+    height: 190px;
     margin-left: 45px;
     margin-top: 55px;
     border-radius: 10px;
@@ -15,10 +14,9 @@
     all:unset;
     align-self: center;
     justify-content: center;
-    color: white;
+    color:  rgb(95, 195, 241);
     margin-left: 30px;
     font-size: 30px;
-    margin-top: -10px;
 }
 
 .Suns button{
@@ -26,10 +24,11 @@
     padding: 5px;
     align-self: center;
     justify-content: center;
+    margin-top: 35px;
 }
 
 .Suns button:hover{
-    color: rgb(255, 230, 0);
+    color: rgb(230, 207, 2);
 }
 
 .background-video{
@@ -49,7 +48,7 @@
     height: 100%;
     opacity: 80%;
     position: relative;
-
+    margin-top: -100px;
 }
 
 .options{
@@ -58,6 +57,7 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     margin-left: 15px;
+    margin-top: 10px;
     width: 80px;
     height: 80px;
 }
@@ -75,10 +75,13 @@ img{
     top: 0;
     left: 0;
     width: 300px;
+    margin-left: 45px;
+    border-radius: 10px;
+    margin-top: 0px;
     height: 30px;
     background-color: black;
+    background: rgb(255, 152, 183);
     cursor: grab;
-    border-bottom: 1px solid white;
     transition: background-color 0.3s;
   }
   
@@ -91,6 +94,7 @@ img{
     color: white;
     padding-top: 5px;
     padding-left: 5px;
+    font-family: 'Gill Sans';
   }
 
   .BackMain {
@@ -100,3 +104,10 @@ img{
   .Whole {
     position: absolute;
   }
+.Backclose-button{
+  all: unset;
+  margin-left: 183px;
+  margin-top: 5px;
+  font-size: 20px;
+  color:white;
+}

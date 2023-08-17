@@ -6,6 +6,12 @@ import DatePicker from 'react-datepicker';
 import TimePicker from 'react-time-picker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Todo.css';
+import * as AiIcons from "react-icons/ai"
+import * as BsIcons from "react-icons/bs"
+import * as HiIcons from "react-icons/hi"
+import * as MdIcons from "react-icons/md"
+
+
 //API
 const api_base = 'http://localhost:3001/api/todos';
 const api_base2 = 'http://localhost:3001/api/event';
@@ -229,8 +235,9 @@ class Todo extends React.Component {
             <div className="box">
                 <div className="TodoHandle">
                     <div className="TodoHandle-content">Tasks</div>
-                    <button className="close-button" onClick={this.handleClose}>
-                        -
+                    <button className="Todoclose-button" onClick={this.handleClose}>
+                    <AiIcons.AiOutlineClose></AiIcons.AiOutlineClose>
+
                     </button>
                 </div>
 
@@ -256,9 +263,11 @@ class Todo extends React.Component {
 
                                 </div>
 
-                                <div className="addEvent" onClick={() => this.setState({popupActive2: true, newEvent: todo.text})}>E</div>
+                                <div className="addEvent" onClick={() => this.setState({popupActive2: true, newEvent: todo.text})}>
+                                  <BsIcons.BsCalendarEvent></BsIcons.BsCalendarEvent>
+                                </div>
                                 
-                                <div className="delete-todo" onClick={() => this.deleteTodo(todo._id)}></div>
+                                <div className="delete-todo" onClick={() => this.deleteTodo(todo._id)}><BsIcons.BsFillTrash3Fill></BsIcons.BsFillTrash3Fill></div>
                             </div>
                         )) : (
                             <p>You currently have no tasks</p>
@@ -266,13 +275,12 @@ class Todo extends React.Component {
                     </div>
 
                     <div className="addPopup" onClick={() => this.setState({ popupActive: true })}>+</div>
-
                     {popupActive ? (
                         <div className="popup">
-                            <div className="closePopup" onClick={() => this.setState({ popupActive: false })}>X</div>
+                            <div className="closePopup" onClick={() => this.setState({ popupActive: false })}><AiIcons.AiOutlineCloseCircle></AiIcons.AiOutlineCloseCircle></div>
                             <div className="content">
                                 <input type="text" className="add-todo-input" onChange={e => this.setState({ newTodo: e.target.value })} value={newTodo} />
-                                <div className="button" onClick={this.addTodo}>Create Task</div>
+                                <div className="Todobutton" onClick={this.addTodo}><MdIcons.MdOutlinePostAdd></MdIcons.MdOutlinePostAdd></div>
                             </div>
                         </div>
                     ) : ''}

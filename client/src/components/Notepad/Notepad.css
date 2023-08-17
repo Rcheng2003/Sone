@@ -7,17 +7,20 @@
     padding-left: 15px;
     min-height: 100vh;
     position: absolute;
+    font-family: 'Gill Sans';
   }
   
   /* Sidebar */
   .sidebar {
-    background-color: #f2f2f2;
+    background-color:  rgb(95, 195, 241);
     width: 260px;
     padding: 10px;
     height: 75vh;
     overflow-y: auto;
     cursor: grab;
     position: relative;
+    border-radius: 10px;
+    font-family: 'Gill Sans';
   }
   
   .sidebar-heading {

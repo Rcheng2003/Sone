@@ -1,21 +1,17 @@
 .resizable-box {
     position: relative;
-    background-color: #f2f2f2;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
+    border-radius: 10px;
+
   }
   
   .box {
     display: flex;
     height: 100%;
+    width: 100%;
     font-size: 20px;
-    color: #333;
     position: absolute;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    background: white;
+    border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     overflow: auto;
 
@@ -61,11 +57,9 @@
   .content {
     display: flex;
     font-size: 20px;
-    color: black;
+    color: rgb(10, 116, 215);
     flex-direction: column;
   }
-
-  
 
   .add-todo-input{
     width: 75%;
@@ -78,10 +72,11 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 30px;
-    background-color: black;
+    height: 33px;
+    margin-top: 0px;
+    background: rgb(255, 152, 183);
     cursor: grab;
-    border-bottom: 1px solid white;
+    border-radius: 10PX;
     transition: background-color 0.3s;
   }
   
@@ -94,25 +89,30 @@
     color: white;
     padding-top: 5px;
     padding-left: 5px;
+    font-family: 'Gill Sans';
   }
   
-  .close-button{
+  .Todoclose-button{
     background-color: transparent;
     border: none;
     color: white;
     cursor: pointer;
     margin-left: auto;
     outline: none;
-    font-size: 25px;
+    font-size: 20px;
+    margin-top: 5px;;
   }
 
   .todo {
 	position: relative;
-	padding: 16px;
+	padding: 10px;
+  margin-top: 20px;
+  margin-bottom: -10px;
 	display: flex;
 	align-items: center;
 	transition: 0.5s;
 	cursor: text;
+  font-family: 'Gill Sans';
 }
 
 .todo:hover {
@@ -123,7 +123,7 @@
 	width: 20px;
 	height: 20px;
 	margin-right: 10px;
-	border: 2px solid black;
+	border: 2px solid rgb(95, 195, 241);
 	transition: 0.4s;
     display: flex;
     justify-content: center;
@@ -161,6 +161,8 @@
     height: 24px;
     background-size: cover;
     cursor: pointer;
+    margin-top: 3px;
+    opacity: 0;
 }
 
 .todo .addEvent{
@@ -172,11 +174,13 @@
     height: 24px;
     background-size: cover;
     cursor: pointer;
+  justify-self: center;
+  margin-top: 3px;
   opacity: 0;
 }
 
 .todo:hover .delete-todo{
-    background-image: url('trashcan.png');
+    opacity: 1;
 }
 
 .todo:hover .addEvent{
@@ -184,11 +188,11 @@
 }
 
 .addPopup {
-	margin-top:10px;
+  margin-top: 15px;
   margin-bottom: -70px;
     margin-left:10px;
     font-size: 36px;
-    color : black;
+    color : rgb(95, 195, 241);
     cursor: pointer;
 }
 
@@ -209,41 +213,57 @@
   flex-direction: column;
 }
 
+.closePopup{
+  color:rgb(255, 41, 105);
+  margin-left: 350px;
+  margin-top: -85px;
+  position: absolute;
+  font-size: 20px;
+  padding: 0px;
+}
+
 .closePopup,
 .content {
-  margin-bottom: -20px;
   display: inline-flex;
 }
 
 .add-todo-input {
   display: inline-block;
-  padding: 10px;
-  border: 2px solid #007bff;
-  border-radius: 5px;
-  background-color: #f1f1f1;
+  padding: 8px;
+  margin-top: -90px;
+  border: 2px solid #6fb1f8;
+  border-radius: 10px;
+  background-color: #94dff3;
   color: #333;
   transition: border-color 0.3s ease;
+  margin-left: -5px;
 }
 
-.button {
+.Todobutton {
   display: inline-block;
+  margin-left: 320px;
+  margin-top: -85px;
+  position: absolute;
+  color: rgb(56, 217, 96);
+  font-size: 20px;
+  padding: 0;
 }
 
 /* Style for the outer container */
 .popup2 {
-  position: absolute;
+  position: relative;
   width: 450px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  font-family: Arial, sans-serif;
+  border-radius: 10px;
+  font-family: 'Gill Sans';
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 2;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(50%, -50%);
 }
 
 /* Style for the close button */
@@ -253,7 +273,7 @@
   right: 10px;
   cursor: pointer;
   font-size: 20px;
-  color: #333;
+  color: rgb(79, 99, 255);
 }
 
 .closePopup2:hover {
@@ -265,12 +285,17 @@
   font-size: 20px;
   margin-bottom: 20px;
   margin-left: 50%;
+  color: rgb(79, 99, 255);
+  font-family: 'Gill Sans';
+  font-style: normal;
   transform: translateX(-50%);
 }
 
 /* Style for the date and time container */
 .popup2 > div {
   margin-bottom: 15px;
+  color:rgb(255, 152, 183);
+  
 }
 
 /* Style for the subheadings (Date and Time) */
@@ -386,4 +411,12 @@
 
 .TodoMain {
   position: absolute;
+}
+
+p {
+  margin-left: 10px;
+  margin-top: 25px;
+  margin-bottom: -15px;
+  padding: 0px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }

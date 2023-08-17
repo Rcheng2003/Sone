@@ -12,7 +12,6 @@
     padding: 8px;
     border-radius: 10px;
     opacity: 40%;
-
     width: 20px;
     font-size: 40px;
     text-align: center;
@@ -82,7 +81,7 @@
 }
 
 .bottom{
-    margin-top: 50px;
+    margin-top: 100px;
 }
 
 .Button button:hover{
