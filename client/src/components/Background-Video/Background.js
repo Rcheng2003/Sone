@@ -35,7 +35,7 @@ import imgFish from "./Fish.png"
 import imgstreet from "./Street.png"
 
 function Background({onChange,onClose}) {
-    const Time = [true,false,false,false,false,false];
+    const Time = [false,false,true,false,false,false];
 
     const [currentSet, setCurrentSet] = React.useState(Time);
 
