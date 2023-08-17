@@ -31,6 +31,10 @@ function HomePage() {
       const data = await req.json();
       if (data.status === "ok") {
         setUser(data.user);
+        if (data.user && data.user.inRoom !== "") {
+          navigate(`/room/${data.user.inRoom}`);
+          return; // stop further execution
+        }
       }
     } catch (error) {
       if (error.message === 'Unauthorized') {

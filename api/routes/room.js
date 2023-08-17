@@ -1,6 +1,7 @@
 const express = require('express');
 const StudyRoom = require("../models/StudyRoom");
 const Message = require("../models/Message");
+const User = require("../models/User");
 
 const router = express.Router();
 
@@ -51,6 +52,14 @@ router.put("/:id", async (req,res) =>{
       capacity: req.body.capacity
     }}); 
   return res.status(200).json(userRoom);
+});
+
+router.put("/joinedRoom/:id", async (req,res) =>{
+  var userRoom = await User.updateOne({_id: req.user.id}, 
+    {$set: {
+      inRoom: req.params.id
+    }}); 
+  return res.status(200);
 });
 
 router.delete("/delete/:id", async (req, res) => {
