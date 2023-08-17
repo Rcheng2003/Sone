@@ -121,6 +121,7 @@ const Room = () => {
 
   return (
     <div>
+      <div className="Roombg">       </div>
         <TopNavbar currRoom = {currRoom}></TopNavbar>
         {!isChatModalOpen && (
           <div className="chat-icon" onClick={toggleChatModal}>
@@ -157,6 +158,7 @@ const Room = () => {
           <span className="close" onClick={toggleChatModal}>&times;</span>
         </div>
       )}
+
     </div>
   );
 };

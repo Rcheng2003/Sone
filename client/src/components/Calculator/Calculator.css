@@ -80,7 +80,7 @@
     left: 0;
     width: 220px;
     height: 30px;
-    background-color: black;
+    background-color: rgb(255, 152, 183);
     cursor: grab;
     border-radius: 10px;
     transition: background-color 0.3s;
