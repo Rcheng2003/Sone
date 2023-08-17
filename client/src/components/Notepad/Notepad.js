@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { nanoid } from 'nanoid';
 import Draggable from 'react-draggable';
 import './Notepad.css';
+import Note from './Note';
 
 const Notepad = ({ onClose }) => {
   //get the saved notes from the local storage
@@ -205,29 +206,18 @@ const Notepad = ({ onClose }) => {
       <div className="note-display">
         {notes.map((note) => (
           !note.closed && (
-            <Draggable
+            <Note
+              selected = {selectedNote}
               key={note.id}
-              defaultPosition={note.position}
-              onStop={(e, data) => handleNoteDrag(note.id, { x: data.x, y: data.y })}
-            >
-              <div
-                className={`note ${selectedNote?.id === note.id ? 'active' : ''}`}
-                onClick={() => handleNoteClick(note.id)}
-              >
-                {selectedNote?.id === note.id ? (
-                  <textarea
-                    ref={textAreaRef} // Add ref to the textarea element
-                    value={note.text}
-                    onChange={(e) => handleNoteTextChange(note.id, e.target.value)}
-                    onBlur={() => setSelectedNote(null)}
-                    onDoubleClick={handleDoubleClick} // Double-click event for text selection
-                    autoFocus
-                  />
-                ) : (
-                  <span>{note.text}</span>
-                )}
-              </div>
-            </Draggable>
+              note={note}
+              onNoteClick={handleNoteClick}
+              onNoteDrag={handleNoteDrag}
+              Tref = {textAreaRef}
+              onNoteTextChange={handleNoteTextChange}
+              onClose = {closeNote}
+              onSelectedNote= {setSelectedNote}
+              DoubleClick={handleDoubleClick}
+            />
           )
         ))}
       </div>

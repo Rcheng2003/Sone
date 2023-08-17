@@ -1,0 +1,11 @@
+.note-header {
+    margin-top: -7%;
+    margin-left: 85%;
+    position: absolute;
+  }
+  
+  .close-note-button {
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
