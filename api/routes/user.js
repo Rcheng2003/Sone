@@ -41,11 +41,15 @@ const upload = multer({
   }
 }).single('profilePic');
 
-
 router.get("/profile", async (req, res) => {
-  const user = await User.findOne({ email: req.user.email }); //req.user is the user currently logged in
-  return res.json({ status: "ok", name: user.name, email: user.email, pfp: user.profilePicture});
+  if (!req.user) {
+    return res.json({ status: "not_logged_in" });
+  }
+  
+  const user = await User.findOne({ email: req.user.email });
+  return res.json({ status: "ok", user: user });
 });
+
 
 router.post("/uploadPfp", (req, res) => {
   upload(req, res, async (err) => {
