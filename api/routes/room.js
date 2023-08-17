@@ -10,7 +10,7 @@ router.post("/create", async (req,res) =>{
     var newRoom = await StudyRoom.create({
       owner: req.user.id,
       roomName: req.body.roomName,
-      users: [req.user.id],
+      users: [],
       roomAdmin: [],
       public: req.body.public,
       capacity: req.body.capacity
@@ -44,19 +44,30 @@ router.get("/:id", async (req,res) =>{
   return res.status(200).json(userRoom);
 });
 
-
-router.put("/leaveRoom", async (req, res) => {
+router.put("/leaveRoom/:id", async (req, res) => {
   try {
-    const result = await User.updateOne(
-      { _id: req.user.id },
+    const userId = req.user.id;
+    const roomId = req.params.id;
+
+    // Update the user's inRoom property
+    const userResult = await User.updateOne(
+      { _id: userId },
       { $set: { inRoom: null } }
     );
+
+
+      // If user's inRoom property is updated successfully, remove user from room's user list
+      const roomResult = await StudyRoom.updateOne(
+        { _id: roomId },
+        { $pull: { users: userId } }
+      );
+
+      if (roomResult.nModified > 0) {
+        return res.status(200).send({ message: 'Room left successfully' });
+      } else {
+        return res.status(400).send({ message: 'User not found in room' });
+      }
     
-    if (result.nModified > 0) {
-      return res.status(200).send({ message: 'Room left successfully' });
-    } else {
-      return res.status(400).send({ message: 'Failed to leave room' });
-    }
   } catch (error) {
     return res.status(500).send({ message: 'Server error', error });
   }
@@ -72,30 +83,53 @@ router.put("/:id", async (req,res) =>{
   return res.status(200).json(userRoom);
 });
 
-router.put("/joinedRoom/:id", async (req,res) =>{
-  var userRoom = await User.updateOne({_id: req.user.id}, 
-    {$set: {
-      inRoom: req.params.id
-    }}); 
-  return res.status(200);
+router.put("/joinedRoom/:id", async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const roomId = req.params.id;
+
+    // Update the user's inRoom property
+    const userResult = await User.updateOne(
+      { _id: userId },
+      { $set: { inRoom: roomId } }
+    );
+
+    // If user's inRoom property is updated successfully, add user to room's user list
+    const roomResult = await StudyRoom.updateOne(
+      { _id: roomId },
+      { $addToSet: { users: userId } }  // $addToSet ensures no duplicate userId
+    );
+
+    if (roomResult.nModified > 0 || roomResult.ok > 0) {
+      return res.status(200).send({ message: 'Joined room successfully' });
+    } else {
+      return res.status(400).send({ message: 'Failed to join room' });
+    }
+
+  } catch (error) {
+    return res.status(500).send({ message: 'Server error', error });
+  }
 });
+
+
 
 router.delete("/delete/:id", async (req, res) => {
   try {
-    var result = await StudyRoom.findByIdAndDelete(req.params.id);
+    const roomId = req.params.id;
+    var result = await StudyRoom.findByIdAndDelete(roomId);
 
-    // Check if the resource was found and deleted successfully
+    // Check if the study room was found and deleted successfully
     if (!result) {
-      return res.status(404).json({ error: "Resource not found" });
+      return res.status(404).json({ error: "StudyRoom not found" });
     }
 
-    result = await Message.deleteMany({room: req.params.id})
+    // Delete all messages associated with the room
+    await Message.deleteMany({ room: roomId });
 
-    if (!result) {
-      return res.status(404).json({ error: "Resource not found" });
-    }
+    // Reset inRoom property for all users who were in the deleted room
+    await User.updateMany({ inRoom: roomId }, { $unset: { inRoom: 1 } });
 
-    // If the resource was found and deleted, return a success response
+    // If the study room was found and deleted, return a success response
     res.status(200).json({ message: "Resource deleted successfully" });
   } catch (error) {
     console.error("Error occurred:", error);

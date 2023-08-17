@@ -13,7 +13,7 @@ const TopNavbar = ({currRoom}) => {
 
   const handleLeaveRoom = async () => {
       try {
-      const res = await fetch('http://localhost:3001/api/study-room/leaveRoom', {
+      const res = await fetch(`http://localhost:3001/api/study-room/leaveRoom/${currRoom._id}`, {
         method: "PUT",
         headers: {
           'Content-Type': 'application/json',
