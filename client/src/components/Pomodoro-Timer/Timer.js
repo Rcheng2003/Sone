@@ -10,6 +10,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SettingsIcon from '@mui/icons-material/Settings';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import * as AiIcons from "react-icons/ai"
 
 function Timer({onClose}) {
     const [pomoTime, setpomoTime] = useState({min: 25, sec: 0, decreasing: false, default: true}); 
@@ -246,8 +247,8 @@ function Timer({onClose}) {
             <div className="TimerMain">
                 <div className="TimerHandle">
                     <div className="TimerHandle-content">Timer</div>
-                    <button className="close-button" onClick={handleClose}>
-                        -
+                    <button className="Timeclose-button" onClick={handleClose}>
+                    <AiIcons.AiOutlineClose></AiIcons.AiOutlineClose>
                     </button>
                 </div>
                 <div className={customize ? "expandContainer" : "container"}>

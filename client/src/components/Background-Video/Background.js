@@ -1,6 +1,10 @@
 import React, {useState} from "react";
 import "./Background.css";
 import Draggable from "react-draggable";
+import * as AiIcons from "react-icons/ai"
+
+import sunrise2P2 from "./SquirrelPizza.mov"
+import night1 from "./NightRain.mov";
 
 import sunhigh1 from "./SunHigh1.mov";
 import sunhigh2 from "./SunHigh2.mov";
@@ -15,12 +19,16 @@ import question3 from "./Street.mov"
 
 import * as TbIcons from "react-icons/tb";
 
+import imgrs2P2 from "./SquirrelPizza.png"
+
 import imgsh1 from "./SunHigh1.png"
 import imgsh2 from "./SunHigh2.png"
 
 import imgredsun from "./RedSun.png"
 import imgssb from "./Sunsetbird.png"
 import imgssb2 from "./Sunsetbird2.png"
+
+import imgNightRain from "./NightRain.png"
 
 import imgCampFire from "./CampFire.png"
 import imgFish from "./Fish.png"
@@ -75,8 +83,8 @@ function Background({onChange,onClose}) {
             <div className="BackMain">
                 <div className="BackHandle">
                     <div className="BackHandle-content">Background</div>
-                    <button className="close-button" onClick={handleClose}>
-                        -
+                    <button className="Backclose-button" onClick={handleClose}>
+                    <AiIcons.AiOutlineClose></AiIcons.AiOutlineClose>
                     </button>
                 </div>
             <div className="mini-sidebar">
@@ -104,13 +112,13 @@ function Background({onChange,onClose}) {
                 {currentSet.map((isVisible, index) => (
                     <div>
                     {isVisible && index === 0 && <div className="SR">
-                        <button className="options" onClick={() => handleVideoChange(question3)}><img src="./idk.png" alt="NA"/> </button>
+                        <button className="options" onClick={() => handleVideoChange(sunhigh1)}><img src="./idk.png" alt="NA"/> </button>
                         <button className="options"onClick={() => handleVideoChange(sunhigh1)}><img src="./idk.png" alt="NA"/> </button>
                         <button className="options"onClick={() => handleVideoChange(question2)}><img src="./idk.png" alt="NA"/> </button>
                         </div>}
 
                     {isVisible && index === 1 && <div className="SR2">
-                        <button className="options" onClick={() => handleVideoChange(sunhigh1)}><img src="./idk.png" alt="NA"/> </button>
+                        <button className="options" onClick={() => handleVideoChange(sunrise2P2)}><img src={imgrs2P2} alt="NA"/> </button>
                         <button className="options"onClick={() => handleVideoChange(sunhigh2)}><img src="./idk.png" alt="NA"/> </button>
                         <button className="options"onClick={() => handleVideoChange(question2)}><img src="./idk.png" alt="NA"/> </button>
                         </div>}
@@ -128,7 +136,7 @@ function Background({onChange,onClose}) {
                         </div>}
 
                     {isVisible && index === 4 && <div className="M">
-                        <button className="options" onClick={() => handleVideoChange(question3)}><img src="./idk.png" alt="NA"/> </button>
+                        <button className="options" onClick={() => handleVideoChange(night1)}><img src={imgNightRain} alt="NightRain"/> </button>
                         <button className="options"onClick={() => handleVideoChange(sunhigh1)}><img src="./idk.png" alt="NA"/> </button>
                         <button className="options"onClick={() => handleVideoChange(question2)}><img src="./idk.png" alt="NA"/> </button>
                         </div>}

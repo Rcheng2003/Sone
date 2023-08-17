@@ -7,8 +7,10 @@
 
 .TimerMain {
     display:flex;
-    height: 350px; 
+    height: 30px; 
     width: 350px; 
+    color:  rgb(255, 152, 183);
+    font-family: 'Gill Sans';
 }
 
 .TimerHandle {
@@ -19,9 +21,10 @@
     left: 0;
     width: 350px;
     height: 30px;
-    background-color: black;
+    margin-top: 0px;
+    background:   rgb(95, 195, 241);
     cursor: grab;
-    border-bottom: 1px solid white;
+    border-radius: 10px;
     transition: background-color 0.3s;
   }
   
@@ -91,6 +94,7 @@
 
 .time {
     font-size: 60px; 
+    margin-top: 10px;
     flex: 2; 
 }   
 
@@ -103,12 +107,14 @@
 .start-pause, .pomodoro, .short, 
 .long {
     border-radius: 10px;
+    font-family: 'Gill Sans';
     border: hidden;
 }
 
 .start-pause {
     height: 45px;
     width: 100px;  
+    margin-top: 10px;
     margin-right: 10px; 
 }
 
@@ -177,6 +183,8 @@
     background-color: rgb(241, 241, 241); 
     height: 150%; 
     width: 70%; 
+    font-family: 'Gill Sans';
+    border-radius: 10px;
     border: none;
     outline: none;  
 }
@@ -215,4 +223,12 @@ input[type="range"]:hover::-webkit-slider-thumb {
     height: 45px;
     border: hidden; 
     border-radius: 10px; 
+}
+
+.Timeclose-button{
+    all: unset;
+    margin-left: 278px;
+    margin-top: 5px;
+    font-size: 20px;
+    color: white;
 }

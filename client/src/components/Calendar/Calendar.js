@@ -5,6 +5,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import Draggable from 'react-draggable';
 import './Calendar.css';
+import * as AiIcons from "react-icons/ai"
 const api_base = 'http://localhost:3001/api/event';
 
 function Calendar({onClose}) {
@@ -96,8 +97,8 @@ function Calendar({onClose}) {
         <div className='CalenMain'>
             <div className="CalenHandle">
                 <div className="CalenHandle-content">Calendar</div>
-                <button className="close-button" onClick={handleClose}>
-                    -
+                <button className="Calenclose-button" onClick={handleClose}>
+                <AiIcons.AiOutlineClose></AiIcons.AiOutlineClose>
                 </button>
             </div>
             <FullCalendar

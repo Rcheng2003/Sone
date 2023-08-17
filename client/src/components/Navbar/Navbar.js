@@ -148,9 +148,6 @@ function Navbar({onChange}) {
             <button onClick={SetVisibleCalculator}>
               <FaIcons.FaCalculator />
             </button>
-            <button>
-              <BsIcons.BsPhoneFill />
-            </button>
             <div className="bottom">
               <button className="special">
                 <IoIoIcons.IoIosSettings />

@@ -67,7 +67,7 @@ const UserProfile = ({user, email, pfp, setPfp, isOpen, onClose}) => {
       });
       if (response.ok) {
         const data = await response.json();
-        alert(data.message);
+        //alert(data.message);
         window.location.href = "/";
       } 
     } catch (err) {
