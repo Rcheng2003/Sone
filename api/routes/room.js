@@ -44,6 +44,24 @@ router.get("/:id", async (req,res) =>{
   return res.status(200).json(userRoom);
 });
 
+
+router.put("/leaveRoom", async (req, res) => {
+  try {
+    const result = await User.updateOne(
+      { _id: req.user.id },
+      { $set: { inRoom: null } }
+    );
+    
+    if (result.nModified > 0) {
+      return res.status(200).send({ message: 'Room left successfully' });
+    } else {
+      return res.status(400).send({ message: 'Failed to leave room' });
+    }
+  } catch (error) {
+    return res.status(500).send({ message: 'Server error', error });
+  }
+});
+
 router.put("/:id", async (req,res) =>{
   var userRoom = await StudyRoom.updateOne({_id: req.params.id}, 
     {$set: {

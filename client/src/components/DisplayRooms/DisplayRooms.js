@@ -9,6 +9,7 @@ const DisplayRoom = ({rooms, setRooms, isPublic}) => {
   const [isCreateRoomModalOpen, setCreateRoomModalOpen] = useState(false);
   
   const handleJoin = async (roomId) => {
+    navigate(`/room/${roomId}`);
     try {
       const res = await fetch(`http://localhost:3001/api/study-room/joinedRoom/${roomId}`, {
         method: "PUT",
@@ -22,7 +23,6 @@ const DisplayRoom = ({rooms, setRooms, isPublic}) => {
       // Handle error (e.g., show error message, log the error, etc.)
       console.error('Error getting room:', error);
     }
-    navigate(`/room/${roomId}`);
   }
 
   const handleEdit = async (roomId) => {
