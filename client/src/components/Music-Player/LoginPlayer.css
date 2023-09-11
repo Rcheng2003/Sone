@@ -1,0 +1,25 @@
+.loginWrapper {
+    background-color: #1ED760;
+    height: 50px; 
+    width: 200px;
+    border-radius: 15px;  
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; 
+}
+
+.loginWrapper:hover {
+    opacity: 0.8; 
+    transition: 0.1; 
+}
+
+.loginWrapper:active {
+    opacity: 0.7;
+    transition: 0.1;  
+}
+
+.loginSpotify {
+    color: black; 
+    text-decoration: none;
+}
