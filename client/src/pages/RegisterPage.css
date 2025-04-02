@@ -1,95 +1,253 @@
-.Background{
-    background: linear-gradient(to right,rgb(255, 113, 113), rgb(79, 99, 255));
-    text-align: center;
-    object-fit: fill;
-    opacity: 80%;
-    margin: auto;
+/* Base and Reset Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body,
+html {
+  height: 100%;
+  width: 100%;
+}
+
+/* Main Container */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ff9d6c, #6e8efb);
+  padding: 20px;
+}
+
+/* Register Card Container */
+.register-card-container {
+  display: flex;
+  max-width: 1000px;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  flex-direction: row-reverse; /* Reversed compared to login page */
+}
+
+/* Welcome Side */
+.welcome-card {
+  background: linear-gradient(135deg, #ff6b8b, #ff8e53);
+  color: white;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40%;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-card::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.welcome-card::after {
+  content: "";
+  position: absolute;
+  bottom: -80px;
+  right: -80px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.welcome-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.welcome-icon {
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.welcome-content h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.welcome-content p {
+  margin-bottom: 20px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.have-account {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+/* Register Form Side */
+.register-card {
+  background: white;
+  padding: 40px;
+  width: 60%;
+  display: flex;
+  align-items: center;
+}
+
+.register-form-container {
+  width: 100%;
+}
+
+.register-form-container h1 {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.register-form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #ff6b8b;
+  box-shadow: 0 0 0 2px rgba(255, 107, 139, 0.2);
+  background-color: white;
+}
+
+.form-input::placeholder {
+  color: #aaa;
+}
+
+.error-message {
+  color: #e53935;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+/* Buttons */
+.primary-button,
+.secondary-button {
+  cursor: pointer;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.primary-button {
+  background: linear-gradient(135deg, #ff6b8b, #ff8e53);
+  color: white;
+  margin-top: 10px;
+}
+
+.primary-button:hover {
+  background: linear-gradient(135deg, #ff5c7f, #ff7b3a);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 139, 0.3);
+}
+
+.secondary-button {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.secondary-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .register-card-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .welcome-card,
+  .register-card {
     width: 100%;
-    height: 890px;
-    padding: 5px;
-    background-position: center center;
-    background-size: cover;
-    border-radius: 10px;
-    justify-content: space-between;
-    position: sticky;
+    padding: 30px;
+  }
+
+  .welcome-card {
+    order: -1;
+    padding-bottom: 50px;
+  }
+
+  .register-card {
+    padding-top: 40px;
+  }
+
+  .welcome-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .register-form-container h1 {
+    font-size: 1.8rem;
+  }
 }
 
-.BackgroundRshadow{
-    width: 500px;
-    height: 400px;
-    margin-top: 230px;
-    margin-left: 290px;
-    border-radius: 10px;
-    position: absolute;
-    box-shadow: inset 0 0 0 1000px rgba(82, 85, 83, 0.637);
-    color: white;
-}
-
-.Register{
-    font-size: 30px;
-    width: 500px;
-    height: 400px;
-    margin-top: 200px;
-    margin-left: 250px;
-    background-color: rgb(188, 206, 246);
-    border-radius: 10px;
-    justify-content: space-between;
-    align-self: center;
-    padding: 5px;
-    position: relative;
-}
-
-
-.buttR{
-    border-radius: 10px;
-    background-color: rgb(115, 115, 227);
-    border-style: none;
-    width: 420px;
-    font-size: 15px;
-    margin-top: -10px;
+@media (max-width: 480px) {
+  .register-container {
     padding: 10px;
-    margin-top: -10px;
-}
+  }
 
-.InputR{
-    margin-top: 10px;
-    border-radius: 10px;
-    width: 400px;
-    font-size: 15px;
-    padding: 10px;
-    height: 30px;
-    border-style: none;
-    background-color: rgb(209, 229, 249);
-}
-
-.RPWelcome{
-    width: 500px;
-    font-size: 35px;
-    padding: 10px;
-    height: 200px;
-    background-color: rgb(254, 145, 163);
-    border-radius: 10px;
-    margin-left: 750px;
-    align-self: baseline;
-    position: relative;
-    margin-top: -350px;
-    color: white;
-
-}
-
-p span{
-    display: block;
-}
-
-.RPWelcomeShadow{
-    width: 500px;
-    padding: 10px;
-    height: 200px;
-    background-color: rgb(0, 0, 0);
-    border-radius: 10px;
-    margin-left: 730px;
-    margin-top: -330px;
-    box-shadow: inset 0 0 0 1000px rgba(82, 85, 83, 0.637);
-    opacity: 70%;
-    position: absolute;
+  .welcome-card,
+  .register-card {
+    padding: 20px;
+  }
 }
